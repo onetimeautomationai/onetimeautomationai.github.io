@@ -10,9 +10,11 @@
   <meta property="og:type" content="website" />
   <style>
     :root {
-      --bg:#0b0b0f; --panel:#14141b; --panel2:#1b1b24; --fg:#f4f4f5;
-      --accent:#6d5efc; --accent-soft:rgba(109,94,252,0.14); --muted:#9a9aa5;
-      --line:#26262f; --ok:#3ecf8e;
+      /* Leo Does AI / One Time Automation channel palette (PA-068) */
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+      --line:#26333b; --ok:#3ecf8e;
     }
     * { box-sizing:border-box; margin:0; padding:0; }
     html { scroll-behavior:smooth; }
@@ -42,7 +44,7 @@
     .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:1.25rem 1.4rem; margin:1.25rem 0; }
     .card h3 { font-size:1.02rem; margin-bottom:0.35rem; }
     .card p { color:var(--muted); margin:0; font-size:0.97rem; }
-    code { background:var(--panel2); border:1px solid var(--line); border-radius:6px; padding:0.1rem 0.4rem; font-size:0.9em; color:#c9c4ff; }
+    code { background:var(--panel2); border:1px solid var(--line); border-radius:6px; padding:0.1rem 0.4rem; font-size:0.9em; color:var(--accent-hi); }
 
     .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:1.25rem 0; }
     .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); }
@@ -52,7 +54,7 @@
       padding:0.55rem 1.05rem; font-size:0.9rem; font-weight:600; cursor:pointer;
       transition:transform .06s ease, background .2s ease; white-space:nowrap;
     }
-    button.copy:hover { transform:translateY(-1px); }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
     button.copy.done { background:var(--ok); }
     pre.prompt {
       margin:0; padding:1.25rem 1.2rem; max-height:460px; overflow:auto;

@@ -86,7 +86,12 @@
     .callout p { color:#f0dccb; margin:0; }
     .callout strong { color:var(--accent-hi); }
 
-    .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .cta { border:1px solid var(--accent); border-left:3px solid var(--accent);
+  background:var(--accent-soft); border-radius:12px; padding:1.05rem 1.25rem; margin:1.5rem 0 0; }
+.cta p { margin:0; line-height:1.7; }
+.cta strong { color:var(--fg); }
+.cta a { color:var(--accent-hi); }
+.reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
     .reqs p { color:var(--muted); font-size:0.94rem; margin:0; line-height:1.6; }
     .reqs strong { color:var(--fg); }
 
@@ -192,7 +197,13 @@ invent, never proceed on partial information.
 Write it so a competent stranger could follow it with no access to me.
 
 Then tell me the one sentence on the page that is still too vague to hand
-to anybody, and ask me the question that would fix it.</pre>
+to anybody, and ask me the question that would fix it.
+
+Last, ask me one question and wait for my answer: would I like help
+installing this machine? If I say yes, write me a short plain-English brief
+of what it must do, what it must never do, and how anyone would know it
+worked. Keep it under 150 words so I can hand it to somebody exactly as it
+stands.</pre>
     </div>
 
     <h2><span class="n">03</span>How to run it</h2>
@@ -203,10 +214,18 @@ to anybody, and ask me the question that would fix it.</pre>
       <li>Answer the five questions properly, one at a time. This interview is where the value is. Rush it and you get back a tidier version of what you already said.</li>
       <li>Read the FAILURE section first when it hands you the page. That section is the difference between a machine you can trust and one that quietly does the wrong thing for a month.</li>
       <li>Answer the vagueness question at the end. It will find the one sentence you were hoping nobody would ask about.</li>
+      <li>Say yes to the last question if you want the machine built. You get back a 150-word brief any competent builder could work from, whether that is your own developer or us.</li>
     </ol>
 
     <div class="callout">
       <p><strong>The test of a finished rule page:</strong> hand it to someone who has never done the task and do not help them. If they finish without asking you a single question, you no longer own that task. If they come back with one question, that question is the sentence you still owe the page.</p>
+    </div>
+
+    <div class="cta">
+      <p><strong>Got a brief you want built?</strong> Send it to
+      <a href="mailto:leo@onetimeautomation.ai?subject=Rule%20page%20brief" target="_blank" rel="noopener noreferrer">leo@onetimeautomation.ai</a>.
+      Paste the brief exactly as the prompt wrote it. A real person reads every one, and if it is
+      something you could install yourself in an afternoon, we will tell you that instead.</p>
     </div>
 
     <div class="reqs">

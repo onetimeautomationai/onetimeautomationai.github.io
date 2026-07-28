@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Rule Page: Turn a Repeating Task Into Something That Runs Without You | One Time Automation</title>
+  <meta name="description" content="A free prompt that turns one repeating task into a written rule page, precise enough to hand to a person or a machine. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:title" content="The Rule Page: Turn a Repeating Task Into Something That Runs Without You" />
+  <meta property="og:description" content="A free prompt that turns one repeating task into the written rule a machine gets built from. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      /* Leo Does AI / One Time Automation channel palette (PA-068) */
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+      --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:820px; margin:0 auto; padding:2.5rem 1.5rem 5rem; }
+    header.top { text-align:center; padding:1rem 0 2.5rem; }
+    .logo { width:76px; height:76px; margin:0 auto 1.1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(2rem,5.5vw,3.1rem); letter-spacing:-0.02em; line-height:1.08; margin:0.9rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.15rem; max-width:640px; margin:0 auto; }
+    h2 { font-size:1.5rem; letter-spacing:-0.01em; margin:2.75rem 0 0.85rem; }
+    h2 .n { color:var(--accent); font-variant-numeric:tabular-nums; margin-right:0.5rem; }
+    p { color:#d7d7de; margin:0.6rem 0; }
+    .lead { font-size:1.06rem; }
+
+    ol.steps { list-style:none; counter-reset:s; margin:1rem 0; }
+    ol.steps li { counter-increment:s; position:relative; padding:0.55rem 0 0.55rem 2.6rem; color:#d7d7de; border-bottom:1px solid var(--line); }
+    ol.steps li:last-child { border-bottom:0; }
+    ol.steps li::before {
+      content:counter(s); position:absolute; left:0; top:0.5rem;
+      width:1.75rem; height:1.75rem; border-radius:50%;
+      background:var(--accent-soft); color:var(--accent);
+      font-size:0.9rem; font-weight:600; display:flex; align-items:center; justify-content:center;
+    }
+
+    .buckets { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0.85rem; margin:1.25rem 0; }
+    .bucket { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:12px; padding:0.9rem 1.05rem; }
+    .bucket.is-target { border-left-color:var(--accent); background:linear-gradient(180deg, rgba(232,130,60,0.07), transparent 60%), var(--panel); }
+    .bucket .num { font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+    .bucket h3 { font-size:0.98rem; margin:0.15rem 0 0.3rem; }
+    .bucket.is-target h3 { color:var(--accent); }
+    .bucket p { font-size:0.92rem; color:var(--muted); margin:0; line-height:1.55; }
+
+    .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:1.25rem 0; }
+    .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .prompt-bar .label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    button.copy {
+      background:var(--accent); color:#fff; border:0; border-radius:9px;
+      padding:0.5rem 1rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+      font-family:inherit; transition:transform .12s ease, background .12s ease;
+    }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    button.copy.done { background:var(--ok); }
+    pre {
+      margin:0; padding:1.1rem 1.2rem; overflow-x:auto;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      font-size:0.86rem; line-height:1.62; color:#e6e6ea; white-space:pre; tab-size:2;
+    }
+    pre::-webkit-scrollbar { height:9px; }
+    pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
+
+    .callout { background:var(--accent-soft); border:1px solid rgba(232,130,60,0.32); border-radius:14px; padding:1.1rem 1.3rem; margin:1.5rem 0; }
+    .callout p { color:#f0dccb; margin:0; }
+    .callout strong { color:var(--accent-hi); }
+
+    .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .reqs p { color:var(--muted); font-size:0.94rem; margin:0; line-height:1.6; }
+    .reqs strong { color:var(--fg); }
+
+    footer { text-align:center; margin-top:3.5rem; padding-top:1.75rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.9rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3.5rem; }
+      pre { font-size:0.8rem; padding:0.9rem 1rem; }
+      .prompt-bar { padding:0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="logo.png" alt="Leo Does AI, One Time Automation" width="76" height="76" />
+      <div class="kicker">Prompt of the Week · Level 2</div>
+      <h1>The <span class="accent">Rule Page</span></h1>
+      <p class="sub">Take one task that keeps landing on you and write it down precisely enough to hand to somebody else. Or to something else.</p>
+    </header>
+
+    <p class="lead">You sorted your week into four buckets. Bucket three was the pile that repeats, has rules, and hurts you when you skip it.</p>
+
+    <p>That pile is not a to do list. It is a set of machines nobody has built yet.</p>
+
+    <p>Here is the part almost everyone gets wrong. The hard part is not the technology. It is that the task lives in your head as a vague sense of what should happen, and you cannot hand a vague feeling to anyone. Not to a new hire, and definitely not to a machine.</p>
+
+    <p>This prompt drags it out of your head and onto one page.</p>
+
+    <h2><span class="n">01</span>The four buckets, if you missed them</h2>
+
+    <div class="buckets">
+      <div class="bucket">
+        <div class="num">Bucket 1</div>
+        <h3>Only me</h3>
+        <p>Needs your judgment, your relationships, or your name on it.</p>
+      </div>
+      <div class="bucket">
+        <div class="num">Bucket 2</div>
+        <h3>A person's job</h3>
+        <p>Needs judgment, but not yours.</p>
+      </div>
+      <div class="bucket is-target">
+        <div class="num">Bucket 3</div>
+        <h3>A machine's job</h3>
+        <p>Repeats, has rules, and hurts you when you skip it. This page is about this one.</p>
+      </div>
+      <div class="bucket">
+        <div class="num">Bucket 4</div>
+        <h3>Should not exist</h3>
+        <p>Habit. Nobody would notice if it stopped.</p>
+      </div>
+    </div>
+
+    <p>Pick the single item from bucket three that cost you the most this week. One item. Not the list.</p>
+
+    <h2><span class="n">02</span>The prompt</h2>
+
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn" onclick="copyPrompt('p1','copyBtn')">Copy prompt</button>
+      </div>
+<pre id="p1">Before you do any work, ask me these one at a time and wait for each answer:
+- Where does this task actually run today? Which tool, which inbox, which
+  folder?
+- What can you reach of it right now, and what is missing?
+- Where should the finished rule page be saved?
+
+Then read what you can reach of how the task runs today. Do not ask me for
+anything you can look up yourself.
+
+I have one task that repeats, has rules, and costs me when I skip it.
+Help me write it down precisely enough that somebody else could make it
+run without me.
+
+The task is:
+[describe it in your own words, however badly]
+
+Ask me one question at a time until you can answer all of these. Wait for
+each answer before asking the next:
+- What starts it? A day, an event, a message, a threshold?
+- What information does it need, and where does that live today?
+- What does a good outcome look like, specifically?
+- What does a bad outcome look like, and how would I find out?
+- What is the one case where a human has to look at it?
+
+Then write THE RULE PAGE:
+
+TRIGGER - what starts it, stated so a stranger could recognise it.
+INPUTS - what it needs, and where each thing comes from. Name the actual
+tool or folder, not a category.
+THE RULE - what should happen, every time, no exceptions. Numbered.
+EXCEPTIONS - the cases that stop and wait for a person. Be strict. Most
+tasks have zero or one, not five.
+DONE - how anyone can tell it worked.
+FAILURE - what it should do when something is missing. Never guess, never
+invent, never proceed on partial information.
+
+Write it so a competent stranger could follow it with no access to me.
+
+Then tell me the one sentence on the page that is still too vague to hand
+to anybody, and ask me the question that would fix it.</pre>
+    </div>
+
+    <h2><span class="n">03</span>How to run it</h2>
+
+    <ol class="steps">
+      <li>Copy the prompt into Claude Code, Cowork, or Codex. It opens by asking where the task already lives, so point it at the real inbox, tool, or folder.</li>
+      <li>Describe the task badly. Do not write it well. Talk the way you would explain it to a friend in a car, typos included.</li>
+      <li>Answer the five questions properly, one at a time. This interview is where the value is. Rush it and you get back a tidier version of what you already said.</li>
+      <li>Read the FAILURE section first when it hands you the page. That section is the difference between a machine you can trust and one that quietly does the wrong thing for a month.</li>
+      <li>Answer the vagueness question at the end. It will find the one sentence you were hoping nobody would ask about.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>The test of a finished rule page:</strong> hand it to someone who has never done the task and do not help them. If they finish without asking you a single question, you no longer own that task. If they come back with one question, that question is the sentence you still owe the page.</p>
+    </div>
+
+    <div class="reqs">
+      <p><strong>You need:</strong> Claude Code, Cowork, or Codex. These instructions are written for an AI agent that connects to your tools, not for a chat window. This one reads wherever the task already runs, and writes the finished page back.</p>
+    </div>
+
+    <footer>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+
+  <script>
+    function copyPrompt(preId, btnId) {
+      var text = document.getElementById(preId).innerText;
+      var btn = document.getElementById(btnId);
+      function done() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else {
+        fallback();
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+  </script>
+</body>
+</html>

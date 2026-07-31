@@ -322,6 +322,7 @@
     if (!ok) { err.style.display = 'block'; return; }
     err.style.display = 'none';
     state.email = v;
+    saveProgress();  // silent partial save — captures the lead even if they drop before the last question
     next();
   });
 
@@ -333,20 +334,44 @@
   var KIT_TAG_OTA_OPTIN = 21549045;       // "ota-optin-survey"
   var KIT_TAG_LEO_DOES_AI = 21549046;     // "leo-does-ai"
 
+  function kitFields(completed){
+    return {
+      ota_q1_stage: state.q1_stage,
+      ota_q2_fear: state.q2_fear,
+      ota_q3_time: state.q3_time,
+      ota_q4_handoff: state.q4_handoff,
+      ota_q5_readiness: state.q5_readiness,
+      ota_segmenter: state.segmenter,
+      ota_completed: completed ? 'yes' : 'no'
+    };
+  }
+
+  // Fires the moment email is captured (before the final question) so a drop-off
+  // after this point still leaves a lead + partial answers behind. Same email =
+  // Kit upserts the same subscriber, so submitToKit() below just updates this
+  // record rather than creating a duplicate. Best-effort — never blocks navigation.
+  function saveProgress(){
+    var payload = {
+      api_key: KIT_PUBLIC_API_KEY,
+      email: state.email,
+      first_name: state.firstname,
+      fields: kitFields(false),
+      tags: [KIT_TAG_OTA_OPTIN, KIT_TAG_LEO_DOES_AI]
+    };
+    fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).catch(function(){ /* silent — final submitToKit() is the one the UI depends on */ });
+  }
+
   function submitToKit(){
     goTo('submitting');
     var payload = {
       api_key: KIT_PUBLIC_API_KEY,
       email: state.email,
       first_name: state.firstname,
-      fields: {
-        ota_q1_stage: state.q1_stage,
-        ota_q2_fear: state.q2_fear,
-        ota_q3_time: state.q3_time,
-        ota_q4_handoff: state.q4_handoff,
-        ota_q5_readiness: state.q5_readiness,
-        ota_segmenter: state.segmenter
-      },
+      fields: kitFields(true),
       tags: [KIT_TAG_OTA_OPTIN, KIT_TAG_LEO_DOES_AI]
     };
     fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {

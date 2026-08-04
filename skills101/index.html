@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Skills 101 Starter: Turn a Prompt You Keep Retyping Into a Skill | One Time Automation</title>
+  <meta name="description" content="A free prompt that walks your own AI agent through converting an instruction you keep retyping into an installed, tested skill. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:title" content="The Skills 101 Starter: Turn a Prompt You Keep Retyping Into a Skill" />
+  <meta property="og:description" content="A free prompt that turns the thing you keep re-explaining into a skill your agent reads and runs on its own. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      /* Leo Does AI / One Time Automation channel palette (PA-068) */
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+      --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:820px; margin:0 auto; padding:2.5rem 1.5rem 5rem; }
+    header.top { text-align:center; padding:1rem 0 2.5rem; }
+    .logo { width:76px; height:76px; margin:0 auto 1.1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(2rem,5.5vw,3.1rem); letter-spacing:-0.02em; line-height:1.08; margin:0.9rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.15rem; max-width:640px; margin:0 auto; }
+    h2 { font-size:1.5rem; letter-spacing:-0.01em; margin:2.75rem 0 0.85rem; }
+    h2 .n { color:var(--accent); font-variant-numeric:tabular-nums; margin-right:0.5rem; }
+    p { color:#d7d7de; margin:0.6rem 0; }
+    .lead { font-size:1.06rem; }
+
+    ol.steps { list-style:none; counter-reset:s; margin:1rem 0; }
+    ol.steps li { counter-increment:s; position:relative; padding:0.55rem 0 0.55rem 2.6rem; color:#d7d7de; border-bottom:1px solid var(--line); }
+    ol.steps li:last-child { border-bottom:0; }
+    ol.steps li::before {
+      content:counter(s); position:absolute; left:0; top:0.5rem;
+      width:1.75rem; height:1.75rem; border-radius:50%;
+      background:var(--accent-soft); color:var(--accent);
+      font-size:0.9rem; font-weight:600; display:flex; align-items:center; justify-content:center;
+    }
+
+    .buckets { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0.85rem; margin:1.25rem 0; }
+    .bucket { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:12px; padding:0.9rem 1.05rem; }
+    .bucket.is-target { border-left-color:var(--accent); background:linear-gradient(180deg, rgba(232,130,60,0.07), transparent 60%), var(--panel); }
+    .bucket .num { font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+    .bucket h3 { font-size:0.98rem; margin:0.15rem 0 0.3rem; }
+    .bucket.is-target h3 { color:var(--accent); }
+    .bucket p { font-size:0.92rem; color:var(--muted); margin:0; line-height:1.55; }
+
+    .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:1.25rem 0; }
+    .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .prompt-bar .label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    button.copy {
+      background:var(--accent); color:#fff; border:0; border-radius:9px;
+      padding:0.5rem 1rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+      font-family:inherit; transition:transform .12s ease, background .12s ease;
+    }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    button.copy.done { background:var(--ok); }
+    pre {
+      margin:0; padding:1.1rem 1.2rem; overflow-x:auto;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      font-size:0.86rem; line-height:1.62; color:#e6e6ea; white-space:pre; tab-size:2;
+    }
+    pre::-webkit-scrollbar { height:9px; }
+    pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
+
+    .callout { background:var(--accent-soft); border:1px solid rgba(232,130,60,0.32); border-radius:14px; padding:1.1rem 1.3rem; margin:1.5rem 0; }
+    .callout p { color:#f0dccb; margin:0; }
+    .callout strong { color:var(--accent-hi); }
+
+    .cta { border:1px solid var(--accent); border-left:3px solid var(--accent);
+  background:var(--accent-soft); border-radius:12px; padding:1.05rem 1.25rem; margin:1.5rem 0 0; }
+.cta p { margin:0; line-height:1.7; }
+.cta strong { color:var(--fg); }
+.cta a { color:var(--accent-hi); }
+.reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .reqs p { color:var(--muted); font-size:0.94rem; margin:0; line-height:1.6; }
+    .reqs strong { color:var(--fg); }
+
+    footer { text-align:center; margin-top:3.5rem; padding-top:1.75rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.9rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3.5rem; }
+      pre { font-size:0.8rem; padding:0.9rem 1rem; }
+      .prompt-bar { padding:0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="logo.png" alt="Leo Does AI, One Time Automation" width="76" height="76" />
+      <div class="kicker">Giveaway · SKILLS101</div>
+      <h1>The <span class="accent">Skills 101</span> Starter</h1>
+      <p class="sub">Take the instruction you keep retyping and turn it into something your agent reads, picks up on its own, and runs without you.</p>
+    </header>
+
+    <p class="lead">A prompt is something you retype. A skill is something you write once and the machine runs forever.</p>
+
+    <p>Most people have a folder of prompts. Good ones, tested ones, the ones that actually work. And every one of them still needs you to remember it exists, find it, paste it, and adjust it for whatever is in front of you.</p>
+
+    <p>That makes you the index. Nothing in the folder runs unless you are at the desk and remembering.</p>
+
+    <p>A skill removes you from that job. It is a plain text file with a name, one line saying when to use it, and the steps underneath. You never call it. The agent reads that one line, decides your request matches, and follows the steps.</p>
+
+    <h2><span class="n">01</span>What actually changes</h2>
+
+    <div class="buckets">
+      <div class="bucket">
+        <div class="num">A prompt</div>
+        <h3>Lives in your clipboard</h3>
+        <p>You find it, paste it, tune it. It disappears when the session closes.</p>
+      </div>
+      <div class="bucket is-target">
+        <div class="num">A skill</div>
+        <h3>Lives in the system</h3>
+        <p>Written once as a file. The agent picks it up by itself when the job matches. This page builds one.</p>
+      </div>
+      <div class="bucket">
+        <div class="num">The trigger</div>
+        <h3>One description line</h3>
+        <p>The single line that says when this skill applies. Write it vaguely and the skill never fires.</p>
+      </div>
+      <div class="bucket">
+        <div class="num">The cost</div>
+        <h3>One afternoon, once</h3>
+        <p>Your tenth skill costs the system almost nothing. Your tenth prompt costs you the memory of it.</p>
+      </div>
+    </div>
+
+    <p>Pick the one task you have explained to an AI more times than you would like to admit. One task. Not the list.</p>
+
+    <h2><span class="n">02</span>The prompt</h2>
+
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn" onclick="copyPrompt('p1','copyBtn')">Copy prompt</button>
+      </div>
+<pre id="p1">Use your skill-creator skill to turn a task I keep retyping into an
+installed skill. If you have a skill builder of your own, use that
+instead and follow the same steps.
+
+Before anything else, ask me where the instructions for this task live
+right now: a notes app, a prompt folder, a doc, my chat history, or only
+in my head. If they are in a file or a folder I can point you at, read
+them first. Wait for my answer before continuing.
+
+Then ask me these one at a time, waiting for each answer:
+- What is a task you have explained to an AI more than three times?
+- Walk me through how you do it, start to finish, in whatever order it
+  comes out. Messy is fine.
+- What separates doing this well from doing it badly? What would a
+  stranger following your steps get wrong?
+- Does it need to reach anything to finish, like a file, a calendar, an
+  inbox, or a spreadsheet?
+- Should it run when I ask, or on a schedule?
+
+Then build the skill:
+1. A short kebab-case name.
+2. A description line that says exactly when this skill should fire,
+   written so an agent scanning a list of descriptions can tell whether
+   this one applies. Name the situations and the phrases I would
+   actually type. This line is the trigger, so specific beats elegant.
+3. The step-by-step instructions in plain markdown, in the order I
+   described them, with my quality rules written in as rules.
+4. A short list of what NOT to do, drawn from the mistakes I named.
+
+Install it where my tool loads skills from, tell me the exact path you
+wrote it to, and ask me which tool I am on if I have not said.
+
+Then test it. Give me one sentence I can type that should fire this
+skill, and one close-but-wrong sentence that should not. Run the first
+one and show me what happens.
+
+Finish with one line: the next task I should turn into a skill, and why
+that one before the others.</pre>
+    </div>
+
+    <h2><span class="n">03</span>How to run it</h2>
+
+    <ol class="steps">
+      <li>Paste the prompt into Claude Code, Cowork, or Codex. It opens by asking where your instructions already live, so point it at the real folder, doc, or chat if you have one.</li>
+      <li>Describe the task badly. Do not clean it up. Talk the way you would explain it to someone sitting next to you, out of order and with the tangents.</li>
+      <li>Answer the five questions one at a time. This interview is the whole thing. Rush it and you get back a tidier version of what you already knew.</li>
+      <li>Read the description line first when it hands you the skill. That one sentence decides whether the skill ever fires again. If it describes the topic instead of the situation, send it back.</li>
+      <li>Let it install the file and tell you the path. A skill sitting in a chat window is still a prompt.</li>
+      <li>Run the test. Type the sentence it gives you and watch the skill fire. Then try the close-but-wrong sentence and watch it stay quiet. That pair is your proof the trigger works.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>The test of a finished skill:</strong> close the window, come back tomorrow, and ask for the job in your own words without naming the file. If the agent picks it up on its own, you are done. If you had to point at it, the description line is the part you still owe.</p>
+    </div>
+
+    <div class="cta">
+      <p><strong>Built one and want a second pair of eyes?</strong> Send it to
+      <a href="mailto:leo@onetimeautomation.ai?subject=Skills%20101%20review" target="_blank" rel="noopener noreferrer">leo@onetimeautomation.ai</a>.
+      Paste the skill file exactly as your agent wrote it. A real person reads every one, and if the description line is the only thing holding it back, we will tell you that instead of selling you anything.</p>
+    </div>
+
+    <div class="reqs">
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex, or any agent with a skill builder and permission to write files. No connectors needed. This one only needs somewhere to save the file and permission to run it once.</p>
+    </div>
+
+    <footer>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+
+  <script>
+    function copyPrompt(preId, btnId) {
+      var text = document.getElementById(preId).innerText;
+      var btn = document.getElementById(btnId);
+      function done() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else {
+        fallback();
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+  </script>
+</body>
+</html>

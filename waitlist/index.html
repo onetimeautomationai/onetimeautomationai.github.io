@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autonomous Operators Waitlist — One Time Automation</title>
+<meta name="description" content="Autonomous Operators is the paid room for people who build, not browse. Get on the waitlist.">
+<meta property="og:title" content="Autonomous Operators Waitlist — One Time Automation">
+<meta property="og:description" content="Autonomous Operators is the paid room for people who build, not browse. Get on the waitlist.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0d1417">
+<style>
+  :root{
+    /* Leo Does AI / One Time Automation brand system — see BRAND-SYSTEM.md */
+    --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+    --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+    --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+    --line:#26333b; --ok:#3ecf8e;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ font-size:18px; }
+  html,body{ height:100%; }
+  body{
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+      var(--bg);
+    color:var(--fg); line-height:1.7;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh; padding:24px;
+  }
+
+  .wrap{ width:100%; max-width:640px; text-align:center; }
+
+  .kick{ display:inline-block; font-weight:700; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent-hi); background:var(--accent-soft); padding:6px 12px; border-radius:99px; margin-bottom:20px; }
+  h1{ font-size:clamp(1.6rem,4vw,2.1rem); font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin-bottom:16px; }
+  .sub{ font-size:1.05rem; line-height:1.6; color:var(--muted); margin-bottom:2rem; }
+
+  .card{
+    background:var(--panel); border-radius:16px; padding:2rem;
+    border:1px solid var(--line);
+    box-shadow:0 12px 32px rgba(0,0,0,.28);
+  }
+
+  input[type=email]{
+    width:100%; padding:15px 16px; border-radius:12px; border:1.5px solid var(--line);
+    background:var(--panel2); font-size:1rem; font-family:inherit; color:var(--fg); margin-bottom:14px;
+    outline:none; transition:border-color .12s ease;
+  }
+  input[type=email]::placeholder{ color:var(--muted); }
+  input[type=email]:focus{ border-color:var(--accent); }
+
+  .check-row{ display:flex; align-items:center; gap:10px; margin-bottom:18px; text-align:left; }
+  .check-row input{ width:18px; height:18px; accent-color:var(--accent); flex:0 0 auto; }
+  .check-row label{ font-size:0.9rem; color:var(--muted); }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; cursor:pointer;
+    width:100%; background:var(--accent); color:#fff; font-weight:700; font-size:0.95rem;
+    font-family:inherit;
+    padding:15px 26px; border-radius:10px; transition:transform .08s ease, background .2s ease;
+  }
+  .btn:hover:not(:disabled){ transform:translateY(-1px); background:var(--accent-hi); }
+  .btn:disabled{ background:var(--line); color:var(--muted); cursor:not-allowed; transform:none; }
+
+  .err{ color:var(--accent-hi); font-size:0.82rem; font-weight:600; margin-top:-6px; margin-bottom:14px; display:none; }
+  .disclaimer{ font-size:0.8rem; color:var(--muted); margin-top:14px; opacity:.85; }
+
+  .screen{ display:none; animation:rise .35s ease; }
+  .screen.active{ display:block; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+  .thanks .icon{ width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,var(--teal),var(--accent)); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.5rem; font-weight:800; margin:0 auto 20px; }
+
+  footer.note{ text-align:center; font-size:0.75rem; color:var(--muted); margin-top:18px; opacity:.75; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="screen active" data-screen="form">
+    <div class="kick">Autonomous Operators</div>
+    <h1>You've automated one thing. Now own the whole system.</h1>
+    <p class="sub">Autonomous Operators is the paid room for people who build, not browse. Waitlist opens first. Doors open once the room is ready.</p>
+    <div class="card">
+      <input type="email" id="email_input" placeholder="you@email.com" autocomplete="email">
+      <div class="err" id="email_err">Enter a valid email to continue.</div>
+      <div class="check-row">
+        <input type="checkbox" id="consent_check">
+        <label for="consent_check">Yes, notify me the day doors open</label>
+      </div>
+      <button class="btn" id="submit_btn" disabled>Get on the list</button>
+      <p class="disclaimer">No spam. Just the door opening.</p>
+    </div>
+  </div>
+
+  <div class="screen" data-screen="submitting">
+    <h1>Adding you to the list&hellip;</h1>
+  </div>
+
+  <div class="screen" data-screen="submit_error">
+    <h1>Something went wrong.</h1>
+    <p class="sub" id="submitErrorDetail">Please try again.</p>
+    <button class="btn" id="retry_btn">Try again &rarr;</button>
+  </div>
+
+  <div class="screen thanks" data-screen="thankyou">
+    <div class="icon">&check;</div>
+    <h1>You're on the list.</h1>
+    <p class="sub">Check your email to confirm. We'll notify you the day doors open.</p>
+  </div>
+
+  <footer class="note">Leo Does AI &middot; One Time Automation &middot; Autonomous Operators Waitlist</footer>
+</div>
+
+<script>
+(function(){
+  var screens = {};
+  document.querySelectorAll('.screen').forEach(function(el){ screens[el.getAttribute('data-screen')] = el; });
+  function goTo(name){
+    Object.keys(screens).forEach(function(k){ screens[k].classList.remove('active'); });
+    screens[name].classList.add('active');
+  }
+
+  var emailInput = document.getElementById('email_input');
+  var consentCheck = document.getElementById('consent_check');
+  var submitBtn = document.getElementById('submit_btn');
+  var emailErr = document.getElementById('email_err');
+
+  function updateBtn(){
+    submitBtn.disabled = !consentCheck.checked || !emailInput.value.trim();
+  }
+  emailInput.addEventListener('input', updateBtn);
+  consentCheck.addEventListener('change', updateBtn);
+
+  // === Kit capture — account 2827559 (leo@onetimeautomation.ai) ===
+  // Same proven pattern as /60sec/: Kit v3 public forms/subscribe endpoint,
+  // real Kit Form id (not the Landing Pages API, which doesn't wire subscriptions).
+  var KIT_FORM_ID = 9714855;              // "Newsletter site" form, account 2827559
+  var KIT_PUBLIC_API_KEY = '0HhILSiEUf8h_VZudO8QLQ'; // v3 public key, account 2827559 — safe for client-side use
+  var KIT_TAG_WAITLIST = 21996690;        // "waitlist-autonomous-operators"
+
+  function submitToKit(){
+    var email = emailInput.value.trim();
+    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!ok) { emailErr.style.display = 'block'; return; }
+    emailErr.style.display = 'none';
+
+    goTo('submitting');
+    var payload = {
+      api_key: KIT_PUBLIC_API_KEY,
+      email: email,
+      tags: [KIT_TAG_WAITLIST]
+    };
+    fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      if (!res.ok) { throw new Error('Kit responded with status ' + res.status); }
+      return res.json();
+    }).then(function(){
+      goTo('thankyou');
+    }).catch(function(err){
+      document.getElementById('submitErrorDetail').textContent =
+        'Please try again. (' + err.message + ')';
+      goTo('submit_error');
+    });
+  }
+
+  submitBtn.addEventListener('click', submitToKit);
+  document.getElementById('retry_btn').addEventListener('click', submitToKit);
+})();
+</script>
+</body>
+</html>

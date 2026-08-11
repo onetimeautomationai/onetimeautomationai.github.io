@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Time-Leak Checklist: 10 Places Your Hours Go Missing | One Time Automation</title>
+  <meta name="description" content="Ten spots where your day quietly gets taken from you, and the one thing you hand an AI agent to shut each one." />
+  <meta property="og:title" content="The Time-Leak Checklist: 10 Places Your Hours Go Missing" />
+  <meta property="og:description" content="Ten spots where your day quietly gets taken from you, and the one thing you hand an AI agent to shut each one." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+      --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:820px; margin:0 auto; padding:2.5rem 1.5rem 5rem; }
+    header.top { text-align:center; padding:1rem 0 2.5rem; }
+    .logo { width:76px; height:76px; margin:0 auto 1.1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(2rem,5.5vw,3.1rem); letter-spacing:-0.02em; line-height:1.08; margin:0.9rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.15rem; max-width:640px; margin:0 auto; }
+
+    .lede { font-size:1.15rem; margin:0 0 0.6rem; }
+    .how { color:var(--muted); font-size:0.98rem; margin:0 0 2rem; padding-bottom:1.75rem; border-bottom:1px solid var(--line); }
+
+    .leak { display:flex; gap:1.1rem; align-items:flex-start; padding:1.4rem 0; border-bottom:1px solid var(--line); }
+    .leak:last-of-type { border-bottom:none; }
+    .leak .n {
+      font-size:1.6rem; font-weight:700; line-height:1; color:var(--accent);
+      min-width:2.4rem; font-variant-numeric:tabular-nums; padding-top:0.1rem;
+    }
+    .leak h3 { font-size:1.05rem; margin:0 0 0.4rem; }
+    .leak p { color:#d7d7de; font-size:0.98rem; margin:0; }
+    .leak .fix { display:block; margin-top:0.6rem; font-size:0.94rem; color:var(--fg); background:var(--accent-soft); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:0.6rem 0.9rem; }
+    .leak .fix b { color:var(--accent-hi); }
+
+    .close { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1.6rem 1.75rem; margin:2.5rem 0 0; }
+    .close p { margin:0 0 0.75rem; }
+    .close p:last-child { margin-bottom:0; }
+    .close em { color:var(--accent-hi); font-style:normal; font-weight:600; }
+
+    .cta { border:1px solid var(--accent); border-left:3px solid var(--accent); background:var(--accent-soft);
+      border-radius:12px; padding:1.4rem 1.5rem; margin:1.75rem 0 0; text-align:center; }
+    .cta .tag { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent-hi); margin-bottom:0.5rem; }
+    .cta h2 { font-size:1.4rem; margin:0 0 0.6rem; }
+    .cta p { color:#f0dccb; max-width:460px; margin:0 auto 1.1rem; font-size:0.98rem; }
+    .cta a.button {
+      display:inline-block; background:var(--accent); color:#fff; text-decoration:none;
+      font-weight:700; font-size:0.92rem; padding:0.75rem 1.4rem; border-radius:9px;
+      transition:transform .12s ease, background .12s ease;
+    }
+    .cta a.button:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    .cta .micro { font-size:0.78rem; color:var(--muted); margin-top:0.75rem; }
+
+    footer { text-align:center; margin-top:3.5rem; padding-top:1.75rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.9rem; }
+    footer .bio { max-width:560px; margin:0 auto 1rem; font-size:0.94rem; line-height:1.6; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3.5rem; }
+      .leak { gap:0.85rem; }
+      .leak .n { font-size:1.3rem; min-width:1.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="/logo.png" alt="Leo Does AI, One Time Automation" width="76" height="76" />
+      <div class="kicker">Free Checklist &middot; Time Leaks</div>
+      <h1>The <span class="accent">Time-Leak</span> Checklist</h1>
+      <p class="sub">Ten spots where your day gets taken from you a few minutes at a time, and the one thing you hand an AI agent to shut each one.</p>
+    </header>
+
+    <p class="lede"><strong>A time thief works the same spots every day, and it counts on you never adding them up.</strong> Read down the list and mark the ones that are yours.</p>
+    <p class="how">Under each leak is the fix: the one job you hand an agent so it stops happening. You are not asking a chatbot for a one-off answer. You are training something to run that job for you, every day, on its own.</p>
+
+    <div class="leak">
+      <div class="n">01</div>
+      <div class="body">
+        <h3>The follow-up you log by hand</h3>
+        <p>You finish a call with a client, then open your system and type out what just happened in your own words. Once, it is nothing. Forty times a week, it is a workday.</p>
+        <span class="fix"><b>Hand it off:</b> have an agent listen to the call and write the note for you. You read it. You don't write it.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">02</div>
+      <div class="body">
+        <h3>The copy and paste between tools</h3>
+        <p>The same name and number goes into your CRM, then your calendar, then a text thread, retyped each time and checked each time so you don't fat-finger it.</p>
+        <span class="fix"><b>Hand it off:</b> let one entry write to every place it needs to land, so you type it once and it shows up everywhere.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">03</div>
+      <div class="body">
+        <h3>The reply you've typed a hundred times</h3>
+        <p>Someone asks the question you know cold, pricing or timelines or how something works, and you type the answer from scratch because that feels faster than finding it.</p>
+        <span class="fix"><b>Hand it off:</b> keep your best answer ready to fire back, written once and reused, instead of rebuilt every time someone asks.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">04</div>
+      <div class="body">
+        <h3>The write-up you start from a blank page</h3>
+        <p>Every new job, you sit down to the empty box and build the write-up from zero, in your voice, matching the last one you were happy with.</p>
+        <span class="fix"><b>Hand it off:</b> give an agent the facts and three words for your tone, and let it hand you a draft to edit instead of a blank page to fill.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">05</div>
+      <div class="body">
+        <h3>The scramble before every call</h3>
+        <p>Ten minutes before a client call you dig through emails and notes to remember where you left off, what they wanted, and what you promised.</p>
+        <span class="fix"><b>Hand it off:</b> have an agent pull the history and hand you a one-page brief before the call, so you walk in warm instead of cold.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">06</div>
+      <div class="body">
+        <h3>The lead that cooled while it sat</h3>
+        <p>An inquiry comes in while you're away from your desk. By the time you see it and reply, the person has moved on to whoever answered first.</p>
+        <span class="fix"><b>Hand it off:</b> let an agent send the first real reply the moment someone reaches out, so nobody waits on you to be free.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">07</div>
+      <div class="body">
+        <h3>The pipeline you check by scrolling</h3>
+        <p>To know where you stand you open the CRM and scroll, hoping you notice the deal that has gone quiet or the step you forgot.</p>
+        <span class="fix"><b>Hand it off:</b> have an agent read the pipeline for you and tell you what's slipping, so you get a heads-up instead of a scroll.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">08</div>
+      <div class="body">
+        <h3>The idea you had in the car</h3>
+        <p>A good thought lands between meetings, the perfect line for a client or a post, and it's gone by the time you're back at a desk.</p>
+        <span class="fix"><b>Hand it off:</b> talk it into your phone and let an agent catch it, sort it, and file it where you'll actually find it later.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">09</div>
+      <div class="body">
+        <h3>The inbox you triage one by one</h3>
+        <p>Every morning you read down a full inbox deciding what matters, what waits, and what is noise, before a single one of them gets an answer.</p>
+        <span class="fix"><b>Hand it off:</b> let an agent sort the inbox into what needs you today and what can wait, so you start with the short list.</span>
+      </div>
+    </div>
+
+    <div class="leak">
+      <div class="n">10</div>
+      <div class="body">
+        <h3>The update you rebuild from zero</h3>
+        <p>A report or an update goes out on a schedule, and every time you assemble the numbers and the wording again from scratch.</p>
+        <span class="fix"><b>Hand it off:</b> have an agent pull the current numbers and fill your format, so the update writes itself and you just approve it.</span>
+      </div>
+    </div>
+
+    <div class="close">
+      <p>You don't fix ten leaks with ten different tools. You fix them by putting <em>one agent on the clock</em> whose only job, every night, is to walk back through your day and find where the hours went.</p>
+      <p>Start with the one you marked first. Hand that single job over this week and let it run. Then come back to the list and hand over the next.</p>
+    </div>
+
+    <div class="cta">
+      <div class="tag">Not Sure Where To Start</div>
+      <h2>Take the AI Readiness Check</h2>
+      <p>60 seconds, six questions. See where a machine could give you your week back right now.</p>
+      <a class="button" href="https://gh.onetimeautomation.ai/60sec/" target="_blank" rel="noopener noreferrer">Take The Check &rarr;</a>
+      <div class="micro">60 seconds &middot; free &middot; no setup</div>
+    </div>
+
+    <footer>
+      <p class="bio">Leo Chen runs One Time Automation, building AI agents for business owners and operators and running them across his own real estate brokerage and agency.</p>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+</body>
+</html>

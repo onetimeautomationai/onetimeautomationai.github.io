@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Rule Page: Turn a Repeating Task Into Something That Runs Without You | One Time Automation</title>
-  <meta name="description" content="A free prompt that turns one repeating task into a written rule page, precise enough to hand to a person or a machine. Written for Claude Code, Cowork, or Codex." />
+  <meta name="description" content="Two free prompts. One sorts your week into four buckets. One turns a bucket-three task into a written rule page, precise enough to hand to a person or a machine. Written for Claude Code, Cowork, or Codex." />
   <meta property="og:title" content="The Rule Page: Turn a Repeating Task Into Something That Runs Without You" />
-  <meta property="og:description" content="A free prompt that turns one repeating task into the written rule a machine gets built from. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:description" content="Two free prompts. One sorts your week into four buckets. One turns a bucket-three task into the written rule a machine gets built from. Written for Claude Code, Cowork, or Codex." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -116,13 +116,13 @@
       <p class="sub">Take one task that keeps landing on you and write it down precisely enough to hand to somebody else. Or to something else.</p>
     </header>
 
-    <p class="lead">You sorted your week into four buckets. Bucket three was the pile that repeats, has rules, and hurts you when you skip it.</p>
+    <p class="lead">Sort your week into four buckets and bucket three is the pile that repeats, has rules, and hurts you when you skip it.</p>
 
     <p>That pile is not a to do list. It is a set of machines nobody has built yet.</p>
 
     <p>Here is the part almost everyone gets wrong. The hard part is not the technology. It is that the task lives in your head as a vague sense of what should happen, and you cannot hand a vague feeling to anyone. Not to a new hire, and definitely not to a machine.</p>
 
-    <p>This prompt drags it out of your head and onto one page.</p>
+    <p>The rule page prompt below drags it out of your head and onto one page. The sort prompt comes first, for anyone who has not run the week yet.</p>
 
     <h2><span class="n">01</span>The four buckets, if you missed them</h2>
 
@@ -245,7 +245,7 @@ worked. Keep it under 150 words so I can hand it to somebody exactly as it
 stands.</pre>
     </div>
 
-    <h2><span class="n">04</span>How to run it</h2>
+    <h2><span class="n">04</span>How to run them</h2>
 
     <ol class="steps">
       <li>Run the sort prompt first if you have not already. The rule page is only worth writing once you know which item is costing you the most.</li>
@@ -269,7 +269,7 @@ stands.</pre>
     </div>
 
     <div class="reqs">
-      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. These prompts work best in an AI agent that can reach your tools, rather than in a chat window. This one reads wherever the task already runs, and writes the finished page back.</p>
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. These prompts work best in an AI agent that can reach your tools, rather than in a chat window. The sort prompt reads your calendar, task list, and sent mail. The rule page prompt reads wherever the task already runs, and writes the finished page back.</p>
     </div>
 
     <footer>
@@ -284,6 +284,7 @@ stands.</pre>
       var text = document.getElementById(preId).innerText;
       var btn = document.getElementById(btnId);
       function done() {
+        if (btn.classList.contains('done')) { return; }
         var original = btn.textContent;
         btn.textContent = 'Copied';
         btn.classList.add('done');

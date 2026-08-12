@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Pattern Pass: Find What Keeps Slipping Across a Month of Meetings | One Time Automation</title>
+  <meta name="description" content="One free prompt. Reads a month of your meeting notes and your calendar, then shows you what keeps coming back, who is overloaded, and the one decision you keep deferring. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:title" content="The Pattern Pass: Find What Keeps Slipping Across a Month of Meetings" />
+  <meta property="og:description" content="One free prompt. Reads a month of your meeting notes and your calendar, then shows you what keeps coming back, who is overloaded, and the one decision you keep deferring." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      /* Leo Does AI / One Time Automation channel palette (PA-068) */
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+      --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:820px; margin:0 auto; padding:2.5rem 1.5rem 5rem; }
+    header.top { text-align:center; padding:1rem 0 2.5rem; }
+    .logo { width:76px; height:76px; margin:0 auto 1.1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(2rem,5.5vw,3.1rem); letter-spacing:-0.02em; line-height:1.08; margin:0.9rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.15rem; max-width:640px; margin:0 auto; }
+    h2 { font-size:1.5rem; letter-spacing:-0.01em; margin:2.75rem 0 0.85rem; }
+    h2 .n { color:var(--accent); font-variant-numeric:tabular-nums; margin-right:0.5rem; }
+    p { color:#d7d7de; margin:0.6rem 0; }
+    .lead { font-size:1.06rem; }
+
+    ol.steps { list-style:none; counter-reset:s; margin:1rem 0; }
+    ol.steps li { counter-increment:s; position:relative; padding:0.55rem 0 0.55rem 2.6rem; color:#d7d7de; border-bottom:1px solid var(--line); }
+    ol.steps li:last-child { border-bottom:0; }
+    ol.steps li::before {
+      content:counter(s); position:absolute; left:0; top:0.5rem;
+      width:1.75rem; height:1.75rem; border-radius:50%;
+      background:var(--accent-soft); color:var(--accent);
+      font-size:0.9rem; font-weight:600; display:flex; align-items:center; justify-content:center;
+    }
+
+    .finds { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.85rem; margin:1.25rem 0; }
+    .find { background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:12px; padding:0.9rem 1.05rem; }
+    .find .num { font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); }
+    .find h3 { font-size:0.98rem; margin:0.15rem 0 0.3rem; }
+    .find p { font-size:0.92rem; color:var(--muted); margin:0; line-height:1.55; }
+
+    .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:1.25rem 0; }
+    .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .prompt-bar .label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    button.copy {
+      background:var(--accent); color:#fff; border:0; border-radius:9px;
+      padding:0.5rem 1rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+      font-family:inherit; transition:transform .12s ease, background .12s ease;
+    }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    button.copy.done { background:var(--ok); }
+    pre {
+      margin:0; padding:1.1rem 1.2rem; overflow-x:auto;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      font-size:0.86rem; line-height:1.62; color:#e6e6ea; white-space:pre; tab-size:2;
+    }
+    pre::-webkit-scrollbar { height:9px; }
+    pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
+
+    .callout { background:var(--accent-soft); border:1px solid rgba(232,130,60,0.32); border-radius:14px; padding:1.1rem 1.3rem; margin:1.5rem 0; }
+    .callout p { color:#f0dccb; margin:0; }
+    .callout strong { color:var(--accent-hi); }
+
+    .cta { border:1px solid var(--accent); border-left:3px solid var(--accent);
+  background:var(--accent-soft); border-radius:12px; padding:1.05rem 1.25rem; margin:1.5rem 0 0; }
+    .cta p { margin:0; line-height:1.7; }
+    .cta strong { color:var(--fg); }
+    .cta a { color:var(--accent-hi); }
+    .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .reqs p { color:var(--muted); font-size:0.94rem; margin:0; line-height:1.6; }
+    .reqs strong { color:var(--fg); }
+
+    footer { text-align:center; margin-top:3.5rem; padding-top:1.75rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.9rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3.5rem; }
+      pre { font-size:0.8rem; padding:0.9rem 1rem; }
+      .prompt-bar { padding:0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="logo.png" alt="Leo Does AI, One Time Automation" width="76" height="76" />
+      <div class="kicker">Prompt of the Week · Level 2</div>
+      <h1>The <span class="accent">Pattern Pass</span></h1>
+      <p class="sub">One meeting's notes tell you what was said. A month of them tells you what keeps not getting decided.</p>
+    </header>
+
+    <p class="lead">Last week's prompt read one meeting and told you what changed. This one reads a month and shows you the pattern underneath all of them.</p>
+
+    <p>Any single meeting can look fine. It's only across a month that you can see the same open loop showing up four times, or the same person quietly holding every commitment nobody else can carry.</p>
+
+    <p>That's not a memory problem either. It's a visibility problem, and it only shows up at the scale of a month, not a meeting.</p>
+
+    <h2><span class="n">01</span>What it looks for</h2>
+
+    <div class="finds">
+      <div class="find">
+        <div class="num">Find 1</div>
+        <h3>What keeps coming back</h3>
+        <p>Discussed three or more times, never decided. Quoted, not summarized, so you can see it circling.</p>
+      </div>
+      <div class="find">
+        <div class="num">Find 2</div>
+        <h3>Who is overloaded</h3>
+        <p>The name attached to the most commitments. Counted, not guessed.</p>
+      </div>
+      <div class="find">
+        <div class="num">Find 3</div>
+        <h3>Commitments that died</h3>
+        <p>Given a date, that date passed, nobody mentioned it again.</p>
+      </div>
+      <div class="find">
+        <div class="num">Find 4</div>
+        <h3>The decision you keep deferring</h3>
+        <p>The one thing that would unblock the largest number of open loops.</p>
+      </div>
+    </div>
+
+    <h2><span class="n">02</span>The prompt</h2>
+
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn" onclick="copyPrompt('p1','copyBtn')">Copy prompt</button>
+      </div>
+<pre id="p1">Before you do any work, ask me these one at a time and wait for each answer:
+- Where do my meeting notes live?
+- Can you reach my calendar for the same month, so you know which meetings
+  happened and who was in them?
+- Are there transcripts you can read as well?
+
+Then pull every meeting from the last month yourself. Do not ask me to
+gather them. If a source is out of reach, say which one and carry on with
+what you have, but tell me what the gap costs.
+
+Do not summarise them. I want the pattern, not the content.
+
+Tell me:
+
+1. WHAT KEEPS COMING BACK - anything discussed in three or more meetings
+   without being decided. For each one, quote the shortest line from each
+   time it appeared, so I can see it circling.
+2. WHO IS OVERLOADED - the person whose name attaches to the most
+   commitments. Count them.
+3. THE COMMITMENTS THAT DIED - anything given a date that has passed with
+   no later mention. List them plainly, with the date.
+4. THE DECISION I KEEP DEFERRING - the one thing that would unblock the
+   largest number of open loops. Name it and tell me how many it unblocks.
+5. MY MEETING TAX - how many hours of meetings produced no decision. Take
+   the hours from my calendar, not from an estimate.
+
+Rules:
+- Count what is written. Never estimate a number you cannot point at.
+- If two notes contradict each other, show me both and say which is later.
+- End with one uncomfortable observation about how I run meetings.</pre>
+    </div>
+
+    <h2><span class="n">03</span>How to run it</h2>
+
+    <ol class="steps">
+      <li>Answer the three questions properly before it starts. A source it can't reach costs you nothing if you say so up front. A source it guesses at costs you the whole read.</li>
+      <li>Let it pull the raw notes. Typos, fragments, half sentences. The mess is the data, not a problem to fix first.</li>
+      <li>Read finding four first. It's usually the one that explains why the other three exist.</li>
+      <li>Take the one uncomfortable observation at the end seriously. That line is the point of running this monthly instead of after every meeting.</li>
+    </ol>
+
+    <div class="callout">
+      <p><strong>Run this monthly, not after every meeting.</strong> A single meeting can't show you a pattern. A month can. The value here is in the repeat, not the one-time read.</p>
+    </div>
+
+    <div class="cta">
+      <p><strong>Want a machine that runs this automatically, every month, and drops the read in your inbox?</strong> Send it to
+      <a href="mailto:leo@onetimeautomation.ai?subject=Pattern%20pass%20automation" target="_blank" rel="noopener noreferrer">leo@onetimeautomation.ai</a>.
+      A real person reads every one, and if it's something you could set up yourself in an afternoon, we'll tell you that instead.</p>
+    </div>
+
+    <div class="reqs">
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. This prompt works best in an AI agent that can reach your tools, rather than in a chat window. It reads a month of your notes and your calendar, not just what you paste in.</p>
+    </div>
+
+    <footer>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+
+  <script>
+    function copyPrompt(preId, btnId) {
+      var text = document.getElementById(preId).innerText;
+      var btn = document.getElementById(btnId);
+      function done() {
+        if (btn.classList.contains('done')) { return; }
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else {
+        fallback();
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+  </script>
+</body>
+</html>

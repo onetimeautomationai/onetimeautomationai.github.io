@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Toolshed — One Time Automation</title>
+<meta name="description" content="Every free prompt, checklist, and tool from One Time Automation, in one place. Build it once, let it run." />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0d1417" />
+<style>
+  :root{
+    --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+    --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+    --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2; --line:#26333b; --ok:#3ecf8e;
+  }
+  html{ font-size:18px; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.7;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:1040px; margin:0 auto; }
+
+  /* topbar */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    padding:18px 32px; border-bottom:3px solid var(--accent); background:rgba(21,33,40,0.72);
+  }
+  .topbar .brand{ display:flex; align-items:center; gap:12px; font-weight:700; font-size:1rem; letter-spacing:.02em; }
+  .topbar .brand img{ width:34px; height:34px; display:block; border-radius:7px; }
+  .topbar .brand span{ color:var(--accent); }
+  .topbar .slot{ font-size:0.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+
+  /* masthead */
+  .mast{ padding:52px 32px 56px; position:relative; overflow:hidden; }
+  .mast::after{
+    content:""; position:absolute; right:-150px; top:-150px; width:420px; height:420px;
+    background:var(--accent); transform:rotate(18deg); opacity:.06; border-radius:40px;
+  }
+  .mast .kick{
+    display:inline-block; background:var(--accent-soft); color:var(--accent-hi);
+    border:1px solid rgba(232,130,60,0.35); border-radius:999px;
+    font-size:0.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    padding:6px 15px; margin-bottom:22px; line-height:1.4;
+  }
+  .mast h1{ font-size:clamp(2.1rem,5.6vw,3.4rem); line-height:1.06; letter-spacing:-0.02em; font-weight:800; }
+  .mast h1 .hl{ color:var(--accent); }
+  .mast .deck{ color:var(--muted); font-size:1.1rem; max-width:660px; margin-top:18px; }
+  .mast .updated{ font-size:0.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); margin-top:24px; line-height:1.6; }
+
+  /* CTA banner */
+  .banner{
+    background:linear-gradient(180deg, rgba(232,130,60,0.18), rgba(232,130,60,0.09));
+    border-top:1px solid rgba(232,130,60,0.4); border-bottom:1px solid rgba(232,130,60,0.4);
+    padding:22px 32px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .banner .t{ font-size:0.95rem; color:var(--fg); }
+  .banner .t b{ display:block; font-size:1.15rem; font-weight:800; letter-spacing:-0.01em; margin-bottom:2px; }
+  .banner .t span{ color:var(--muted); }
+  .banner a{
+    background:var(--accent); color:#fff; text-decoration:none; white-space:nowrap;
+    font-size:0.82rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+    padding:13px 24px; border-radius:9px; transition:all .12s ease;
+  }
+  .banner a:hover{ background:var(--accent-hi); transform:translateY(-1px); }
+
+  /* sections */
+  section{ padding:44px 32px 8px; }
+  .h2{
+    font-size:1.55rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;
+    padding-top:22px; border-top:2px solid var(--line); position:relative;
+  }
+  .h2::before{ content:""; position:absolute; top:-2px; left:0; width:64px; height:2px; background:var(--accent); }
+  .h2 small{ display:block; font-size:0.86rem; font-weight:400; color:var(--muted); line-height:1.6; margin-top:8px; max-width:720px; }
+
+  /* rows */
+  .part{ display:grid; grid-template-columns:64px 1fr; gap:0 18px; padding:22px 0; border-bottom:1px solid var(--line); }
+  .part .n{ font-size:2.2rem; font-weight:800; line-height:1.1; color:var(--steel); }
+  .part.live .n{ color:var(--accent); }
+  .part h3{ font-size:1.05rem; font-weight:800; letter-spacing:.01em; line-height:1.35; }
+  .part .cap{ color:var(--muted); font-size:0.95rem; margin:4px 0 12px; max-width:700px; }
+  .links{ display:flex; flex-wrap:wrap; gap:9px; align-items:center; }
+  a.pill, span.pill{
+    display:inline-block; font-size:0.76rem; font-weight:700; letter-spacing:.04em;
+    text-decoration:none; padding:9px 15px; border-radius:9px; line-height:1.4;
+    border:1px solid var(--line); color:var(--fg); background:var(--panel); transition:all .12s ease;
+  }
+  a.pill:hover{ border-color:var(--accent); color:var(--accent-hi); transform:translateY(-1px); }
+  a.pill.y{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  a.pill.y:hover{ background:var(--accent-hi); border-color:var(--accent-hi); color:#fff; }
+  span.pill.tag{ background:transparent; border-style:dashed; color:var(--muted); }
+  span.pill.lvl{ background:var(--panel2); border-color:var(--line); color:var(--accent-hi); }
+
+  /* grid */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:14px 0 0; }
+  .cell{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  .cell .lab{
+    display:inline-block; font-size:0.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-hi); background:var(--accent-soft); border-radius:6px; padding:4px 9px; margin-bottom:10px; line-height:1.4;
+  }
+  .cell h4{ font-size:0.98rem; font-weight:800; line-height:1.35; margin-bottom:6px; }
+  .cell p{ color:var(--muted); font-size:0.88rem; margin-bottom:12px; }
+
+  .note{ font-size:0.82rem; color:var(--steel); padding:26px 32px 0; line-height:1.7; }
+  .note b{ color:var(--muted); }
+
+  footer{
+    background:var(--panel); border-top:1px solid var(--line); color:var(--muted);
+    padding:34px 32px 42px; margin-top:34px; font-size:0.88rem;
+  }
+  footer b{ color:var(--fg); }
+  footer .rule{ width:64px; height:3px; border-radius:3px; margin-bottom:18px;
+    background:linear-gradient(90deg, var(--accent), var(--accent-hi)); }
+  footer a{ color:var(--accent-hi); }
+
+  @media (max-width:720px){
+    html{ font-size:17px; }
+    .topbar, .mast, .banner, section, .note, footer{ padding-left:20px; padding-right:20px; }
+    .part{ grid-template-columns:44px 1fr; gap:0 12px; }
+    .part .n{ font-size:1.7rem; }
+    .grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+      One Time <span>Automation</span>
+    </div>
+    <div class="slot">The Toolshed</div>
+  </div>
+
+  <div class="mast">
+    <div class="kick">Everything, One Page</div>
+    <h1>Every free tool we've built, <span class="hl">in one place</span></h1>
+    <p class="deck">Six free prompts and checklists, ordered the way they actually stack. Start at the top if you're new. Each one takes a piece of your week back, and each one hands off to the next.</p>
+    <div class="updated">Updated 2026-08-25 &middot; 1 readiness check &middot; 6 free tools &middot; 1 waitlist</div>
+  </div>
+
+  <div class="banner">
+    <div class="t">
+      <b>Start with the check</b>
+      <span>Six questions &middot; 60 seconds &middot; shows you where an AI agent gives you the most hours back</span>
+    </div>
+    <a href="/60sec/" target="_blank" rel="noopener noreferrer">Get Your Week Back &rarr;</a>
+  </div>
+
+  <section>
+    <div class="h2">Start Here<small>Before you install anything, find out which leak is costing you the most. Six questions, no wrong answers. This is also where the newsletter and the free session invite land.</small></div>
+
+    <div class="part live">
+      <div class="n">&starf;</div>
+      <div>
+        <h3>Get Your Week Back</h3>
+        <div class="cap">Where are you with AI agents right now? Six quick questions that point you at the one tool below worth doing first.</div>
+        <div class="links">
+          <a class="pill y" href="/60sec/" target="_blank" rel="noopener noreferrer">Take the check</a>
+          <span class="pill tag">60 seconds</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="h2">The Staircase<small>Six free tools in build order. Diagnose the leak, write one hard message, turn a repeating task into a rule, read a month at once, install the rule as a skill, then teach it your voice. Each step picks up the problem the last one created.</small></div>
+
+    <div class="part live">
+      <div class="n">1</div>
+      <div>
+        <h3>The Time-Leak Checklist</h3>
+        <div class="cap">Ten spots where your day gets taken from you a few minutes at a time, and the one thing you hand an AI agent to shut each one. Read down the list and mark the ones that are yours.</div>
+        <div class="links">
+          <a class="pill y" href="/timeleak/" target="_blank" rel="noopener noreferrer">Open the checklist</a>
+          <span class="pill tag">Free checklist</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part live">
+      <div class="n">2</div>
+      <div>
+        <h3>Write The Message You're Avoiding</h3>
+        <div class="cap">Two prompts. One drafts the hard message you keep putting off. The other preps you for what comes back.</div>
+        <div class="links">
+          <a class="pill y" href="/avoided/" target="_blank" rel="noopener noreferrer">Get the prompts</a>
+          <span class="pill lvl">Prompt of the Week</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part live">
+      <div class="n">3</div>
+      <div>
+        <h3>The Rule Page</h3>
+        <div class="cap">Sort your week into four buckets, then take the task that keeps landing on you and write it down precisely enough to hand to somebody else. Or to something else.</div>
+        <div class="links">
+          <a class="pill y" href="/buckets/" target="_blank" rel="noopener noreferrer">Get the prompts</a>
+          <span class="pill lvl">Level 2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part live">
+      <div class="n">4</div>
+      <div>
+        <h3>The Pattern Pass</h3>
+        <div class="cap">One meeting's notes tell you what was said. A month of them tells you what keeps not getting decided, who is overloaded, and the one decision you keep deferring.</div>
+        <div class="links">
+          <a class="pill y" href="/loops/" target="_blank" rel="noopener noreferrer">Get the prompt</a>
+          <span class="pill lvl">Level 2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part live">
+      <div class="n">5</div>
+      <div>
+        <h3>The Skills 101 Starter</h3>
+        <div class="cap">A prompt is something you retype. A skill is something you write once and the machine runs forever. This walks your own agent through the conversion, tested and installed.</div>
+        <div class="links">
+          <a class="pill y" href="/skills101/" target="_blank" rel="noopener noreferrer">Get the starter</a>
+          <span class="pill tag">Giveaway &middot; SKILLS101</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part live">
+      <div class="n">6</div>
+      <div>
+        <h3>The Writing Desk</h3>
+        <div class="cap">A free prompt that learns how you actually write from your real emails, then drafts anything that matters so it sounds like you. Not generic AI. You.</div>
+        <div class="links">
+          <a class="pill y" href="/voice-desk/" target="_blank" rel="noopener noreferrer">Open the Writing Desk</a>
+          <span class="pill tag">Install in 6 steps</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="h2">Where It Goes Next<small>The free tools cover single jobs. The room covers the whole system, and the org chart shows what that system looks like when it's finished.</small></div>
+    <div class="grid">
+      <div class="cell">
+        <span class="lab">The Room</span>
+        <h4>Autonomous Operators</h4>
+        <p>You've automated one thing. Now own the whole system. The paid room for people who build, not browse. Waitlist opens first.</p>
+        <div class="links"><a class="pill y" href="/waitlist/" target="_blank" rel="noopener noreferrer">Join the waitlist</a></div>
+      </div>
+      <div class="cell">
+        <span class="lab">Reference</span>
+        <h4>The AI Org Chart</h4>
+        <p>Every agent role in a finished system, and what each one owns. The picture the six tools above are building toward.</p>
+        <div class="links"><a class="pill" href="/org-chart/full.png" target="_blank" rel="noopener noreferrer">View the chart</a></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="note">Every tool on this page is free and self-serve. The prompts are written for Claude Code, Cowork, or Codex, and they work by pasting into Claude or ChatGPT too. Nothing here needs a card, an install, or a call. <b>Order matters more than speed:</b> the checklist tells you which leak is biggest, and the five prompts after it stack, so running number five before number three usually means redoing number five.</p>
+
+  <footer>
+    <div class="rule"></div>
+    <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+    Leo Chen builds AI operating systems and runs them across his own brokerage and agency. Leo Does AI &times; One Time Automation AI.<br><br>
+    Index built 2026-08-25 &middot; <a href="/" target="_blank" rel="noopener noreferrer">gh.onetimeautomation.ai</a>
+  </footer>
+
+</div>
+</body>
+</html>

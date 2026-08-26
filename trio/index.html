@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Three Prompts | One Time Automation</title>
+  <meta name="description" content="Three free prompts: turn a solved problem into a skill, score a task against the 80 percent automation rule, and split one job into parallel agents. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:title" content="Three Prompts" />
+  <meta property="og:description" content="Skills, Automation, Agent Multiplier. Three prompts you paste straight into Claude." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --steel:#4d7491; --muted:#8ea6b2; --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:760px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+    header.top { text-align:center; padding:1rem 0 2rem; }
+    .logo { width:64px; height:64px; margin:0 auto 1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(1.8rem,5vw,2.6rem); letter-spacing:-0.02em; line-height:1.1; margin:0.8rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.05rem; max-width:560px; margin:0 auto; }
+    h2 { margin:2.25rem 0 0.4rem; color:var(--fg); font-size:1.3rem; letter-spacing:-0.01em; }
+    h2 .n { color:var(--accent); }
+    p.idea { color:#d7d7de; max-width:640px; margin:0 0 0.9rem; font-size:0.98rem; }
+    p.lead { color:#d7d7de; text-align:center; max-width:560px; margin:0 auto 2rem; }
+
+    .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:0.75rem 0 1rem; }
+    .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .prompt-bar .label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    button.copy {
+      background:var(--accent); color:#fff; border:0; border-radius:9px;
+      padding:0.5rem 1rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+      font-family:inherit; transition:transform .12s ease, background .12s ease;
+    }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    button.copy.done { background:var(--ok); }
+    pre {
+      margin:0; padding:1.1rem 1.2rem; overflow-x:auto;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      font-size:0.84rem; line-height:1.6; color:#e6e6ea; white-space:pre; tab-size:2;
+    }
+    pre::-webkit-scrollbar { height:9px; }
+    pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
+
+    .how { color:var(--muted); font-size:0.92rem; margin:0 0 2rem; }
+    .how strong { color:var(--fg); }
+
+    .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .reqs p { color:var(--muted); font-size:0.92rem; margin:0; line-height:1.6; }
+    .reqs strong { color:var(--fg); }
+
+    footer { text-align:center; margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.88rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3rem; }
+      pre { font-size:0.78rem; padding:0.9rem 1rem; }
+      .prompt-bar { padding:0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="logo.png" alt="Leo Does AI, One Time Automation" width="64" height="64" />
+      <div class="kicker">Prompt of the Week</div>
+      <h1>Three <span class="accent">Prompts</span></h1>
+      <p class="sub">Skills, Automation, Agent Multiplier. Paste them straight into Claude.</p>
+    </header>
+
+    <h2><span class="n">1.</span> Skills</h2>
+    <p class="idea">Every time Claude solves something well, that conversation is a skill you haven't saved yet. This pulls the real steps you just took and ships a skill with an empty "gotchas" section that fills in as it breaks.</p>
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn1" onclick="copyPrompt('p1','copyBtn1')">Copy prompt</button>
+      </div>
+<pre id="p1">I want to turn something I already solved with you into a skill I never
+have to re-explain.
+
+Before you do anything, ask me these one at a time and wait for each answer:
+- What did we just do in this conversation (or the one I paste below) that
+  I will need again?
+- What do I call it when I ask for it next time? Give me a name I would
+  actually type.
+- Where do my skills live? Point me to the folder if you already know it,
+  otherwise ask.
+
+Then read back the actual steps we took, pulled from this conversation's
+real actions, not a guess at what should have happened.
+
+Write the skill with three sections:
+
+1. WHAT IT DOES - one line, so I remember why I built this in six months.
+2. HOW TO RUN IT - the steps, in the order that actually worked. Call out
+   anything I had to correct you on, so version one already knows.
+3. GOTCHAS - empty for now. This is where the failures go once I hit them.
+
+Before you save it, tell me:
+- The one step most likely to break the first time someone else runs this.
+- Whether this belongs as its own skill or as a step inside a skill I
+  already have. Check what I already have before adding a new one.
+
+Save it, give me the exact trigger phrase, then run it once in front of me
+so I can watch it fire.</pre>
+    </div>
+    <p class="how"><strong>How to run it:</strong> Do this right after Claude solves something you know you'll want again, while the steps are still fresh. Don't wait until the third time you retype the same instructions. The gotchas section stays empty on purpose, come back and add to it the first time the skill trips.</p>
+
+    <h2><span class="n">2.</span> Automation</h2>
+    <p class="idea">Not every repeated task is worth automating. This scores a task against one number: what share of it could run without you. Under 80 percent, it says so, and names the step holding the number down instead of talking you into building it anyway.</p>
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn2" onclick="copyPrompt('p2','copyBtn2')">Copy prompt</button>
+      </div>
+<pre id="p2">I want to know if a task I keep doing by hand is worth turning into
+something that runs on its own.
+
+Before you do any work, ask me these one at a time:
+- What is the task, in plain words, start to finish?
+- How often does it happen, and how long does it take me each time?
+- Which apps or tools does it touch? Email, calendar, a spreadsheet,
+  Chrome, a specific app.
+
+Then walk the task apart into its steps and score it honestly:
+
+1. Which steps are a decision only I can make, and which are just
+   repeating what I did last time?
+2. What percentage of the whole task could run without me? Say the number.
+   Do not round up to make the case for building it.
+3. If it is under 80 percent, tell me straight it is not worth automating
+   yet, and name the one step holding the number down.
+4. If it clears 80 percent, write the workflow as a numbered list of exact
+   actions, one line per action, the way I would hand it to a new hire.
+
+Then tell me:
+- The one failure mode most likely to happen the first time this runs
+  unattended, and what should happen when it does. Stop and tell me, or
+  keep going and log it.
+- Where this workflow should log what it did, so I can check on it
+  without watching it run every time.
+
+Build it only after I say go.</pre>
+    </div>
+    <p class="how"><strong>How to run it:</strong> Bring one specific recurring task, not "help me automate my inbox." The percentage is the whole point, don't skip past it if the answer is a task you were hoping to hand off. A log file it writes to every run is what lets you trust it without babysitting it.</p>
+
+    <h2><span class="n">3.</span> Agent Multiplier</h2>
+    <p class="idea">One task is often three or more jobs wearing a trench coat. This splits it into pieces that don't need each other's context, runs them at the same time instead of one after another, and uses a separate agent to grade output than the one that built it.</p>
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn3" onclick="copyPrompt('p3','copyBtn3')">Copy prompt</button>
+      </div>
+<pre id="p3">I have one task that is really three or more separate jobs wearing a
+trench coat. Help me split it and run it in parallel instead of one at
+a time.
+
+Before you do anything, ask me:
+- What is the task, and what does done look like?
+- Can you already see the natural way to split it, or do you need me to
+  describe the pieces?
+
+Then split it into pieces that do not need each other's context to
+complete. Tell me the split before you launch anything, and flag if any
+piece actually depends on another. Those cannot run in parallel, say so.
+
+Launch one agent per piece, in parallel. For anything you are about to
+judge or grade rather than just build, use a separate agent to review it
+than the one that built it.
+
+When they all finish, bring the results back together yourself and tell
+me:
+- What each agent actually did, in one line each.
+- Where they disagreed or produced conflicting output, if anywhere.
+- The one piece that took the longest, and whether splitting it further
+  next time would help.</pre>
+    </div>
+    <p class="how"><strong>How to run it:</strong> Works best on research, review, or build tasks with genuinely independent pieces, not one linear task you're trying to force apart. If your agent stalls trying to name the split, that's the answer, the task isn't parallel, do it in order.</p>
+
+    <div class="reqs">
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. These prompts work best in an AI agent that can reach your tools and run sub-agents, rather than in a plain chat window.</p>
+    </div>
+
+    <footer>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+
+  <script>
+    function copyPrompt(preId, btnId) {
+      var text = document.getElementById(preId).innerText;
+      var btn = document.getElementById(btnId);
+      function done() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else {
+        fallback();
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+  </script>
+</body>
+</html>

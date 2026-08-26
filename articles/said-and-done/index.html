@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What Was Actually Decided | One Time Automation</title>
+<meta name="description" content="The meeting was good. Everyone agreed. Two weeks later nobody can name what was decided. That is not a memory problem, and here is the prompt that fixes it." />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0d1417" />
+<link rel="stylesheet" href="/articles/article.css" />
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="/" target="_blank" rel="noopener noreferrer">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="slot" href="/" target="_blank" rel="noopener noreferrer">The Library &rarr;</a>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="lane">Prompt of the Week</span> &middot; 12 August 2026</div>
+  <h1>What Was Actually Decided</h1>
+  <p class="dek">The meeting was good. Everyone agreed. Two weeks later nobody can name what was decided. That is not a memory problem.</p>
+  <div class="byline"><b>Leo Chen</b> &middot; 5 min read &middot; Prompt of the Week 04</div>
+
+  <article>
+
+    <p class="lead">Notes record what people said. They do not record what needs to be done.</p>
+
+    <p>That gap is the whole failure. You leave the room with three pages of accurate transcription and nothing anybody can act on, because "we should probably look at pricing" got written down exactly as it was said, and exactly as it was said is not a decision.</p>
+
+    <p>Nobody wrote down the decision in a form that could be acted on. So two weeks later the meeting produces a second meeting.</p>
+
+    <p>So I built a prompt so that everything said can be done.</p>
+
+    <h2>The prompt</h2>
+
+    <p>It interviews you first, then pulls the notes itself. Do not clean anything up before you run it.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="btn1" onclick="copyPrompt('p1','btn1')">Copy prompt</button>
+      </div>
+<pre id="p1">Turn my messy meeting notes into something I can act on and send.
+
+Before you do any work, ask me these one at a time and wait for each answer:
+- Where do my notes live? Which app, folder, or doc?
+- Is there a transcript or recording you can reach as well?
+- Can you read my calendar, so you know who was in the room?
+- Which meeting are we doing?
+
+Then pull the notes yourself. They will be fragments and half sentences that
+only make sense to me. Do not ask me to clean them up. If you cannot reach
+something, name the missing connection instead of working around it.
+
+Give me back four things, in this order:
+
+1. DECISIONS MADE - only things actually settled. If it was discussed but
+   not decided, it does not go here.
+2. OPEN LOOPS - decided nothing, still live. Name who has the ball, using
+   the attendee list, not a guess.
+3. COMMITMENTS - who owes what by when. If no date was said, write
+   NO DATE GIVEN. Do not invent one.
+4. WHAT NOBODY SAID OUT LOUD - the thing these notes circle around and
+   never name. One paragraph. If there is nothing, say so instead of
+   reaching for something.
+
+Then write the follow-up email I should send, addressed to the people who
+were actually there. Short. Plain. Not a summary of the meeting, only what
+the reader needs to know or do. Draft it, never send it.
+
+Never fill a gap with a guess. If something is missing, say it is missing.</pre>
+    </div>
+
+    <h2>Why the anti-invention rule is the whole thing</h2>
+
+    <p>Every "summarize my meeting notes" prompt in circulation will produce a tidy list of action items with dates on them. Some of those dates were never said by anyone.</p>
+
+    <p>That is worse than no notes. A confident wrong date gets forwarded, gets planned around, and gets discovered three weeks later by the person who was going to be held to it.</p>
+
+    <blockquote>Never fill a gap with a guess. If something is missing, say it is missing.</blockquote>
+
+    <p>NO DATE GIVEN looks like a failure in the output. It is the most useful line in the report, because it tells you precisely which commitment you need to go pin down before it quietly expires.</p>
+
+    <p>The same rule is why section two reads the attendee list off your calendar instead of inferring who owns what. "Name who has the ball, using the attendee list, not a guess" is a small clause that stops the report handing a task to somebody who was not in the room.</p>
+
+    <h2>Section four is the one people write back about</h2>
+
+    <p>The thing the notes circle around and never name.</p>
+
+    <p>It is usually the reason the meeting felt slightly unfinished when you walked out. Everybody was polite about it. Nobody said it. And because nobody said it, it did not make the notes, so it comes back next month wearing a different subject line.</p>
+
+    <p>Section four is the only part of this that a person could not produce faster themselves, because the thing you cannot see in your own notes is the thing you were avoiding while you wrote them.</p>
+
+    <div class="callout">
+      <p><strong>Send it warm.</strong> One follow up the same day beats three on Friday. The draft is written for you at the bottom of the run, so the gap between the meeting ending and the recap landing can be minutes.</p>
+    </div>
+
+    <h2>Then run it across a month</h2>
+
+    <p>One meeting's notes tell you what was said. A month of them tells you something else entirely.</p>
+
+    <p>What keeps coming back without being decided. Who is quietly carrying the most commitments. Which dated promises passed and were never mentioned again. And the single decision you keep deferring that is holding the largest number of other things shut.</p>
+
+    <p>That version of the pass is on the tool page below. It counts what is written and refuses to estimate a number it cannot point at, which is what makes the meeting-tax figure at the end worth reading.</p>
+
+    <div class="reqs">
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. These prompts work best in an AI agent that can reach your tools, rather than in a chat window. This one reads your notes, your calendar, and your email.</p>
+    </div>
+
+  </article>
+
+  <div class="followthrough">
+    <span class="lab">The tool from this piece</span>
+    <h4>The Pattern Pass</h4>
+    <p>The level two prompt: the same read, run across a month of meetings at once, to find what keeps slipping, who is overloaded, and the decision you keep deferring.</p>
+    <a class="go" href="/loops/" target="_blank" rel="noopener noreferrer">Get the prompt &rarr;</a>
+  </div>
+
+</div>
+
+<div class="foot"><div class="inner">
+  <div class="rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Chen builds AI operating systems and runs them across his own brokerage and agency.<br><br>
+  <a href="/" target="_blank" rel="noopener noreferrer">&larr; Back to the library</a>
+</div></div>
+
+<script src="/articles/copy.js"></script>
+</body>
+</html>

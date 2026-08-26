@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Four Buckets: Read Your Week Back to Yourself | One Time Automation</title>
+<meta name="description" content="The prompt I run on myself every other week. It sorts your last seven days into four buckets and tells you which parts actually needed you. It has never once told me what I expected." />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0d1417" />
+<link rel="stylesheet" href="/articles/article.css" />
+</head>
+<body>
+
+<div class="topbar">
+  <a class="brand" href="/" target="_blank" rel="noopener noreferrer">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="slot" href="/" target="_blank" rel="noopener noreferrer">The Library &rarr;</a>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow"><span class="lane">Prompt of the Week</span> &middot; 29 July 2026</div>
+  <h1>Four Buckets: Read Your Week Back to Yourself</h1>
+  <p class="dek">The prompt I run on myself every other week. It sorts your last seven days into four buckets and tells you which parts actually needed you. It has never once told me what I expected.</p>
+  <div class="byline"><b>Leo Chen</b> &middot; 5 min read &middot; Prompt of the Week 01</div>
+
+  <article>
+
+    <p class="lead">Most business owners cannot tell you where their week went.</p>
+
+    <p>Not because they stopped paying attention. Because the week was forty small things, and small things leave no mark. You remember the two hard conversations. You do not remember the thirty-eight times you opened something, decided it did not matter, and closed it.</p>
+
+    <p>That missing thirty-eight is where the week actually goes. And you cannot hand off work you cannot see.</p>
+
+    <p>So here is the exercise. Something reads your week back to you and tells you which parts needed you and which parts never did.</p>
+
+    <h2>The four buckets</h2>
+
+    <p>Every item from your last seven days lands in exactly one of these. Not two. The forcing is the point, because the work that hides is the work that gets to be a little bit of everything.</p>
+
+    <ul>
+      <li><strong>1. Only me.</strong> Needs my judgment, my relationships, or my name on it.</li>
+      <li><strong>2. A person's job.</strong> Needs judgment, but not mine.</li>
+      <li><strong>3. A machine's job.</strong> Repeats, has rules, and hurts me when I skip it.</li>
+      <li><strong>4. Should not exist.</strong> I do it out of habit and nobody would notice if it stopped.</li>
+    </ul>
+
+    <p>Bucket three is the money. Bucket four is the mirror.</p>
+
+    <h2>The prompt</h2>
+
+    <p>Paste this into an agent that can reach your calendar and your task list. It will interview you first, then go pull the week itself.</p>
+
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="btn1" onclick="copyPrompt('p1','btn1')">Copy prompt</button>
+      </div>
+<pre id="p1">You are my operations advisor. You are blunt and you do not flatter me.
+
+Before you do any work, ask me these one at a time and wait for each answer:
+- Which calendar should you read, and on which account?
+- Where does my task list live?
+- Should you read my sent mail for the same seven days?
+
+Then pull my last seven days yourself. It will be messy. Do not ask me to
+tidy it. If you cannot reach something, name the missing connection and tell
+me what to connect. Never guess, and never work from an earlier session.
+
+Sort every item into exactly one of four buckets:
+
+1. ONLY ME - needs my judgment, my relationships, or my name on it.
+2. A PERSON'S JOB - needs judgment, but not mine.
+3. A MACHINE'S JOB - repeats, has rules, and hurts me when I skip it.
+4. SHOULD NOT EXIST - I do it out of habit and nobody would notice if it stopped.
+
+For each item, give the reason in six words or less.
+
+Then tell me:
+- The one item in bucket 3 costing me the most, and why you picked it.
+- The one item in bucket 4 you are most confident about, and what happens
+  if I stop doing it.
+- One thing I put in bucket 1 that you think I am wrong about.
+
+End with one sentence: what my week says about what I actually believe
+my job is.</pre>
+    </div>
+
+    <h2>How to run it</h2>
+
+    <p>It will ask what it can reach before it starts. Answer that part properly. A gap it knows about costs you nothing. A gap it guesses at costs you the whole exercise.</p>
+
+    <p>Do not tidy anything first. The mess is the data. If you clean up your calendar before running this, you are grading a version of the week that did not happen.</p>
+
+    <p>The six-word reason limit is not decoration. It stops the answer turning into a paragraph of hedging per item, and it forces a real call on each one. If a task needs three sentences to justify sitting in bucket one, it is not in bucket one.</p>
+
+    <div class="callout">
+      <p><strong>The line that stings.</strong> The last instruction asks what your week says about what you actually believe your job is. That sentence is usually the whole report. Everything above it is evidence.</p>
+    </div>
+
+    <h2>Bucket four is why this is worth ten minutes</h2>
+
+    <p>Bucket three is satisfying. You find the report you rebuild every Monday, the follow-up you retype from scratch, the numbers you pull into the same shape every time. Those are real, and they are fixable.</p>
+
+    <p>Bucket four is different. Bucket four is the work you do because you have always done it. A dashboard nobody reads. A check nobody has failed in two years. A meeting that exists because it existed last quarter.</p>
+
+    <p>Nobody has ever sent me the same bucket four answer. That is the part I would actually read yours for.</p>
+
+    <h2>Then pick one thing</h2>
+
+    <p>One item. Not the list. Take the single thing from bucket three that cost you the most this week and write it down properly, precisely enough that somebody else could make it run without you.</p>
+
+    <p>That written page is the thing a machine gets built from. Not a good intention, not a note in your head. A page with a trigger, the inputs, the rule, the exceptions, and what happens when something is missing.</p>
+
+    <p>The prompt that walks you through writing it is on the tool page below, next to this one.</p>
+
+    <div class="reqs">
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. These prompts work best in an AI agent that can reach your tools, rather than in a chat window. This one reads your calendar, your task list, and optionally your sent mail.</p>
+    </div>
+
+  </article>
+
+  <div class="followthrough">
+    <span class="lab">The tool from this piece</span>
+    <h4>The Rule Page</h4>
+    <p>Both prompts on one page with copy buttons: the sort above, plus the level two prompt that turns one bucket-three item into the written rule a machine gets built from.</p>
+    <a class="go" href="/buckets/" target="_blank" rel="noopener noreferrer">Get both prompts &rarr;</a>
+  </div>
+
+</div>
+
+<div class="foot"><div class="inner">
+  <div class="rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Chen builds AI operating systems and runs them across his own brokerage and agency.<br><br>
+  <a href="/" target="_blank" rel="noopener noreferrer">&larr; Back to the library</a>
+</div></div>
+
+<script src="/articles/copy.js"></script>
+</body>
+</html>

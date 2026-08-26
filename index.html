@@ -1,54 +1,341 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>One Time Automation</title>
-  <meta name="description" content="One Time Automation — build it once, let it run." />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#0d1417" />
-  <style>
-    :root {
-      /* Leo Does AI / One Time Automation channel palette */
-      --bg:#0d1417; --fg:#f4f4f5;
-      --accent:#e8823c; --accent-hi:#f4a468;
-      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
-    }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    html,body { height:100%; }
-    body {
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      background:
-        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
-        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
-        var(--bg);
-      color:var(--fg);
-      display:flex; align-items:center; justify-content:center;
-      min-height:100vh; text-align:center; padding:2rem;
-      -webkit-font-smoothing:antialiased;
-    }
-    .wrap { max-width:640px; }
-    .logo { width:104px; height:104px; margin:0 auto 1.75rem; display:block; }
-    .kicker { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--muted); margin-bottom:1.1rem; }
-    h1 { font-size:clamp(2.2rem,6.5vw,3.75rem); letter-spacing:-0.02em; line-height:1.05; }
-    h1 .accent { color:var(--accent); }
-    p { color:var(--muted); font-size:1.15rem; margin-top:1.25rem; line-height:1.6; }
-    .rule { width:64px; height:3px; margin:1.75rem auto 0; border-radius:3px;
-      background:linear-gradient(90deg, var(--accent), var(--accent-hi)); }
-    .tag { margin-top:1.75rem; font-size:0.82rem; color:var(--steel); text-transform:uppercase; letter-spacing:0.15em; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>One Time Automation</title>
+<meta name="description" content="Articles and free tools on handing repeating work to AI agents. Every piece Leo Chen has sent to the One Time Automation list, plus the prompt or checklist it points at. Build it once, let it run." />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0d1417" />
+<style>
+  :root{
+    --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+    --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+    --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2; --line:#26333b; --ok:#3ecf8e;
+  }
+  html{ font-size:18px; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.7;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--fg);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:1040px; margin:0 auto; }
+
+  /* topbar */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    padding:18px 32px; border-bottom:3px solid var(--accent); background:rgba(21,33,40,0.72);
+  }
+  .topbar .brand{ display:flex; align-items:center; gap:12px; font-weight:700; font-size:1rem; letter-spacing:.02em; color:var(--fg); text-decoration:none; }
+  .topbar .brand img{ width:34px; height:34px; display:block; border-radius:7px; }
+  .topbar .brand span{ color:var(--accent); }
+  .topbar .slot{ font-size:0.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+  .topbar .slot:hover{ color:var(--accent-hi); }
+
+  /* masthead */
+  .mast{ padding:56px 32px 52px; position:relative; overflow:hidden; }
+  .mast::after{
+    content:""; position:absolute; right:-150px; top:-150px; width:420px; height:420px;
+    background:var(--accent); transform:rotate(18deg); opacity:.06; border-radius:40px;
+  }
+  .mast .logo{ width:84px; height:84px; display:block; margin-bottom:24px; border-radius:16px; }
+  .mast .kick{
+    display:inline-block; background:var(--accent-soft); color:var(--accent-hi);
+    border:1px solid rgba(232,130,60,0.35); border-radius:999px;
+    font-size:0.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+    padding:6px 15px; margin-bottom:22px; line-height:1.4;
+  }
+  .mast h1{ font-size:clamp(2.2rem,6vw,3.6rem); line-height:1.04; letter-spacing:-0.025em; font-weight:800; }
+  .mast h1 .hl{ color:var(--accent); }
+  .mast .deck{ color:var(--muted); font-size:1.12rem; max-width:660px; margin-top:20px; }
+  .mast .updated{ font-size:0.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); margin-top:26px; line-height:1.6; }
+
+  /* section heads */
+  section{ padding:36px 32px 8px; }
+  .h2{
+    font-size:1.55rem; font-weight:800; letter-spacing:-0.012em; line-height:1.2;
+    padding-top:22px; border-top:2px solid var(--line); position:relative;
+  }
+  .h2::before{ content:""; position:absolute; top:-2px; left:0; width:64px; height:2px; background:var(--accent); }
+  .h2 small{ display:block; font-size:0.86rem; font-weight:400; color:var(--muted); line-height:1.6; margin-top:8px; max-width:720px; }
+
+  /* article cards */
+  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; padding:22px 0 0; }
+  a.card{
+    display:flex; flex-direction:column; text-decoration:none; color:inherit;
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:20px 22px 18px; transition:border-color .14s ease, transform .14s ease, background .14s ease;
+  }
+  a.card:hover{ border-color:var(--accent); transform:translateY(-2px); background:var(--panel2); }
+  a.card .meta{ font-size:0.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--steel); line-height:1.5; }
+  a.card .meta em{ font-style:normal; color:var(--accent-hi); }
+  a.card h3{ font-size:1.08rem; font-weight:800; line-height:1.32; letter-spacing:-0.012em; margin:9px 0 8px; }
+  a.card:hover h3{ color:var(--accent-hi); }
+  a.card p{ color:var(--muted); font-size:0.9rem; line-height:1.62; margin:0 0 16px; }
+  a.card .foot{ margin-top:auto; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{
+    display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:.05em;
+    padding:5px 10px; border-radius:7px; line-height:1.4;
+    border:1px solid var(--line); background:var(--panel2); color:var(--muted);
+  }
+  .chip.tool{ border-color:rgba(232,130,60,0.4); background:var(--accent-soft); color:var(--accent-hi); }
+
+  /* asset cards */
+  a.asset{
+    display:flex; flex-direction:column; text-decoration:none; color:inherit;
+    background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:14px;
+    padding:18px 20px 16px; transition:border-color .14s ease, transform .14s ease, background .14s ease;
+  }
+  a.asset:hover{ border-color:var(--accent); border-left-color:var(--accent); transform:translateY(-2px); background:var(--panel2); }
+  a.asset .lab{
+    display:inline-block; align-self:flex-start; font-size:0.64rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--accent-hi); background:var(--accent-soft); border-radius:6px; padding:4px 9px; line-height:1.4; margin-bottom:10px;
+  }
+  a.asset h3{ font-size:1rem; font-weight:800; line-height:1.32; margin-bottom:6px; }
+  a.asset:hover h3{ color:var(--accent-hi); }
+  a.asset p{ color:var(--muted); font-size:0.87rem; line-height:1.6; margin:0 0 12px; }
+  a.asset .go{ margin-top:auto; font-size:0.74rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); }
+
+  /* CTA banner */
+  .banner{
+    background:linear-gradient(180deg, rgba(232,130,60,0.18), rgba(232,130,60,0.09));
+    border-top:1px solid rgba(232,130,60,0.4); border-bottom:1px solid rgba(232,130,60,0.4);
+    padding:26px 32px; margin-top:46px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .banner .t{ font-size:0.95rem; }
+  .banner .t b{ display:block; font-size:1.2rem; font-weight:800; letter-spacing:-0.012em; margin-bottom:2px; }
+  .banner .t span{ color:var(--muted); }
+  .banner a{
+    background:var(--accent); color:#fff; text-decoration:none; white-space:nowrap;
+    font-size:0.82rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+    padding:14px 26px; border-radius:9px; transition:all .12s ease;
+  }
+  .banner a:hover{ background:var(--accent-hi); transform:translateY(-1px); }
+
+  footer{
+    background:var(--panel); border-top:1px solid var(--line); color:var(--muted);
+    padding:34px 32px 44px; font-size:0.88rem;
+  }
+  footer b{ color:var(--fg); }
+  footer .rule{ width:64px; height:3px; border-radius:3px; margin-bottom:18px;
+    background:linear-gradient(90deg, var(--accent), var(--accent-hi)); }
+  footer a{ color:var(--accent-hi); }
+
+  @media (max-width:720px){
+    html{ font-size:17px; }
+    .topbar, .mast, .banner, section, footer{ padding-left:20px; padding-right:20px; }
+    .cards{ grid-template-columns:1fr; }
+  }
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <img class="logo" src="logo.png" alt="Leo Does AI — One Time Automation" width="104" height="104" />
-    <div class="kicker">Leo Does AI &nbsp;&times;&nbsp; One Time Automation AI</div>
-    <h1>One Time <span class="accent">Automation</span></h1>
-    <p>Build it once. Let it run. Site coming soon.</p>
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="brand" href="/" target="_blank" rel="noopener noreferrer">
+      <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+      One Time <span>Automation</span>
+    </a>
+    <a class="slot" href="/tools/" target="_blank" rel="noopener noreferrer">The Toolshed &rarr;</a>
+  </div>
+
+  <div class="mast">
+    <img class="logo" src="/logo.png" alt="Leo Does AI, One Time Automation" width="84" height="84" />
+    <div class="kick">Leo Does AI &nbsp;&times;&nbsp; One Time Automation AI</div>
+    <h1>Build it once.<br><span class="hl">Let it run.</span></h1>
+    <p class="deck">Every piece I have written about handing repeating work to AI agents, and the free prompt or checklist each one points at. No theory that has not already run in my own business.</p>
+    <div class="updated">Updated 26 August 2026 &middot; 11 articles &middot; 7 free tools</div>
+  </div>
+
+  <section>
+    <div class="h2">Articles<small>Written for the One Time Automation list first, rewritten here to read on their own. Each one ends at the tool it discusses.</small></div>
+
+    <div class="cards">
+
+      <a class="card" href="/articles/the-bottleneck/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 26 Aug 2026</div>
+        <h3>A Job With Employees Attached</h3>
+        <p>I went away for a few days and did not check in. When I came back, almost nothing had moved. Not because the people around me are not good.</p>
+        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Without-Me Worksheet</span></div>
+      </a>
+
+      <a class="card" href="/articles/what-i-did-at-6am/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 19 Aug 2026</div>
+        <h3>I Checked On My Agent at 6am on a Saturday</h3>
+        <p>Nothing was wrong. I knew nothing would be wrong. I watched it anyway, the way you check on a kid at the pool.</p>
+        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The AI Org Chart</span></div>
+      </a>
+
+      <a class="card" href="/articles/more-copies-not-a-bigger-team/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 18 Aug 2026</div>
+        <h3>You Don't Need a Bigger Team</h3>
+        <p>A Harvard lab capped at twenty researchers stopped trying to hire past the cap and replicated the work instead. Every small business hits the same ceiling.</p>
+        <div class="foot"><span class="chip">4 min</span><span class="chip tool">Autonomous Operators</span></div>
+      </a>
+
+      <a class="card" href="/articles/ai-memory-superpower/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 13 Aug 2026</div>
+        <h3>Your Brain Holds Seven Things. Your AI Does Not.</h3>
+        <p>By item eight on my grocery list I have lost item two. AI memory is not a bigger version of mine. It works on different rules.</p>
+        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Toolshed</span></div>
+      </a>
+
+      <a class="card" href="/articles/said-and-done/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Prompt of the Week</em> &middot; 12 Aug 2026</div>
+        <h3>What Was Actually Decided</h3>
+        <p>The meeting was good. Everyone agreed. Two weeks later nobody can name what was decided. That is not a memory problem.</p>
+        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Pattern Pass</span></div>
+      </a>
+
+      <a class="card" href="/articles/the-40x-time-leak/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 11 Aug 2026</div>
+        <h3>Ten Minutes, Forty Times a Week</h3>
+        <p>Do it once and it costs you nothing. Do it forty times a week and call it part of the job. That is the time theft.</p>
+        <div class="foot"><span class="chip">3 min</span><span class="chip tool">The Time-Leak Checklist</span></div>
+      </a>
+
+      <a class="card" href="/articles/the-message-youre-avoiding/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Prompt of the Week</em> &middot; 5 Aug 2026</div>
+        <h3>The Message You Have Been Sitting On</h3>
+        <p>I closed a great deal and never asked for the referral. When I finally sent the message, they had a friend who had been looking for six months.</p>
+        <div class="foot"><span class="chip">4 min</span><span class="chip tool">Write The Message You're Avoiding</span></div>
+      </a>
+
+      <a class="card" href="/articles/prompts-vs-skills/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 4 Aug 2026</div>
+        <h3>I Got Sick for Two Days and My Business Did Not Notice</h3>
+        <p>I used to keep a folder of prompts. It was a Rolodex, and I was the index. Nothing in it ran unless I was upright and remembering.</p>
+        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Skills 101 Starter</span></div>
+      </a>
+
+      <a class="card" href="/articles/hire-or-build-a-machine/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 30 Jul 2026</div>
+        <h3>Hire, or Build a Machine</h3>
+        <p>Every business hits the same wall: more work than hours. There are two answers to that, and almost nobody uses the second one.</p>
+        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Four Buckets Sort</span></div>
+      </a>
+
+      <a class="card" href="/articles/four-buckets/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Prompt of the Week</em> &middot; 29 Jul 2026</div>
+        <h3>Four Buckets: Read Your Week Back to Yourself</h3>
+        <p>The prompt I run on myself every other week. It has never once told me what I expected. Bucket four is why it is worth ten minutes.</p>
+        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Rule Page</span></div>
+      </a>
+
+      <a class="card" href="/articles/does-your-ai-have-a-job/" target="_blank" rel="noopener noreferrer">
+        <div class="meta"><em>Story</em> &middot; 28 Jul 2026</div>
+        <h3>Does Your AI Have a Job?</h3>
+        <p>A chat window waits for you. Something with a job does not. That one difference separates people who got hours back from people who got faster at typing.</p>
+        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Four Buckets Sort</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="h2">Free tools<small>Every prompt, checklist and worksheet the articles point at. All free, all self-serve, copy buttons on the page. Nothing here needs a card, an install, or a call.</small></div>
+
+    <div class="cards">
+
+      <a class="asset" href="/timeleak/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Checklist</span>
+        <h3>The Time-Leak Checklist</h3>
+        <p>Ten spots where your day gets taken from you a few minutes at a time, and the one job you hand an agent to shut each one.</p>
+        <span class="go">Open the checklist &rarr;</span>
+      </a>
+
+      <a class="asset" href="/without/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Worksheet</span>
+        <h3>The Without-Me Worksheet</h3>
+        <p>Four questions to run on any task that still depends on you, before deciding whether it needs a person, a rule, or an agent.</p>
+        <span class="go">Run the four questions &rarr;</span>
+      </a>
+
+      <a class="asset" href="/buckets/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Two prompts</span>
+        <h3>The Rule Page</h3>
+        <p>Sort your week into four buckets, then turn the item that costs you most into a written rule somebody else could build from.</p>
+        <span class="go">Get the prompts &rarr;</span>
+      </a>
+
+      <a class="asset" href="/avoided/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Two prompts</span>
+        <h3>Write The Message You're Avoiding</h3>
+        <p>One drafts the hard message you keep putting off. The other preps you for what comes back.</p>
+        <span class="go">Get the prompts &rarr;</span>
+      </a>
+
+      <a class="asset" href="/loops/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Prompt</span>
+        <h3>The Pattern Pass</h3>
+        <p>One meeting tells you what was said. A month of them tells you what keeps not getting decided and who is overloaded.</p>
+        <span class="go">Get the prompt &rarr;</span>
+      </a>
+
+      <a class="asset" href="/skills101/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Starter</span>
+        <h3>The Skills 101 Starter</h3>
+        <p>Walks your own skill builder through turning something you keep retyping into a skill that is installed, tested, and running.</p>
+        <span class="go">Get the starter &rarr;</span>
+      </a>
+
+      <a class="asset" href="/voice-desk/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Prompt</span>
+        <h3>The Writing Desk</h3>
+        <p>Learns how you actually write from writing you have already sent, then drafts anything that matters so it sounds like you.</p>
+        <span class="go">Open the Writing Desk &rarr;</span>
+      </a>
+
+      <a class="asset" href="/org-chart/full.png" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Reference</span>
+        <h3>The AI Org Chart</h3>
+        <p>Every agent role in a finished system, mapped like employees, and what each one owns. The picture the tools above build toward.</p>
+        <span class="go">View the chart &rarr;</span>
+      </a>
+
+      <a class="asset" href="/tools/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">Index</span>
+        <h3>The Toolshed</h3>
+        <p>The same tools in build order rather than by date. Start at the top if you are new, because running number five before number three usually means redoing number five.</p>
+        <span class="go">Open the Toolshed &rarr;</span>
+      </a>
+
+      <a class="asset" href="/waitlist/" target="_blank" rel="noopener noreferrer">
+        <span class="lab">The Room</span>
+        <h3>Autonomous Operators</h3>
+        <p>You have automated one thing. Now own the whole system. The room for people who build rather than browse. Doors open once it is ready.</p>
+        <span class="go">Join the waitlist &rarr;</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="banner">
+    <div class="t">
+      <b>Not sure which one to start with?</b>
+      <span>Six questions, 60 seconds. It points you at the one tool above worth doing first.</span>
+    </div>
+    <a href="/60sec/" target="_blank" rel="noopener noreferrer">Get Your Week Back &rarr;</a>
+  </div>
+
+  <footer>
     <div class="rule"></div>
-    <div class="tag">Automate It Once. Own It Forever.</div>
-  </main>
+    <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+    Leo Chen builds AI operating systems and runs them across his own brokerage and agency. Leo Does AI &times; One Time Automation AI.<br><br>
+    Library built 26 August 2026 &middot; <a href="/" target="_blank" rel="noopener noreferrer">gh.onetimeautomation.ai</a>
+  </footer>
+
+</div>
 </body>
 </html>

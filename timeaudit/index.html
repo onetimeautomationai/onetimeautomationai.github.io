@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The AI Time Audit: What My Own System Gives Back | One Time Automation</title>
-  <meta name="description" content="I run two businesses and my life on an AI system. 86 automated jobs, 165 rules, recounted live with the exact shell commands shown. Not a guess." />
+  <meta name="description" content="I run two businesses and my life on an AI system. 107 automated jobs, 165 rules, recounted live with the exact shell commands shown. Not a guess." />
   <meta property="og:title" content="The AI Time Audit: What My Own System Gives Back" />
-  <meta property="og:description" content="I run two businesses and my life on an AI system. 86 automated jobs, 165 rules, recounted live with the exact shell commands shown. Not a guess." />
+  <meta property="og:description" content="I run two businesses and my life on an AI system. 107 automated jobs, 165 rules, recounted live with the exact shell commands shown. Not a guess." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -99,6 +99,10 @@
     .proof .pnote { font-size:0.85rem; color:var(--muted); margin-top:0.6rem; }
     .proof .pnote:last-child { margin-bottom:0; }
 
+    .cat-table { width:100%; border-collapse:collapse; margin:1rem 0 0.4rem; font-size:0.92rem; }
+    .cat-table td { padding:0.5rem 0.3rem; border-bottom:1px solid var(--line); }
+    .cat-table td.n { text-align:right; font-weight:700; color:var(--accent-hi); width:2.4rem; }
+
     .cta { border:1px solid var(--accent); border-left:3px solid var(--accent); background:var(--accent-soft);
       border-radius:12px; padding:1.4rem 1.5rem; margin:1.75rem 0 0; text-align:center; }
     .cta .tag { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent-hi); margin-bottom:0.5rem; }
@@ -133,13 +137,13 @@
       <img class="logo" src="/logo.png" alt="Leo Does AI, One Time Automation" width="76" height="76" />
       <div class="kicker">The Audit &middot; Recounted live Aug 26, 2026</div>
       <h1>I run two businesses and my life on a system that hands me back <span class="accent">34 hours a week.</span></h1>
-      <p class="sub">7,667 documents. 86 automated jobs on schedule, 79 of them running right now. Every number below is a file count or a registry row, checked again today &mdash; not carried over from the last time I looked.</p>
+      <p class="sub">7,667 documents. 107 automated jobs on schedule, every one of them loaded and running right now. Every number below is a file count or a registry row, checked again today &mdash; not carried over from the last time I looked.</p>
     </header>
 
     <div class="stats">
       <div class="stat"><div class="num hl">34<span class="unit">hrs</span></div><div class="lbl">saved every week, original job-level audit</div></div>
       <div class="stat"><div class="num">~1,700</div><div class="lbl">hours back per year</div></div>
-      <div class="stat"><div class="num">86</div><div class="lbl">automated jobs defined, 79 running now</div></div>
+      <div class="stat"><div class="num">107</div><div class="lbl">automated jobs, 107 running right now</div></div>
       <div class="stat"><div class="num">56</div><div class="lbl">skills that run a workflow end to end</div></div>
       <div class="stat"><div class="num">165</div><div class="lbl">rules governing every action</div></div>
       <div class="stat"><div class="num">0.8<span class="unit">FTE</span></div><div class="lbl">of work, across five roles</div></div>
@@ -153,7 +157,7 @@
       </div>
       <div class="bars">
         <div class="bar-row">
-          <div class="name">Recurring operations<small>86 scheduled jobs: email, ingest, broadcasts, finance</small></div>
+          <div class="name">Recurring operations<small>107 scheduled jobs: email, ingest, broadcasts, finance</small></div>
           <div class="track"><div class="fill" style="width:100%"></div></div>
           <div class="val">22.75h</div>
         </div>
@@ -182,7 +186,7 @@
       <div class="cards">
         <div class="icard">
           <h3>It runs itself</h3>
-          <p>86 defined jobs (79 loaded and running right now) handle email triage, deal sourcing, transcripts, financials, and monitoring with no hand on the wheel.</p>
+          <p>107 jobs, all loaded and running right now, handle email triage, deal sourcing, transcripts, financials, and monitoring with no hand on the wheel.</p>
           <div class="ex">186 scripts &middot; 397 Python files</div>
         </div>
         <div class="icard">
@@ -213,12 +217,24 @@
           <div class="ichip"><div class="icn">50</div><div class="icl">external connectors</div></div>
         </div>
         <div class="proof">
-          <div class="ptitle">How this was checked, Aug 26, 2026</div>
-          <code>find skills -name SKILL.md | wc -l          # 56
-find workflows -name "*.md" | wc -l          # 75
-launchctl list | grep -c '^com\.cia\.'       # 79 running
-find ~/Library/LaunchAgents -iname 'com.cia.*' | wc -l   # 86 defined</code>
-          <p class="pnote">Every count on this page is a live shell command against my own vault and launchd, run the day this page was last edited &mdash; not remembered from the prior version.</p>
+          <div class="ptitle">The 107 jobs, by what they replace</div>
+          <table class="cat-table">
+            <tr><td>System governance &amp; infra (health checks, dashboards, watchdogs)</td><td class="n">34</td></tr>
+            <tr><td>Marketing &amp; funnels (broadcasts, keyword responders, DoW)</td><td class="n">17</td></tr>
+            <tr><td>Messaging channels (iMessage, WhatsApp, channel watchers)</td><td class="n">15</td></tr>
+            <tr><td>Email &amp; inbox (triage, drafts, rule-baking, sweeps)</td><td class="n">13</td></tr>
+            <tr><td>Personal &amp; growth (pickleball, health, journaling)</td><td class="n">11</td></tr>
+            <tr><td>Real estate &amp; CRM (Lofty sync, listings, tenants)</td><td class="n">8</td></tr>
+            <tr><td>Meetings &amp; content (Fathom, transcripts, playlists)</td><td class="n">8</td></tr>
+            <tr><td>Finance (bank + brokerage sync)</td><td class="n">1</td></tr>
+          </table>
+          <div class="ptitle" style="margin-top:1.2rem;">How this was checked, Aug 26, 2026</div>
+          <code>find skills -name SKILL.md | wc -l                              # 56
+find workflows -name "*.md" | wc -l                              # 75
+ls ~/Library/LaunchAgents/com.{cia,leo,mycia}.*.plist | wc -l    # 107 defined
+launchctl list | grep -Ec '^com\.(cia|leo|mycia)\.'              # 107 loaded</code>
+          <p class="pnote">Every count on this page is a live shell command against my own vault and launchd, run the day this page was last edited &mdash; not remembered from the prior version. The first pass at the job count missed two of my three launchd label prefixes (<code style="display:inline;background:none;border:none;padding:0;">com.leo.*</code> and <code style="display:inline;background:none;border:none;padding:0;">com.mycia.*</code>) and undercounted at 86; the number above is the corrected, full count.</p>
+          <p class="pnote">Separately, my scheduled-task knowledge base has 162 documented task write-ups &mdash; more than 107, because it also holds retired and superseded jobs I keep for the record. 107 is what is loaded and running today.</p>
           <p class="pnote">The one number I did not re-derive: the 34 hrs/week headline. That came from an original per-job time audit; nothing in the vault lets me rebuild that math bottom-up today, so I kept it rather than guess a new one.</p>
         </div>
       </div>

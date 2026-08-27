@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The AI Time Audit: What My Own System Gives Back | One Time Automation</title>
+  <meta name="description" content="I run two businesses and my life on an AI system. Here is the audited breakdown of the hours it gives back every week, not a guess." />
+  <meta property="og:title" content="The AI Time Audit: What My Own System Gives Back" />
+  <meta property="og:description" content="I run two businesses and my life on an AI system. Here is the audited breakdown of the hours it gives back every week, not a guess." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2; --gold:#cbbc79;
+      --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:900px; margin:0 auto; padding:2.5rem 1.5rem 5rem; }
+    header.top { text-align:center; padding:1rem 0 2.5rem; }
+    .logo { width:76px; height:76px; margin:0 auto 1.1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(2rem,5.5vw,3.1rem); letter-spacing:-0.02em; line-height:1.08; margin:0.9rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.15rem; max-width:680px; margin:0 auto; }
+
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-bottom:2.5rem; }
+    .stat { background:var(--panel); padding:1.6rem 1rem; text-align:center; }
+    .stat .num { font-size:2rem; font-weight:800; color:var(--teal); line-height:1; }
+    .stat .num.hl { color:var(--accent); }
+    .stat .num .unit { font-size:1rem; font-weight:600; }
+    .stat .lbl { margin-top:0.5rem; font-size:0.82rem; color:var(--muted); line-height:1.35; }
+
+    .sec { margin:2.75rem 0; }
+    .sec-head { text-align:center; margin-bottom:1.75rem; }
+    .eyebrow { display:block; font-size:0.78rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent-hi); margin-bottom:0.6rem; }
+    .sec-head h2 { font-size:1.6rem; letter-spacing:-0.01em; }
+    .sec-head .sub2 { color:var(--muted); font-size:0.95rem; margin-top:0.6rem; }
+
+    .bars { display:flex; flex-direction:column; gap:1.1rem; }
+    .bar-row { display:grid; grid-template-columns:1fr; gap:0.4rem; }
+    .bar-row .name { font-weight:700; font-size:0.98rem; }
+    .bar-row .name small { display:block; font-weight:400; font-size:0.82rem; color:var(--muted); margin-top:0.15rem; }
+    .track { height:26px; background:var(--panel); border:1px solid var(--line); border-radius:7px; overflow:hidden; position:relative; }
+    .fill { height:100%; background:linear-gradient(90deg,var(--teal),var(--steel)); }
+    .fill.c2 { background:linear-gradient(90deg,var(--accent),var(--accent-hi)); }
+    .fill.c3 { background:linear-gradient(90deg,var(--gold),#e5d9a6); }
+    .bar-row .val { font-weight:700; font-size:0.92rem; color:var(--fg); text-align:right; }
+    .bar-total { margin-top:1.4rem; text-align:center; padding-top:1.2rem; border-top:1px dashed var(--line); }
+    .bar-total .t-num { font-size:1.6rem; font-weight:800; color:var(--accent-hi); }
+    .bar-total .t-lbl { font-size:0.85rem; color:var(--muted); margin-top:0.3rem; }
+
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .icard { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:1.4rem 1.2rem; }
+    .icard h3 { font-size:1.02rem; margin-bottom:0.5rem; }
+    .icard p { color:#d7d7de; font-size:0.9rem; }
+    .icard .ex { margin-top:0.7rem; font-size:0.8rem; font-weight:700; color:var(--accent-hi); }
+
+    .inv-panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1.8rem 1.6rem; }
+    .inv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem 0.5rem; }
+    .ichip { text-align:center; }
+    .ichip .icn { font-size:1.6rem; font-weight:800; }
+    .ichip .icl { margin-top:0.3rem; font-size:0.78rem; color:var(--muted); }
+
+    .worth-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .wcard { border-radius:14px; padding:1.4rem 1.3rem; }
+    .wcard.a { background:linear-gradient(160deg,var(--teal),#1c4a72); }
+    .wcard.b { background:var(--panel); border:1px solid var(--line); }
+    .wcard .wk { font-size:0.75rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:0.5rem; }
+    .wcard.a .wk { color:var(--gold); } .wcard.b .wk { color:var(--accent-hi); }
+    .wcard .wnum { font-size:1.5rem; font-weight:800; }
+    .wcard .wsub { margin-top:0.6rem; font-size:0.88rem; color:var(--muted); }
+    .wcard.a .wsub { color:rgba(255,255,255,.75); }
+
+    .close { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1.6rem 1.75rem; margin:2.5rem 0 0; text-align:center; }
+    .close p { font-size:1.05rem; }
+    .close em { color:var(--accent-hi); font-style:normal; font-weight:600; }
+
+    .cta { border:1px solid var(--accent); border-left:3px solid var(--accent); background:var(--accent-soft);
+      border-radius:12px; padding:1.4rem 1.5rem; margin:1.75rem 0 0; text-align:center; }
+    .cta .tag { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent-hi); margin-bottom:0.5rem; }
+    .cta h2 { font-size:1.4rem; margin:0 0 0.6rem; }
+    .cta p { color:#f0dccb; max-width:460px; margin:0 auto 1.1rem; font-size:0.98rem; }
+    .cta a.button {
+      display:inline-block; background:var(--accent); color:#fff; text-decoration:none;
+      font-weight:700; font-size:0.92rem; padding:0.75rem 1.4rem; border-radius:9px;
+      transition:transform .12s ease, background .12s ease;
+    }
+    .cta a.button:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    .cta .micro { font-size:0.78rem; color:var(--muted); margin-top:0.75rem; }
+
+    footer { text-align:center; margin-top:3.5rem; padding-top:1.75rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.9rem; }
+    footer .bio { max-width:560px; margin:0 auto 1rem; font-size:0.94rem; line-height:1.6; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:640px) {
+      .wrap { padding:1.75rem 1.1rem 3.5rem; }
+      .stats { grid-template-columns:repeat(2,1fr); }
+      .cards { grid-template-columns:1fr; }
+      .worth-grid { grid-template-columns:1fr; }
+      .inv-grid { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="/logo.png" alt="Leo Does AI, One Time Automation" width="76" height="76" />
+      <div class="kicker">The Audit &middot; Updated Aug 26, 2026</div>
+      <h1>I run two businesses and my life on a system that hands me back <span class="accent">34 hours a week.</span></h1>
+      <p class="sub">Two AI vaults. 7,660 documents. 82 automated jobs running on schedule. I audited every one of them. Here is the math, not a guess.</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat"><div class="num hl">34<span class="unit">hrs</span></div><div class="lbl">saved every week, audited bottom-up</div></div>
+      <div class="stat"><div class="num">~1,700</div><div class="lbl">hours back per year</div></div>
+      <div class="stat"><div class="num">82</div><div class="lbl">automated jobs running on schedule</div></div>
+      <div class="stat"><div class="num">142</div><div class="lbl">skills that run a workflow end to end</div></div>
+      <div class="stat"><div class="num">165</div><div class="lbl">rules governing every action</div></div>
+      <div class="stat"><div class="num">0.8<span class="unit">FTE</span></div><div class="lbl">of work, across five roles</div></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <span class="eyebrow">Where the hours come from</span>
+        <h2>Three layers of saved time</h2>
+        <div class="sub2">Every bar is built from real automations and real cadences, not round numbers.</div>
+      </div>
+      <div class="bars">
+        <div class="bar-row">
+          <div class="name">Recurring operations<small>82 scheduled jobs: email, ingest, broadcasts, finance</small></div>
+          <div class="track"><div class="fill" style="width:100%"></div></div>
+          <div class="val">22.75h</div>
+        </div>
+        <div class="bar-row">
+          <div class="name">On-demand production<small>142 skills, ~100 reusable assets, instant retrieval</small></div>
+          <div class="track"><div class="fill c2" style="width:31%"></div></div>
+          <div class="val">7h</div>
+        </div>
+        <div class="bar-row">
+          <div class="name">Rework avoided<small>165 rules + 206 memory files: no mistakes, no re-briefing</small></div>
+          <div class="track"><div class="fill c3" style="width:18%"></div></div>
+          <div class="val">4h</div>
+        </div>
+      </div>
+      <div class="bar-total">
+        <div class="t-num">~34 hours / week</div>
+        <div class="t-lbl">Conservative 28 &middot; Realistic 34 &middot; Aggressive 40</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <span class="eyebrow">What it actually does</span>
+        <h2>A real operation, not a folder of notes</h2>
+      </div>
+      <div class="cards">
+        <div class="icard">
+          <h3>It runs itself</h3>
+          <p>82 jobs handle email triage, deal sourcing, transcripts, financials, and monitoring with no hand on the wheel.</p>
+          <div class="ex">95 scripts &middot; 397 Python files</div>
+        </div>
+        <div class="icard">
+          <h3>It compounds</h3>
+          <p>206 memory files and 75 SOPs mean it starts every session smarter than the last and never solves the same problem twice.</p>
+          <div class="ex">Learns, never repeats a mistake</div>
+        </div>
+        <div class="icard">
+          <h3>It is governed</h3>
+          <p>A 1,841-line rules engine and 39 hard rules keep two business identities, two inboxes, and a CRM from ever crossing.</p>
+          <div class="ex">1.6 GB &middot; 7,660 documents &middot; audited</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="inv-panel">
+        <div class="sec-head" style="margin-bottom:1.4rem;"><span class="eyebrow">The system behind the number</span></div>
+        <div class="inv-grid">
+          <div class="ichip"><div class="icn">1.6 GB</div><div class="icl">knowledge base</div></div>
+          <div class="ichip"><div class="icn">7,660</div><div class="icl">documents</div></div>
+          <div class="ichip"><div class="icn">165</div><div class="icl">operating rules</div></div>
+          <div class="ichip"><div class="icn">142</div><div class="icl">skills</div></div>
+          <div class="ichip"><div class="icn">75</div><div class="icl">documented SOPs</div></div>
+          <div class="ichip"><div class="icn">~100</div><div class="icl">reusable assets</div></div>
+          <div class="ichip"><div class="icn">397</div><div class="icl">Python files</div></div>
+          <div class="ichip"><div class="icn">206</div><div class="icl">memory files</div></div>
+          <div class="ichip"><div class="icn">50</div><div class="icl">external connectors</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <span class="eyebrow">What it is worth</span>
+        <h2>Two honest ways to price it</h2>
+      </div>
+      <div class="worth-grid">
+        <div class="wcard a">
+          <p class="wk">As reclaimed time</p>
+          <div class="wnum">~$255K / year</div>
+          <p class="wsub">1,700 hours back at a $150/hour CEO opportunity cost. Time that goes to the work only the founder can do.</p>
+        </div>
+        <div class="wcard b">
+          <p class="wk">As replacement headcount</p>
+          <div class="wnum">~$80&ndash;100K / year</div>
+          <p class="wsub">The salary it would take to hire across five part-time roles: assistant, marketer, analyst, bookkeeper, sysadmin.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="close">
+      <p>The system does the work I used to skip, not just the work I hated. <em>Nothing gets dropped, forgotten, or done at 60 percent.</em></p>
+    </div>
+
+    <div class="cta">
+      <div class="tag">Want This For Your Business</div>
+      <h2>Take the AI Readiness Check</h2>
+      <p>60 seconds, six questions. See where a machine could give you your week back too.</p>
+      <a class="button" href="https://gh.onetimeautomation.ai/60sec/" target="_blank" rel="noopener noreferrer">Take The Check &rarr;</a>
+      <div class="micro">60 seconds &middot; free &middot; no setup</div>
+    </div>
+
+    <footer>
+      <p class="bio">Leo Chen runs One Time Automation, building AI agents for business owners and operators and running them across his own real estate brokerage and agency. This audit is his own system, numbers pulled live from it.</p>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+</body>
+</html>

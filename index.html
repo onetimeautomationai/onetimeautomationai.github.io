@@ -90,6 +90,18 @@
   }
   .chip.tool{ border-color:rgba(232,130,60,0.4); background:var(--accent-soft); color:var(--accent-hi); }
 
+  /* pagination */
+  .pager{ display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; padding:28px 0 6px; }
+  .pager button{
+    font-family:inherit; font-size:0.82rem; font-weight:700; letter-spacing:.02em; cursor:pointer;
+    min-width:38px; padding:8px 13px; border-radius:8px; border:1px solid var(--line);
+    background:var(--panel); color:var(--muted); transition:border-color .14s ease, color .14s ease, background .14s ease;
+  }
+  .pager button:hover:not(:disabled){ border-color:var(--accent); color:var(--fg); }
+  .pager button.current{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .pager button:disabled{ opacity:.4; cursor:default; }
+  .pager .arrow{ font-size:0.78rem; }
+
   /* asset cards */
   a.asset{
     display:flex; flex-direction:column; text-decoration:none; color:inherit;
@@ -161,7 +173,7 @@
   <section>
     <div class="h2">Articles<small>Written for the One Time Automation list first, rewritten here to read on their own. Each one ends at the tool it discusses.</small></div>
 
-    <div class="cards">
+    <div class="cards" id="articleCards">
 
       <a class="card" href="/articles/the-bottleneck/" target="_blank" rel="noopener noreferrer">
         <div class="meta"><em>Story</em> &middot; 26 Aug 2026</div>
@@ -241,6 +253,7 @@
       </a>
 
     </div>
+    <nav class="pager" id="articlePager" aria-label="Articles pagination"></nav>
   </section>
 
   <section>
@@ -344,5 +357,43 @@
   </footer>
 
 </div>
+<script>
+(function(){
+  var PAGE_SIZE = 9;
+  var grid = document.getElementById('articleCards');
+  var pager = document.getElementById('articlePager');
+  if (!grid || !pager) return;
+  var cards = Array.prototype.slice.call(grid.children);
+  var pageCount = Math.ceil(cards.length / PAGE_SIZE);
+  if (pageCount <= 1) return;
+  var current = 1;
+
+  function render(){
+    cards.forEach(function(card, i){
+      var show = i >= (current - 1) * PAGE_SIZE && i < current * PAGE_SIZE;
+      card.style.display = show ? '' : 'none';
+    });
+    var html = '';
+    html += '<button class="arrow" ' + (current === 1 ? 'disabled' : '') + ' data-go="' + (current - 1) + '" aria-label="Previous page">&larr;</button>';
+    for (var p = 1; p <= pageCount; p++){
+      html += '<button class="' + (p === current ? 'current' : '') + '" data-go="' + p + '" aria-current="' + (p === current ? 'page' : 'false') + '">' + p + '</button>';
+    }
+    html += '<button class="arrow" ' + (current === pageCount ? 'disabled' : '') + ' data-go="' + (current + 1) + '" aria-label="Next page">&rarr;</button>';
+    pager.innerHTML = html;
+  }
+
+  pager.addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-go]');
+    if (!btn || btn.disabled) return;
+    var go = parseInt(btn.getAttribute('data-go'), 10);
+    if (go < 1 || go > pageCount) return;
+    current = go;
+    render();
+    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  render();
+})();
+</script>
 </body>
 </html>

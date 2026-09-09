@@ -165,7 +165,7 @@
   <div class="mast">
     <img class="logo" src="/logo.png" alt="Leo Does AI, One Time Automation" width="84" height="84" />
     <div class="kick">Leo Does AI &nbsp;&times;&nbsp; One Time Automation AI</div>
-    <h1>Build it once.<br><span class="hl">Let it run.</span></h1>
+    <h1>Build it once.<br><span class="hl">Run it forever.</span></h1>
     <p class="deck">Every piece I have written about handing repeating work to AI agents, and the free prompt or checklist each one points at. No theory that has not already run in my own business.</p>
     <div class="updated">Updated 26 August 2026 &middot; 11 articles &middot; 8 free tools</div>
   </div>
@@ -259,7 +259,7 @@
   <section>
     <div class="h2">Free tools<small>Every prompt, checklist and worksheet the articles point at. All free, all self-serve, copy buttons on the page. Nothing here needs a card, an install, or a call.</small></div>
 
-    <div class="cards">
+    <div class="cards" id="toolCards">
 
       <a class="asset" href="/timeleak/" target="_blank" rel="noopener noreferrer">
         <span class="lab">Checklist</span>
@@ -339,6 +339,7 @@
       </a>
 
     </div>
+    <nav class="pager" id="toolPager" aria-label="Free tools pagination"></nav>
   </section>
 
   <div class="banner">
@@ -360,39 +361,45 @@
 <script>
 (function(){
   var PAGE_SIZE = 9;
-  var grid = document.getElementById('articleCards');
-  var pager = document.getElementById('articlePager');
-  if (!grid || !pager) return;
-  var cards = Array.prototype.slice.call(grid.children);
-  var pageCount = Math.ceil(cards.length / PAGE_SIZE);
-  if (pageCount <= 1) return;
-  var current = 1;
 
-  function render(){
-    cards.forEach(function(card, i){
-      var show = i >= (current - 1) * PAGE_SIZE && i < current * PAGE_SIZE;
-      card.style.display = show ? '' : 'none';
-    });
-    var html = '';
-    html += '<button class="arrow" ' + (current === 1 ? 'disabled' : '') + ' data-go="' + (current - 1) + '" aria-label="Previous page">&larr;</button>';
-    for (var p = 1; p <= pageCount; p++){
-      html += '<button class="' + (p === current ? 'current' : '') + '" data-go="' + p + '" aria-current="' + (p === current ? 'page' : 'false') + '">' + p + '</button>';
+  function paginate(gridId, pagerId){
+    var grid = document.getElementById(gridId);
+    var pager = document.getElementById(pagerId);
+    if (!grid || !pager) return;
+    var cards = Array.prototype.slice.call(grid.children);
+    var pageCount = Math.ceil(cards.length / PAGE_SIZE);
+    if (pageCount <= 1) return;
+    var current = 1;
+
+    function render(){
+      cards.forEach(function(card, i){
+        var show = i >= (current - 1) * PAGE_SIZE && i < current * PAGE_SIZE;
+        card.style.display = show ? '' : 'none';
+      });
+      var html = '';
+      html += '<button class="arrow" ' + (current === 1 ? 'disabled' : '') + ' data-go="' + (current - 1) + '" aria-label="Previous page">&larr;</button>';
+      for (var p = 1; p <= pageCount; p++){
+        html += '<button class="' + (p === current ? 'current' : '') + '" data-go="' + p + '" aria-current="' + (p === current ? 'page' : 'false') + '">' + p + '</button>';
+      }
+      html += '<button class="arrow" ' + (current === pageCount ? 'disabled' : '') + ' data-go="' + (current + 1) + '" aria-label="Next page">&rarr;</button>';
+      pager.innerHTML = html;
     }
-    html += '<button class="arrow" ' + (current === pageCount ? 'disabled' : '') + ' data-go="' + (current + 1) + '" aria-label="Next page">&rarr;</button>';
-    pager.innerHTML = html;
+
+    pager.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-go]');
+      if (!btn || btn.disabled) return;
+      var go = parseInt(btn.getAttribute('data-go'), 10);
+      if (go < 1 || go > pageCount) return;
+      current = go;
+      render();
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    render();
   }
 
-  pager.addEventListener('click', function(e){
-    var btn = e.target.closest('button[data-go]');
-    if (!btn || btn.disabled) return;
-    var go = parseInt(btn.getAttribute('data-go'), 10);
-    if (go < 1 || go > pageCount) return;
-    current = go;
-    render();
-    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  render();
+  paginate('articleCards', 'articlePager');
+  paginate('toolCards', 'toolPager');
 })();
 </script>
 </body>

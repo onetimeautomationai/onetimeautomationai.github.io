@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Connector Map | One Time Automation</title>
+<meta name="description" content="Every app, API, CLI and local tool a personal AI operating system connects to, and every skill installed on top." />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0d1417">
+<style>
+  :root{
+    --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+    --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+    --teal:#255c8e; --steel:#4d7491; --muted:#8ea6b2;
+    --line:#26333b; --ok:#3ecf8e; --sky:#79b3e0;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  html{font-size:18px;}
+  body{
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--fg);font-family:var(--font);line-height:1.7;padding:40px 20px 64px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;}
+  code{font-family:var(--mono);font-size:.94em;color:var(--accent-hi);}
+
+  .masthead{padding:40px 44px;border-radius:20px;background:linear-gradient(160deg,var(--panel2) 0%, var(--panel) 62%, #101b21 100%);border:1px solid var(--line);border-top:3px solid var(--accent);position:relative;overflow:hidden;margin-bottom:8px;}
+  .mast-top{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:center;gap:12px;font-size:1rem;font-weight:700;letter-spacing:.02em;line-height:1;}
+  .brand img{height:40px;width:40px;display:block;}
+  .brand b{color:var(--accent);font-weight:700;}
+  .tallies{display:flex;gap:36px;flex-wrap:wrap;}
+  .tally{text-align:right;}
+  .tally .n{font-weight:800;font-size:2.4rem;line-height:1;letter-spacing:-.02em;color:var(--accent);}
+  .tally .l{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+  .mast-body h1{margin:26px 0 10px;font-weight:800;font-size:2rem;line-height:1.2;letter-spacing:-.02em;}
+  .mast-body p{margin:0;max-width:720px;font-size:.92rem;color:var(--muted);}
+  .mast-body .src{margin-top:14px;font-size:.7rem;color:var(--steel);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;transition:border-color .14s ease, transform .14s ease;}
+  .card:hover{border-color:var(--steel);transform:translateY(-2px);}
+  .icon-wrap{width:44px;height:44px;border-radius:12px;background:#eef2f4;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+  .icon-wrap img{width:26px;height:26px;object-fit:contain;}
+  .icon-link{display:inline-flex;border-radius:12px;text-decoration:none;color:inherit;transition:transform .12s ease, box-shadow .12s ease;}
+  .icon-link:hover{transform:translateY(-2px);box-shadow:0 6px 16px -6px rgba(0,0,0,.6);}
+  .icon-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  .icon-fallback{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);border:1px solid var(--accent);color:var(--accent-hi);display:none;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;flex-shrink:0;}
+  .name{font-weight:700;font-size:.88rem;color:var(--fg);line-height:1.35;}
+  .purpose{font-size:.72rem;color:var(--muted);line-height:1.55;flex-grow:1;}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;}
+  .tag{font-size:.56rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;}
+  .tag.mcp{background:var(--accent-soft);color:var(--accent-hi);}
+  .tag.api{background:rgba(62,207,142,.13);color:var(--ok);}
+  .tag.bridge{background:rgba(121,179,224,.14);color:var(--sky);}
+  .tag.workspace{background:rgba(142,166,178,.15);color:#b9ccd6;}
+  .tag.internal{background:rgba(244,244,245,.07);color:var(--muted);}
+  .tag.script{background:rgba(232,130,60,.10);color:#d8935f;}
+  .tag.local{background:rgba(142,166,178,.10);color:var(--muted);}
+  .tag.plugin{background:rgba(121,179,224,.12);color:var(--sky);}
+  .tag.disabled{background:rgba(142,166,178,.09);color:var(--steel);}
+  .tag.market{background:rgba(142,166,178,.08);color:var(--steel);text-transform:none;letter-spacing:0;}
+  .card.off{opacity:.55;}
+
+  .section-title{margin:56px 0 20px;padding-top:1.4rem;border-top:2px solid var(--line);position:relative;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+  .section-title::before{content:"";position:absolute;top:-2px;left:0;width:56px;height:2px;background:var(--accent);}
+  .section-title h2{margin:0;font-weight:800;font-size:1.45rem;letter-spacing:-.02em;color:var(--fg);}
+  .section-title .c{font-size:.72rem;color:var(--muted);font-weight:500;}
+  .skills-grid{column-width:250px;column-gap:14px;}
+  .skill-cat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%;margin:0 0 14px;}
+  .skill-cat h3{margin:0 0 13px;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-hi);display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .skill-cat h3 .n{color:var(--steel);font-weight:600;letter-spacing:0;}
+  .skill-cat ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+  .skill-cat li{font-size:.74rem;color:var(--muted);line-height:1.45;padding-left:15px;position:relative;}
+  .skill-cat li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent);}
+
+  footer{margin-top:48px;padding-top:1.6rem;border-top:1px solid var(--line);text-align:center;font-size:.68rem;line-height:1.8;color:var(--steel);}
+  footer a{color:var(--accent-hi);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="mast-top">
+      <div class="brand"><img src="data:image/png;base64,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" alt="One Time Automation"><span>One Time <b>Automation</b></span></div>
+      <div class="tallies">
+        <div class="tally"><div class="n">43</div><div class="l">connectors mapped</div></div>
+        <div class="tally"><div class="n">21</div><div class="l">external · 22 CLI</div></div>
+      </div>
+    </div>
+    <div class="mast-body">
+      <h1>System Connector Map</h1>
+      <p>Every external app, API, CLI, script, and local framework the system can reach, plus every skill installed on top of them. Generated from the live registry and skill folders.</p>
+      <div class="src">Generated from the live registry and skill folders on 2026-09-29.</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>21 Connectors, Five Ways In</h2><span class="c">every third-party platform the system reaches, badged by the route it comes in on: API · BRIDGE · INTERNAL · MCP · WORKSPACE</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <a class="icon-link" href="https://www.canva.dev/" target="_blank" rel="noopener noreferrer" title="Canva: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=canva.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">C</div></div></a>
+      <div class="name">Canva</div>
+      <div class="purpose">Design generation, editing, and export.</div>
+      <div class="tags"><span class="tag mcp">MCP</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://app.kit.com" target="_blank" rel="noopener noreferrer" title="Kit.com: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=kit.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">Kc</div></div></a>
+      <div class="name">Kit.com</div>
+      <div class="purpose">Email broadcasts, subscribers, sequences across 3 accounts.</div>
+      <div class="tags"><span class="tag mcp">MCP</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://www.firecrawl.dev" target="_blank" rel="noopener noreferrer" title="Firecrawl: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=firecrawl.dev" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">F</div></div></a>
+      <div class="name">Firecrawl</div>
+      <div class="purpose">Web scrape, search, crawl, extract.</div>
+      <div class="tags"><span class="tag mcp">MCP</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener noreferrer" title="iMessage: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=apple.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">I</div></div></a>
+      <div class="name">iMessage</div>
+      <div class="purpose">Reads allowlisted chats and replies.</div>
+      <div class="tags"><span class="tag mcp">MCP</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://www.claude.com/chrome" target="_blank" rel="noopener noreferrer" title="Chrome: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=google.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">C</div></div></a>
+      <div class="name">Chrome</div>
+      <div class="purpose">Browser automation on Leo&#x27;s own session.</div>
+      <div class="tags"><span class="tag mcp">MCP</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://docs.claude.com/en/api/overview" target="_blank" rel="noopener noreferrer" title="Anthropic: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=anthropic.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">A</div></div></a>
+      <div class="name">Anthropic</div>
+      <div class="purpose">The model platform both agents run on.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://www.lofty.com" target="_blank" rel="noopener noreferrer" title="Lofty CRM: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=lofty.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">Lc</div></div></a>
+      <div class="name">Lofty CRM</div>
+      <div class="purpose">Real-estate CRM: leads, contacts, pipelines.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developer.calendly.com" target="_blank" rel="noopener noreferrer" title="Calendly: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=calendly.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">C</div></div></a>
+      <div class="name">Calendly</div>
+      <div class="purpose">Booking links and scheduled appointments.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://www.typeform.com/developers/" target="_blank" rel="noopener noreferrer" title="Typeform: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=typeform.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">T</div></div></a>
+      <div class="name">Typeform</div>
+      <div class="purpose">Form and survey responses.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://core.telegram.org/bots/api" target="_blank" rel="noopener noreferrer" title="Telegram: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=telegram.org" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">T</div></div></a>
+      <div class="name">Telegram</div>
+      <div class="purpose">Retired 2026-07-29, notifications now go via iMessage.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://console.groq.com" target="_blank" rel="noopener noreferrer" title="Groq: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=groq.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">G</div></div></a>
+      <div class="name">Groq</div>
+      <div class="purpose">Fast inference for cheap classification passes.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://dashboard.stripe.com" target="_blank" rel="noopener noreferrer" title="Stripe: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=stripe.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">S</div></div></a>
+      <div class="name">Stripe</div>
+      <div class="purpose">Systemology payments and subscriptions.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://www.namecheap.com/support/api/intro/" target="_blank" rel="noopener noreferrer" title="Namecheap: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=namecheap.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">N</div></div></a>
+      <div class="name">Namecheap</div>
+      <div class="purpose">Registrar for the onetimeautomation domains.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developer.godaddy.com" target="_blank" rel="noopener noreferrer" title="GoDaddy: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=godaddy.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">G</div></div></a>
+      <div class="name">GoDaddy</div>
+      <div class="purpose">Registrar for systemology.agency.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developer.clickup.com" target="_blank" rel="noopener noreferrer" title="ClickUp: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=clickup.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">C</div></div></a>
+      <div class="name">ClickUp</div>
+      <div class="purpose">Real-estate showing and task boards.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://cli.github.com" target="_blank" rel="noopener noreferrer" title="GitHub: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=github.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">G</div></div></a>
+      <div class="name">GitHub</div>
+      <div class="purpose">Two accounts, kept strictly separate.</div>
+      <div class="tags"><span class="tag api">API</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Cb</div>
+      <div class="name">CIA Bridge</div>
+      <div class="purpose">Links the two agents to each other.</div>
+      <div class="tags"><span class="tag internal">Internal</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://workspace.google.com" target="_blank" rel="noopener noreferrer" title="Google Workspace: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=google.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">Gw</div></div></a>
+      <div class="name">Google Workspace</div>
+      <div class="purpose">Gmail, Calendar, Drive across 4 mailbox configs.</div>
+      <div class="tags"><span class="tag workspace">Workspace</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developers.asana.com" target="_blank" rel="noopener noreferrer" title="Asana: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=asana.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">A</div></div></a>
+      <div class="name">Asana</div>
+      <div class="purpose">Task and project management.</div>
+      <div class="tags"><span class="tag bridge">Bridge</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developer.monday.com" target="_blank" rel="noopener noreferrer" title="monday.com: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=monday.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">Mc</div></div></a>
+      <div class="name">monday.com</div>
+      <div class="purpose">Client and project boards.</div>
+      <div class="tags"><span class="tag bridge">Bridge</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://api.slack.com" target="_blank" rel="noopener noreferrer" title="Slack: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=slack.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">S</div></div></a>
+      <div class="name">Slack</div>
+      <div class="purpose">Team chat workspaces.</div>
+      <div class="tags"><span class="tag bridge">Bridge</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>CLI Tools &amp; Local Scripts</h2><span class="c">22 home-grown CLI tools and local scripts, not a third-party SaaS connector or MCP server</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <a class="icon-link" href="https://plaid.com/docs/" target="_blank" rel="noopener noreferrer" title="Plaid: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=plaid.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">P</div></div></a>
+      <div class="name">Plaid</div>
+      <div class="purpose">Read-only bank and brokerage sync.</div>
+      <div class="tags"><span class="tag script">Script</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developers.google.com/youtube/v3" target="_blank" rel="noopener noreferrer" title="YouTube Data API: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=youtube.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">Yd</div></div></a>
+      <div class="name">YouTube Data API</div>
+      <div class="purpose">Uploads videos to the channel.</div>
+      <div class="tags"><span class="tag script">Script</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://developers.fathom.ai" target="_blank" rel="noopener noreferrer" title="Fathom: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=fathom.video" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">F</div></div></a>
+      <div class="name">Fathom</div>
+      <div class="purpose">Pulls meeting recordings and transcripts.</div>
+      <div class="tags"><span class="tag script">Script</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2" target="_blank" rel="noopener noreferrer" title="TypeWhisper + Parakeet: source / docs"><div class="icon-fallback" style="display:flex">Tp</div></a>
+      <div class="name">TypeWhisper + Parakeet</div>
+      <div class="purpose">Fully on-device speech-to-text.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener noreferrer" title="yt-dlp: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=github.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">Yd</div></div></a>
+      <div class="name">yt-dlp</div>
+      <div class="purpose">Downloads video and audio.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://ffmpeg.org" target="_blank" rel="noopener noreferrer" title="ffmpeg: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=ffmpeg.org" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">F</div></div></a>
+      <div class="name">ffmpeg</div>
+      <div class="purpose">Local media processing and frame extraction.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/zilliztech/memsearch" target="_blank" rel="noopener noreferrer" title="memsearch: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=github.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">M</div></div></a>
+      <div class="name">memsearch</div>
+      <div class="purpose">Local semantic search over markdown knowledge bases.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/tobi/qmd" target="_blank" rel="noopener noreferrer" title="qmd: source / docs"><div class="icon-fallback" style="display:flex">Q</div></a>
+      <div class="name">qmd</div>
+      <div class="purpose">Local hybrid search over the vaults (BM25 + vectors).</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener noreferrer" title="HyperFrames: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=heygen.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">H</div></div></a>
+      <div class="name">HyperFrames</div>
+      <div class="purpose">Local HTML-to-video renderer.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/JuliusBrussee/caveman" target="_blank" rel="noopener noreferrer" title="caveman: source / docs"><div class="icon-fallback" style="display:flex">C</div></a>
+      <div class="name">caveman</div>
+      <div class="purpose">Compresses agent output tokens.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/thewh1teagle/kokoro-onnx" target="_blank" rel="noopener noreferrer" title="Kokoro TTS: source / docs"><div class="icon-fallback" style="display:flex">Kt</div></a>
+      <div class="name">Kokoro TTS</div>
+      <div class="purpose">Local on-device text-to-speech.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://www.rtk-ai.app/" target="_blank" rel="noopener noreferrer" title="rtk: source / docs"><div class="icon-fallback" style="display:flex">R</div></a>
+      <div class="name">rtk</div>
+      <div class="purpose">Compresses tool-output tokens before they hit context.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/woosal1337/blog" target="_blank" rel="noopener noreferrer" title="ste-lint: source / docs"><div class="icon-fallback" style="display:flex">Sl</div></a>
+      <div class="name">ste-lint</div>
+      <div class="purpose">Mechanical AI-slop linter for drafts.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://support.apple.com/guide/notes/welcome/mac" target="_blank" rel="noopener noreferrer" title="Apple Notes: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=apple.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">An</div></div></a>
+      <div class="name">Apple Notes</div>
+      <div class="purpose">Local read/write into Apple Notes.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Qr</div>
+      <div class="name">QMD Reindex</div>
+      <div class="purpose">Nightly rebuild of the qmd search index.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Rh</div>
+      <div class="name">Research Harvest</div>
+      <div class="purpose">Weekly harvest step for the research engine.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Sc</div>
+      <div class="name">System Caffeinate</div>
+      <div class="purpose">Blocks idle sleep so scheduled jobs fire.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/NateBJones-Projects/ringer" target="_blank" rel="noopener noreferrer" title="Ringer: source / docs"><div class="icon-fallback" style="display:flex">R</div></a>
+      <div class="name">Ringer</div>
+      <div class="purpose">Local parallel agent-swarm orchestrator.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://nominatim.org" target="_blank" rel="noopener noreferrer" title="cia-maps: source / docs"><div class="icon-fallback" style="display:flex">Cm</div></a>
+      <div class="name">cia-maps</div>
+      <div class="purpose">Geocoding and place search via OpenStreetMap.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Cr</div>
+      <div class="name">cia-reply</div>
+      <div class="purpose">Bulletproof Gmail reply builder over the gws CLI.</div>
+      <div class="tags"><span class="tag internal">Internal</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Cc</div>
+      <div class="name">cia-connector-map</div>
+      <div class="purpose">Rebuilds this page from the registry and skill folders.</div>
+      <div class="tags"><span class="tag internal">Internal</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/WhiskeySockets/Baileys" target="_blank" rel="noopener noreferrer" title="WhatsApp: source / docs"><div class="icon-wrap"><img src="https://www.google.com/s2/favicons?sz=128&amp;domain=whatsapp.com" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" alt=""><div class="icon-fallback">W</div></div></a>
+      <div class="name">WhatsApp</div>
+      <div class="purpose">Personal-number Web bridge (Baileys).</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Claude Code Plugins</h2><span class="c">12 enabled · 1 off</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card off">
+      <div class="icon-fallback" style="display:flex">Bm</div>
+      <div class="name">benai-marketing</div>
+      <div class="purpose">Marketing skill pack (disabled).</div>
+      <div class="tags"><span class="tag disabled">Disabled</span><span class="tag market">benai-marketing</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/JuliusBrussee/caveman" target="_blank" rel="noopener noreferrer" title="caveman: source repo"><div class="icon-fallback" style="display:flex">C</div></a>
+      <div class="name">caveman</div>
+      <div class="purpose">Compresses agent output to terse caveman prose.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">caveman</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer" title="claude-api: source repo"><div class="icon-fallback" style="display:flex">Ca</div></a>
+      <div class="name">claude-api</div>
+      <div class="purpose">Reference for the Claude API: models, pricing, tool use.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">anthropic-agent-skills</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/mksglu/context-mode" target="_blank" rel="noopener noreferrer" title="context-mode: source repo"><div class="icon-fallback" style="display:flex">Cm</div></a>
+      <div class="name">context-mode</div>
+      <div class="purpose">Keeps large tool output out of the context window.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">context-mode</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/skills" target="_blank" rel="noopener noreferrer" title="document-skills: source repo"><div class="icon-fallback" style="display:flex">Ds</div></a>
+      <div class="name">document-skills</div>
+      <div class="purpose">Reads and writes docx, xlsx, pptx, and pdf files.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">anthropic-agent-skills</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener noreferrer" title="frontend-design: source repo"><div class="icon-fallback" style="display:flex">Fd</div></a>
+      <div class="name">frontend-design</div>
+      <div class="purpose">Design guidance for building UI.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">claude-plugins-official</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener noreferrer" title="imessage: source repo"><div class="icon-fallback" style="display:flex">I</div></a>
+      <div class="name">imessage</div>
+      <div class="purpose">Two-way iMessage channel and access control.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">claude-plugins-official</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener noreferrer" title="last30days: source repo"><div class="icon-fallback" style="display:flex">Ld</div></a>
+      <div class="name">last30days</div>
+      <div class="purpose">Researches what people said about a topic in the last 30 days.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">last30days-skill</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/zilliztech/memsearch" target="_blank" rel="noopener noreferrer" title="memsearch: source repo"><div class="icon-fallback" style="display:flex">M</div></a>
+      <div class="name">memsearch</div>
+      <div class="purpose">Auto-memory that summarizes and recalls past sessions.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">memsearch-plugins</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/tobi/qmd" target="_blank" rel="noopener noreferrer" title="qmd: source repo"><div class="icon-fallback" style="display:flex">Q</div></a>
+      <div class="name">qmd</div>
+      <div class="purpose">Local hybrid search over the two vaults.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">qmd</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener noreferrer" title="skill-creator: source repo"><div class="icon-fallback" style="display:flex">Sc</div></a>
+      <div class="name">skill-creator</div>
+      <div class="purpose">Creates, edits, and evaluates skills.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">claude-plugins-official</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/anthropics/claude-plugins-official" target="_blank" rel="noopener noreferrer" title="superpowers: source repo"><div class="icon-fallback" style="display:flex">S</div></a>
+      <div class="name">superpowers</div>
+      <div class="purpose">Process skills: brainstorming, debugging, plans, TDD.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">claude-plugins-official</span></div>
+    </div>
+    <div class="card">
+      <a class="icon-link" href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener noreferrer" title="watch: source repo"><div class="icon-fallback" style="display:flex">W</div></a>
+      <div class="name">watch</div>
+      <div class="purpose">Watches a video and answers questions about it.</div>
+      <div class="tags"><span class="tag plugin">Plugin</span><span class="tag market">claude-video</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Skills Library</h2><span class="c">130 skills · 10 categories</span>
+  </div>
+
+  <div class="skills-grid">
+
+    <div class="skill-cat">
+      <h3>Real Estate <span class="n">11</span></h3>
+      <ul>
+        <li>Buyer workflow</li>
+        <li>Deal of the week</li>
+        <li>Home showing process</li>
+        <li>Lease listing workflow</li>
+        <li>Lofty active pipeline sync</li>
+        <li>Lofty incoming leads tracker</li>
+        <li>Real-estate voice</li>
+        <li>Sale listing workflow</li>
+        <li>Stay-in-touch letters</li>
+        <li>Tenant application organizer</li>
+        <li>Tenant screening organizer</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Email &amp; Inbox <span class="n">9</span></h3>
+      <ul>
+        <li>Email done</li>
+        <li>Email training</li>
+        <li>Inbox triage agent</li>
+        <li>Multi-account inbox triage</li>
+        <li>Team email responder</li>
+        <li>Writing desk</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Content &amp; Marketing <span class="n">18</span></h3>
+      <ul>
+        <li>AIMM article writer</li>
+        <li>Campaign email writer</li>
+        <li>Carousel builder</li>
+        <li>Content hook generator</li>
+        <li>Content repurposing machine</li>
+        <li>Fountainhead system</li>
+        <li>Humanizer</li>
+        <li>Infographic builder</li>
+        <li>One Time Automation voice</li>
+        <li>Package BAM</li>
+        <li>Randomness engine</li>
+        <li>Sales one-pager builder</li>
+        <li>Script frameworks</li>
+        <li>Short-form script generator</li>
+        <li>Squintist deck builder</li>
+        <li>Yap system</li>
+        <li>YouTube script generator</li>
+        <li>YouTube transcript loader</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Sales &amp; Strategy <span class="n">9</span></h3>
+      <ul>
+        <li>Contact dossier</li>
+        <li>Data room architect</li>
+        <li>Decision accelerator</li>
+        <li>Grilling</li>
+        <li>Pitch close guardian</li>
+        <li>Quote builder</li>
+        <li>Sharran language patterns</li>
+        <li>Weekly recap</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Finance &amp; Ops <span class="n">5</span></h3>
+      <ul>
+        <li>Bank account sync</li>
+        <li>Meeting recall</li>
+        <li>Meeting to Monday tasks</li>
+        <li>Monthly P&amp;L builder</li>
+        <li>Project OS</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Knowledge &amp; Media <span class="n">15</span></h3>
+      <ul>
+        <li>Art of accomplishment watcher</li>
+        <li>Chamath monitor</li>
+        <li>Chunked transcription</li>
+        <li>Excalidraw diagram</li>
+        <li>HealthyGamerGG monitor</li>
+        <li>iMessage ingest</li>
+        <li>Pickleball playlist watcher</li>
+        <li>Reports on housing monitor</li>
+        <li>Research</li>
+        <li>Research manager</li>
+        <li>Squintist monitor</li>
+        <li>Vimeo transcript</li>
+        <li>Wiki ingest</li>
+        <li>Wiki lint</li>
+        <li>YouTube transcript</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>System &amp; Infrastructure <span class="n">16</span></h3>
+      <ul>
+        <li>Agent bridge</li>
+        <li>Automation builder</li>
+        <li>Autoresearch</li>
+        <li>Daily dashboard</li>
+        <li>Daily dashboard (Cowork)</li>
+        <li>Forcing function</li>
+        <li>iMessage send</li>
+        <li>Job doctor</li>
+        <li>Memory/vault sync</li>
+        <li>Notes capture</li>
+        <li>Notify</li>
+        <li>Scheduling manager</li>
+        <li>Session contract</li>
+        <li>Token saver</li>
+        <li>Token saver</li>
+        <li>Workvivo chat monitor</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Personal <span class="n">5</span></h3>
+      <ul>
+        <li>Bookmark search</li>
+        <li>Growth journal</li>
+        <li>Pickleball mental IQ</li>
+        <li>Pickleball video coach</li>
+        <li>Three-Thirds balance coach</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Video Production <span class="n">24</span></h3>
+      <ul>
+        <li>Captions overlay</li>
+        <li>Changelog video</li>
+        <li>Cut the curve</li>
+        <li>Embedded captions</li>
+        <li>Faceless explainer</li>
+        <li>General video</li>
+        <li>HyperFrames</li>
+        <li>HyperFrames animation</li>
+        <li>HyperFrames CLI</li>
+        <li>HyperFrames core</li>
+        <li>HyperFrames creative</li>
+        <li>HyperFrames keyframes</li>
+        <li>HyperFrames registry</li>
+        <li>Media use</li>
+        <li>Motion doctrine</li>
+        <li>Motion graphics</li>
+        <li>Music to video</li>
+        <li>Oversized cursor</li>
+        <li>PR to video</li>
+        <li>Product launch video</li>
+        <li>Remotion to HyperFrames</li>
+        <li>Seam craft</li>
+        <li>Slideshow</li>
+        <li>Talking head recut</li>
+      </ul>
+    </div>
+    <div class="skill-cat">
+      <h3>Third-Party Tools <span class="n">18</span></h3>
+      <ul>
+        <li>Banner design</li>
+        <li>Brand</li>
+        <li>Design</li>
+        <li>Design system</li>
+        <li>Domain modeling</li>
+        <li>Figma</li>
+        <li>Firecrawl</li>
+        <li>Firecrawl scrape</li>
+        <li>Firecrawl search</li>
+        <li>Graphify</li>
+        <li>Lavish</li>
+        <li>Matt Pocock skills setup</li>
+        <li>Prototype</li>
+        <li>Ringer</li>
+        <li>Slides</li>
+        <li>Ui styling</li>
+        <li>Ui ux pro max</li>
+        <li>Wayfinder</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Harness Tools, Native</h2><span class="c">23 built-in, no external call</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">R</div>
+      <div class="name">Read</div>
+      <div class="purpose">Reads any local file, including images and PDFs.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">E</div>
+      <div class="name">Edit</div>
+      <div class="purpose">Exact string replacement inside an existing file.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">W</div>
+      <div class="name">Write</div>
+      <div class="purpose">Creates or overwrites a local file.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">B</div>
+      <div class="name">Bash</div>
+      <div class="purpose">Runs shell commands in the persistent working directory.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">A</div>
+      <div class="name">Agent</div>
+      <div class="purpose">Spawns a subagent, forked or fresh, for a scoped task.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">S</div>
+      <div class="name">Skill</div>
+      <div class="purpose">Invokes a packaged skill&#x27;s instructions.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">W</div>
+      <div class="name">Workflow</div>
+      <div class="purpose">Runs a deterministic multi-agent orchestration script.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">T</div>
+      <div class="name">ToolSearch</div>
+      <div class="purpose">Loads schemas for deferred tools on demand.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">A</div>
+      <div class="name">AskUserQuestion</div>
+      <div class="purpose">Asks Leo to choose between options mid-task.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">L</div>
+      <div class="name">ListAgents</div>
+      <div class="purpose">Lists agents this session can message.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">S</div>
+      <div class="name">ScheduleWakeup</div>
+      <div class="purpose">Schedules the next /loop dynamic-mode wakeup.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">S</div>
+      <div class="name">SendFeedback</div>
+      <div class="purpose">Drafts Claude Code product feedback for review.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">S</div>
+      <div class="name">SendUserFile</div>
+      <div class="purpose">Sends a local file to Leo as a card.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">R</div>
+      <div class="name">ReportFindings</div>
+      <div class="purpose">Reports structured code-review findings.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">N</div>
+      <div class="name">NotebookEdit</div>
+      <div class="purpose">Edits a Jupyter notebook cell.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">E</div>
+      <div class="name">EnterPlanMode</div>
+      <div class="purpose">Switches into read-only plan mode.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">E</div>
+      <div class="name">ExitPlanMode</div>
+      <div class="purpose">Exits plan mode for approval.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">E</div>
+      <div class="name">EnterWorktree</div>
+      <div class="purpose">Creates an isolated git worktree.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">E</div>
+      <div class="name">ExitWorktree</div>
+      <div class="purpose">Leaves an isolated git worktree.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">E</div>
+      <div class="name">EndConversation</div>
+      <div class="purpose">Ends the session. Abuse or explicit request only.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">M</div>
+      <div class="name">Monitor</div>
+      <div class="purpose">Streams events from a background process.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">T</div>
+      <div class="name">TaskOutput</div>
+      <div class="purpose">Reads output from a background task.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">T</div>
+      <div class="name">TaskStop</div>
+      <div class="purpose">Stops a running background task.</div>
+      <div class="tags"><span class="tag local">Local</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <h2>Harness Tools, Platform / API / MCP</h2><span class="c">8 route through Anthropic's platform or an MCP server</span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">W</div>
+      <div class="name">WebFetch</div>
+      <div class="purpose">Fetches and renders a URL through Anthropic&#x27;s web tool.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">W</div>
+      <div class="name">WebSearch</div>
+      <div class="purpose">Searches the web through Anthropic&#x27;s web tool.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">P</div>
+      <div class="name">PushNotification</div>
+      <div class="purpose">Sends a push notification to Leo&#x27;s device.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">R</div>
+      <div class="name">RemoteTrigger</div>
+      <div class="purpose">Triggers a remote Claude Code session.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">D</div>
+      <div class="name">DesignSync</div>
+      <div class="purpose">Syncs a Claude Design canvas artifact.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">S</div>
+      <div class="name">SendMessage</div>
+      <div class="purpose">Messages another agent or session.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Cs</div>
+      <div class="name">Cron Scheduler</div>
+      <div class="purpose">Creates, deletes, and lists scheduled cloud agent runs.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+    <div class="card">
+      <div class="icon-fallback" style="display:flex">Mr</div>
+      <div class="name">MCP Resource Browser</div>
+      <div class="purpose">Lists and reads resources exposed by connected MCP servers.</div>
+      <div class="tags"><span class="tag mcp">Mcp</span></div>
+    </div>
+
+  </div>
+
+  <footer>
+    Each icon is the company's own live favicon and links to that connector's source or docs page, the one to open to reinstall or re-read it. Internal tools (CIA Bridge, cia-reply, cia-connector-map, the launchd jobs) have no external source, so their badges are not links. Harness Tools are Claude Code's own built-in tools, hand-maintained here, not registry-sourced, since Rule 125 only requires a registry row for external connections.<br>
+    <a href="/audit/" target="_blank" rel="noopener noreferrer">View the full System Audit infographic →</a>
+  </footer>
+
+</div>
+</body>
+</html>

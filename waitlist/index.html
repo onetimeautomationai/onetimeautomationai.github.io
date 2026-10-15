@@ -80,8 +80,17 @@
 
   footer.note{ text-align:center; font-size:0.75rem; color:var(--muted); margin-top:18px; opacity:.75; }
 </style>
+<link rel="stylesheet" href="/site-chrome.css" />
 </head>
 <body>
+<div class="oc-top">
+  <a class="oc-brand" href="/">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="oc-slot" href="/tools/">The Toolshed &rarr;</a>
+</div>
+
 <div class="wrap">
 
   <div class="screen active" data-screen="form">
@@ -115,8 +124,6 @@
     <h1>You're on the list.</h1>
     <p class="sub">Check your email to confirm. We'll notify you the day doors open.</p>
   </div>
-
-  <footer class="note">Leo Does AI &middot; One Time Automation &middot; Autonomous Operators Waitlist</footer>
 </div>
 
 <script>
@@ -178,5 +185,17 @@
   document.getElementById('retry_btn').addEventListener('click', submitToKit);
 })();
 </script>
+<div class="oc-banner">
+  <div class="oc-t">
+    <b>Not sure which one to start with?</b>
+    <span>Six questions, 60 seconds. It points you at the one tool above worth doing first.</span>
+  </div>
+  <a href="/60sec/">Get Your Week Back &rarr;</a>
+</div>
+<div class="oc-footer">
+  <div class="oc-rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Does AI &times; One Time Automation AI.
+</div>
 </body>
 </html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Turn I Need Help Into A Role You Could Hire Against | One Time Automation</title>
+  <meta name="description" content="One prompt that turns &#39;I need help&#39; into a scorecard you could hire against, then writes the day 45 check-in conversation word for word. Written for Claude Code, Cowork, or Codex." />
+  <meta property="og:title" content="Turn I Need Help Into A Role You Could Hire Against" />
+  <meta property="og:description" content="One prompt: the scorecard you hire against, then the day 45 conversation, word for word." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --steel:#4d7491; --muted:#8ea6b2; --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:760px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+    header.top { text-align:center; padding:1rem 0 2rem; }
+    .logo { width:64px; height:64px; margin:0 auto 1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(1.8rem,5vw,2.6rem); letter-spacing:-0.02em; line-height:1.1; margin:0.8rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.05rem; max-width:560px; margin:0 auto; }
+    h2 { font-size:1.15rem; letter-spacing:-0.01em; margin:2.25rem 0 0.75rem; color:var(--muted); text-transform:uppercase; font-size:0.85rem; letter-spacing:0.1em; }
+    p.lead { color:#d7d7de; text-align:center; max-width:560px; margin:0 auto 2rem; }
+
+    .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:0.75rem 0 1.75rem; }
+    .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .prompt-bar .label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    button.copy {
+      background:var(--accent); color:#fff; border:0; border-radius:9px;
+      padding:0.5rem 1rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+      font-family:inherit; transition:transform .12s ease, background .12s ease;
+    }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    button.copy.done { background:var(--ok); }
+    pre {
+      margin:0; padding:1.1rem 1.2rem; overflow-x:auto;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      font-size:0.84rem; line-height:1.6; color:#e6e6ea; white-space:pre; tab-size:2;
+    }
+    pre::-webkit-scrollbar { height:9px; }
+    pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
+
+    .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .reqs p { color:var(--muted); font-size:0.92rem; margin:0; line-height:1.6; }
+    .reqs strong { color:var(--fg); }
+
+    footer { text-align:center; margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.88rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3rem; }
+      pre { font-size:0.78rem; padding:0.9rem 1rem; }
+      .prompt-bar { padding:0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="logo.png" alt="Leo Does AI, One Time Automation" width="64" height="64" />
+      <div class="kicker">Prompt of the Week</div>
+      <h1>Turn <span class="accent">&ldquo;I Need Help&rdquo;</span> Into A Role You Could Hire Against</h1>
+      <p class="sub">One prompt. It builds the scorecard, then writes your day 45 check-in conversation word for word.</p>
+    </header>
+
+    <h2>The prompt</h2>
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into Claude Code, Cowork, or Codex</span>
+        <button class="copy" id="copyBtn1" onclick="copyPrompt('p1','copyBtn1')">Copy prompt</button>
+      </div>
+<pre id="p1">I keep saying I need help. Turn that into a role I could actually hire
+against, then write the conversation I will need to have with that person
+at day 45.
+
+Before you do any work, ask me these one at a time and wait for each answer:
+- Can you read my calendar and my task list?
+- Which part of the business is drowning? Name it and I will confirm.
+- Where should the finished scorecard and conversation be saved?
+
+Then look at where my hours actually go before you ask me anything else.
+The work I would hand over is already visible there. Do not ask me to
+describe my week when you can read it. Name any connection you cannot reach.
+
+Show me what you found, then ask me one question at a time until you can
+answer all of these. Do not ask them all at once, and wait for each answer:
+
+- What would this person do in their first week?
+- What would be true in 90 days if they were great?
+- What would be true in 90 days if they were a disaster?
+- Which part of this job is judgment, and which part is just doing?
+- What have I tried already that did not work?
+
+PART 1 - THE SCORECARD
+
+THE MISSION - one sentence. What this role exists to produce.
+THE OUTCOMES - three to five. Each measurable, each with a date.
+THE FIRST 90 DAYS - what week 1, day 30 and day 90 look like.
+THE EARLY WARNING - how I will know by day 45 that this is not working,
+stated as something observable, not a feeling.
+
+Then, before I go hire anybody, tell me which of the outcomes should not be
+a person at all, and why. Point at the repeating work you found in my
+calendar and task list rather than reasoning from the job description.
+
+PART 2 - THE DAY 45 CONVERSATION
+
+Ask me when this person starts, or when I expect them to. Work out the day
+45 date and check whether it is already on my calendar. If it is not, tell
+me the date and offer to draft the event. Do not create it until I say yes.
+
+Write the check-in conversation in three versions. Use the early warning
+from the scorecard as the test in all three.
+
+VERSION A - IT IS GOING WELL. What I say so that good work gets named
+specifically instead of praised vaguely, and what I ask so the next 45 days
+are harder than the last.
+
+VERSION B - IT IS UNCLEAR. The hardest one. What I ask to find out whether
+this is a person problem, a role problem, or a me problem. Write the actual
+questions, in order, and tell me what each answer would mean.
+
+VERSION C - IT IS NOT WORKING. What I say in the first thirty seconds so
+nobody leaves the room confused about where they stand. Direct, not cruel.
+Include what happens next and by when.
+
+For all three:
+- Write my lines out in full. I will not improvise this well.
+- Mark the one sentence in each version I will be tempted to soften, and
+  tell me what softening it would cost.
+
+Then tell me what to watch for in weeks 2 and 3 that shows which version
+is coming, so I am not guessing on day 45.
+
+Draft only. Never send, book, or change anything without my yes.
+
+Finish with the one outcome I am most likely to keep doing myself even after
+I hire someone, and what that would cost me.</pre>
+    </div>
+
+    <div class="reqs">
+      <p><strong>Recommended:</strong> Claude Code, Cowork, or Codex. These prompts work best in an AI agent that can reach your tools, rather than in a chat window. This one reads your calendar and your task list, and it drafts only. It never sends or books anything without your yes.</p>
+    </div>
+
+    <footer>
+      Built by <a href="https://gh.onetimeautomation.ai" target="_blank" rel="noopener noreferrer">One Time Automation</a>. Free to use and share.<br />
+      Automate it once. Own it forever.
+    </footer>
+
+  </div>
+
+  <script>
+    function copyPrompt(preId, btnId) {
+      var text = document.getElementById(preId).innerText;
+      var btn = document.getElementById(btnId);
+      function done() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else {
+        fallback();
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+  </script>
+</body>
+</html>

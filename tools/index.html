@@ -10,6 +10,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
 <meta name="theme-color" content="#0d1417" />
+<link rel="stylesheet" href="/site-chrome.css" />
 <style>
   :root{
     --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
@@ -130,24 +131,58 @@
     .part .n{ font-size:1.7rem; }
     .grid{ grid-template-columns:1fr; }
   }
+  /* hero offer (same as home hero) */
+  .mast-grid{ display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:40px; align-items:center; position:relative; z-index:1; }
+  .offer{
+    background:var(--panel); border:1px solid rgba(232,130,60,0.4); border-top:3px solid var(--accent);
+    border-radius:16px; padding:26px 26px 22px; box-shadow:0 18px 50px rgba(0,0,0,0.35);
+  }
+  .offer-tag{ font-size:0.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--accent-hi); }
+  .offer h2{ font-size:1.35rem; font-weight:800; letter-spacing:-0.012em; line-height:1.25; margin:8px 0 14px; }
+  .offer ul{ list-style:none; margin:0 0 20px; }
+  .offer li{ position:relative; padding-left:22px; color:var(--muted); font-size:0.88rem; line-height:1.55; margin-bottom:8px; }
+  .offer li::before{ content:""; position:absolute; left:2px; top:0.6em; width:8px; height:8px; border-radius:2px; background:var(--accent); }
+  .offer a.join{
+    display:block; text-align:center; background:var(--accent); color:#fff; text-decoration:none;
+    font-size:0.82rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+    padding:14px 18px; border-radius:9px; transition:all .12s ease;
+  }
+  .offer a.join:hover{ background:var(--accent-hi); transform:translateY(-1px); }
+  .offer-note{ text-align:center; font-size:0.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); margin-top:12px; }
+  @media (max-width:720px){ .mast-grid{ grid-template-columns:1fr; gap:32px; } }
 </style>
 </head>
 <body>
+<div class="oc-top">
+  <a class="oc-brand" href="/">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="oc-slot" href="/">The Library &rarr;</a>
+</div>
+
 <div class="wrap">
 
-  <div class="topbar">
-    <div class="brand">
-      <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
-      One Time <span>Automation</span>
-    </div>
-    <a class="slot" href="/">The Library &rarr;</a>
-  </div>
-
   <div class="mast">
+    <div class="mast-grid">
+    <div class="mast-main">
     <div class="kick">Everything, One Page</div>
     <h1>Every free tool we've built, <span class="hl">in one place</span></h1>
     <p class="deck">Eight free prompts and checklists, ordered the way they actually stack. Start at the top if you're new. Each one takes a piece of your week back, and each one hands off to the next.</p>
     <div class="updated">Updated 2026-08-26 &middot; 1 readiness check &middot; 8 free tools &middot; 1 waitlist</div>
+    </div>
+    <aside class="offer">
+      <div class="offer-tag">Free community</div>
+      <h2>Build it with people doing the same.</h2>
+      <ul>
+        <li>Ask questions, get answers from people running these systems</li>
+        <li>Share what you automated and get feedback</li>
+        <li>Get new prompts and checklists first</li>
+      </ul>
+      <a class="join" href="https://www.skool.com/ssm/about">Join the Skool community &rarr;</a>
+      <div class="offer-note">Free to join</div>
+    </aside>
+    </div>
   </div>
 
   <div class="banner">
@@ -294,12 +329,18 @@
 
   <p class="note">Every tool on this page is free and self-serve. The prompts are written for Claude Code, Cowork, or Codex, and they work by pasting into Claude or ChatGPT too. Nothing here needs a card, an install, or a call. <b>Order matters more than speed:</b> the checklist tells you which leak is biggest, and the seven after it stack, so running number six before number four usually means redoing number six.</p>
 
-  <footer>
-    <div class="rule"></div>
-    <b>One Time Automation.</b> Automate it once. Own it forever.<br>
-    Leo Does AI &times; One Time Automation AI.
-  </footer>
-
+</div>
+<div class="oc-banner">
+  <div class="oc-t">
+    <b>Not sure which one to start with?</b>
+    <span>Six questions, 60 seconds. It points you at the one tool above worth doing first.</span>
+  </div>
+  <a href="/60sec/">Get Your Week Back &rarr;</a>
+</div>
+<div class="oc-footer">
+  <div class="oc-rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Does AI &times; One Time Automation AI.
 </div>
 </body>
 </html>

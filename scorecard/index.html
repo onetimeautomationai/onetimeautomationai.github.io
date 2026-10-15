@@ -60,6 +60,13 @@
     pre::-webkit-scrollbar { height:9px; }
     pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
 
+
+    a.article-link { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:12px; padding:0.9rem 1.15rem; margin:0 0 1.5rem; text-decoration:none; color:var(--fg); transition:border-color .12s ease, transform .12s ease; }
+    a.article-link:hover { border-color:var(--accent); transform:translateY(-1px); }
+    a.article-link .al-lab { flex-basis:100%; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); }
+    a.article-link .al-title { font-size:1.1rem; font-weight:700; }
+    a.article-link .al-go { color:var(--accent); font-weight:600; font-size:0.95rem; }
+
     .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
     .reqs p { color:var(--muted); font-size:0.92rem; margin:0; line-height:1.6; }
     .reqs strong { color:var(--fg); }
@@ -85,7 +92,11 @@
       <p class="sub">One prompt. It builds the scorecard, then writes your day 45 check-in conversation word for word.</p>
     </header>
 
-    <p class="lead" style="margin-bottom:1.25rem">Read the story behind it: <a href="/articles/should-you-hire-ai/" target="_blank" rel="noopener noreferrer" style="color:var(--accent)"><b>Should You Hire AI?</b></a></p>
+    <a class="article-link" href="/articles/should-you-hire-ai/" target="_blank" rel="noopener noreferrer">
+      <span class="al-lab">The article behind this prompt</span>
+      <span class="al-title">Should You Hire AI?</span>
+      <span class="al-go">Read the article &rarr;</span>
+    </a>
 
     <h2>The prompt</h2>
     <div class="prompt-box">

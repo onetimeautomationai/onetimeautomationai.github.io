@@ -31,3 +31,5 @@
 .oc-footer .oc-rule { width:64px; height:3px; border-radius:3px; margin-bottom:18px; background:linear-gradient(90deg, var(--oc-accent), var(--oc-accent-hi)); }
 .oc-footer .oc-in, .oc-banner .oc-in { width:100%; }
 @media (max-width:720px) { .oc-top, .oc-banner, .oc-footer { padding-left:20px; padding-right:20px; } }
+/* Fixed width, centered, same as the home page .wrap */
+.oc-top, .oc-banner, .oc-footer { width:100%; max-width:1040px; margin-left:auto; margin-right:auto; }

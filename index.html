@@ -60,6 +60,15 @@
   .mast .deck{ color:var(--muted); font-size:1.12rem; max-width:660px; margin-top:20px; }
   .mast .updated{ font-size:0.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); margin-top:26px; line-height:1.6; }
 
+  /* page menu */
+  .menu{ display:flex; flex-wrap:wrap; gap:10px; padding:0 32px; }
+  .menu a{ font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--muted); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:9px 18px; transition:all .14s ease; }
+  .menu a:hover{ border-color:var(--accent); color:var(--fg); }
+  html{ scroll-behavior:smooth; }
+  section{ scroll-margin-top:16px; }
+  .more{ display:inline-block; margin-top:18px; font-size:0.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); text-decoration:none; }
+  .more:hover{ color:var(--accent-hi); }
+
   /* section heads */
   section{ padding:36px 32px 8px; }
   .h2{
@@ -165,7 +174,7 @@
 
   @media (max-width:720px){
     html{ font-size:17px; }
-    .topbar, .mast, .banner, section, footer{ padding-left:20px; padding-right:20px; }
+    .topbar, .mast, .banner, section, footer, .menu{ padding-left:20px; padding-right:20px; }
     .mast-grid{ grid-template-columns:1fr; gap:32px; }
     .cards{ grid-template-columns:1fr; }
   }
@@ -204,7 +213,13 @@
     </div>
   </div>
 
-  <section>
+  <nav class="menu" aria-label="Page menu">
+    <a href="#articles">Articles</a>
+    <a href="#free-tools">Free Tools</a>
+    <a href="#ai-news">AI News</a>
+  </nav>
+
+  <section id="articles">
     <div class="h2">Articles<small>Written for the One Time Automation list first, rewritten here to read on their own. Each one ends at the tool it discusses.</small></div>
 
     <div class="cards" id="articleCards">
@@ -304,7 +319,7 @@
     <nav class="pager" id="articlePager" aria-label="Articles pagination"></nav>
   </section>
 
-  <section>
+  <section id="free-tools">
     <div class="h2">Free tools<small>Every prompt, checklist and worksheet the articles point at. All free, all self-serve, copy buttons on the page. Nothing here needs a card, an install, or a call.</small></div>
 
     <div class="cards" id="toolCards">
@@ -416,6 +431,20 @@
 
     </div>
     <nav class="pager" id="toolPager" aria-label="Free tools pagination"></nav>
+  </section>
+
+  <section id="ai-news">
+    <div class="h2">AI News<small>What happened in AI this week, in plain English, and what it means for the tools you run.</small></div>
+
+    <div class="cards">
+      <a class="card" href="/ai-news/">
+        <div class="meta"><em>Anthropic</em> &middot; 3 Nov 2026</div>
+        <h3>What is inside Anthropic's 300-page IPO filing</h3>
+        <p>Six facts from the filing: who controls the board, revenue up about 14x, the $80.7 billion loss that is mostly an accounting charge, and what it means for your tools.</p>
+        <div class="foot"><span class="chip">IPO</span></div>
+      </a>
+    </div>
+    <a class="more" href="/ai-news/">See all AI News &rarr;</a>
   </section>
 
   <div class="banner">

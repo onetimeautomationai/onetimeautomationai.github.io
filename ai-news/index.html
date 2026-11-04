@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI News — One Time Automation</title>
+<meta name="description" content="AI news in plain English, from One Time Automation. What happened, what it means for the tools you use, and what to do about it." />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0d1417" />
+<link rel="canonical" href="https://gh.onetimeautomation.ai/ai-news/" />
+<link rel="stylesheet" href="/site-chrome.css" />
+<style>
+  :root{
+    --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+    --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+    --steel:#4d7491; --muted:#8ea6b2; --line:#26333b;
+  }
+  html{ font-size:18px; }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.7;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+      var(--bg);
+    background-attachment:fixed; color:var(--fg); -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:1040px; margin:0 auto; }
+  .mast{ padding:56px 32px 40px; position:relative; overflow:hidden; }
+  .mast::after{ content:""; position:absolute; right:-150px; top:-150px; width:420px; height:420px; background:var(--accent); transform:rotate(18deg); opacity:.06; border-radius:40px; }
+  .mast .kick{ display:inline-block; background:var(--accent-soft); color:var(--accent-hi); border:1px solid rgba(232,130,60,0.35); border-radius:999px; font-size:0.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; padding:6px 15px; margin-bottom:22px; line-height:1.4; }
+  .mast h1{ font-size:clamp(2.2rem,6vw,3.6rem); line-height:1.04; letter-spacing:-0.025em; font-weight:800; }
+  .mast h1 .hl{ color:var(--accent); }
+  .mast .deck{ color:var(--muted); font-size:1.12rem; max-width:660px; margin-top:20px; }
+
+  .menu{ display:flex; flex-wrap:wrap; gap:10px; padding:0 32px; }
+  .menu a{ font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--muted); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:9px 18px; transition:all .14s ease; }
+  .menu a:hover{ border-color:var(--accent); color:var(--fg); }
+  .menu a.current{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  section{ padding:36px 32px 8px; }
+  .h2{ font-size:1.55rem; font-weight:800; letter-spacing:-0.012em; line-height:1.2; padding-top:22px; border-top:2px solid var(--line); position:relative; }
+  .h2::before{ content:""; position:absolute; top:-2px; left:0; width:64px; height:2px; background:var(--accent); }
+  .h2 small{ display:block; font-size:0.86rem; font-weight:400; color:var(--muted); line-height:1.6; margin-top:8px; max-width:720px; }
+
+  .news{ list-style:none; padding-top:22px; display:flex; flex-direction:column; gap:12px; }
+  .item{ display:grid; grid-template-columns:110px minmax(0,1fr); gap:20px; align-items:start; background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:14px; padding:18px 22px; text-decoration:none; color:inherit; transition:border-color .14s ease, background .14s ease; }
+  a.item:hover{ border-color:var(--accent); border-left-color:var(--accent); background:var(--panel2); }
+  .item .date{ font-size:0.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--steel); line-height:1.6; padding-top:4px; }
+  .item h3{ font-size:1.08rem; font-weight:800; line-height:1.32; letter-spacing:-0.012em; margin-bottom:6px; }
+  a.item:hover h3{ color:var(--accent-hi); }
+  .item p{ color:var(--muted); font-size:0.9rem; line-height:1.62; margin:0 0 10px; }
+  .chip{ display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:.05em; padding:5px 10px; border-radius:7px; line-height:1.4; border:1px solid var(--line); background:var(--panel2); color:var(--muted); margin-right:8px; }
+  .chip.tag{ border-color:rgba(232,130,60,0.4); background:var(--accent-soft); color:var(--accent-hi); }
+  @media (max-width:720px){
+    html{ font-size:17px; }
+    .mast, .menu, section{ padding-left:20px; padding-right:20px; }
+    .item{ grid-template-columns:1fr; gap:6px; }
+  }
+</style>
+</head>
+<body>
+<div class="oc-top">
+  <a class="oc-brand" href="/">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="oc-slot" href="/">The Library &rarr;</a>
+</div>
+
+<div class="wrap">
+
+  <div class="mast">
+    <div class="kick">Weekly &middot; Plain English</div>
+    <h1>AI news, <span class="hl">without the noise</span></h1>
+    <p class="deck">What happened, what it means for the AI tools you run, and the one thing worth doing about it. Newest first.</p>
+  </div>
+
+  <nav class="menu" aria-label="Page menu">
+    <a href="/#articles">Articles</a>
+    <a href="/#free-tools">Free Tools</a>
+    <a class="current" href="/ai-news/" aria-current="page">AI News</a>
+  </nav>
+
+  <section>
+    <div class="h2">Latest<small>One line item per story. Each one is written for a business owner, not an engineer.</small></div>
+
+    <ul class="news">
+      <li>
+        <div class="item">
+          <div class="date">3 Nov 2026</div>
+          <div>
+            <h3>What is inside Anthropic's 300-page IPO filing</h3>
+            <p>Six facts from the filing: who controls the board, revenue up about 14x, the $80.7 billion loss that is mostly an accounting charge, computing costs, about $895 billion in contracts, and the risk factors.</p>
+            <span class="chip tag">Anthropic</span><span class="chip">IPO</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</div>
+<div class="oc-banner">
+  <div class="oc-t">
+    <b>Not sure where AI gives you the most hours back?</b>
+    <span>Six questions, 60 seconds. It points you at the one tool worth doing first.</span>
+  </div>
+  <a href="/60sec/">Get Your Week Back &rarr;</a>
+</div>
+<div class="oc-footer">
+  <div class="oc-rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Does AI &times; One Time Automation AI.
+</div>
+</body>
+</html>

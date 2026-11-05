@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The AI Money Machine for Real Estate Agents | One Time Automation</title>
+  <meta name="description" content="A 6-week live build for real estate agents. Install 8 AI systems in your business with Leo Chen, so follow-up, content and admin run without you." />
+  <meta property="og:title" content="The AI Money Machine for Real Estate Agents" />
+  <meta property="og:description" content="6 live sessions. 8 AI systems installed in your business. You keep everything you build." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+<link rel="stylesheet" href="/site-chrome.css" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --muted:#8ea6b2; --line:#26333b;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:760px; margin:0 auto; padding:2.5rem 1.5rem 3rem; }
+    header.top { text-align:center; padding:1rem 0 1.5rem; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(1.9rem,5.2vw,2.8rem); letter-spacing:-0.02em; line-height:1.1; margin:0.8rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.05rem; max-width:580px; margin:0 auto 1.4rem; }
+    p { color:#d7d7de; margin:0 0 1rem; font-size:0.98rem; }
+    p strong { color:var(--fg); }
+    .cta {
+      display:inline-block; background:var(--accent); color:#fff; text-decoration:none;
+      font-weight:800; font-size:0.85rem; letter-spacing:.08em; text-transform:uppercase;
+      padding:16px 30px; border-radius:10px; transition:all .12s ease;
+    }
+    .cta:hover { background:var(--accent-hi); transform:translateY(-1px); }
+    .cta-row { text-align:center; margin:1.6rem 0 0.4rem; }
+    .fine { text-align:center; color:var(--muted); font-size:0.82rem; margin-top:0.6rem; }
+
+    .part { margin:3rem 0 1.25rem; padding-top:1.5rem; border-top:1px solid var(--line); }
+    .part .plabel { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--accent); }
+    .part h2 { font-size:1.55rem; letter-spacing:-0.015em; margin:0.35rem 0 0.6rem; line-height:1.25; }
+
+    blockquote {
+      border-left:3px solid var(--accent); background:var(--panel); border-radius:0 12px 12px 0;
+      padding:1.1rem 1.3rem; margin:1.4rem 0; color:#d7d7de; font-size:0.98rem;
+    }
+    blockquote cite { display:block; margin-top:0.5rem; color:var(--muted); font-size:0.85rem; font-style:normal; }
+
+    .tier { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1.3rem 1.4rem; margin:1rem 0; }
+    .tier .tlabel { font-size:0.74rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--accent); }
+    .tier h3 { font-size:1.2rem; margin:0.25rem 0 0.2rem; }
+    .tier .tdesc { color:var(--muted); font-size:0.9rem; margin-bottom:0.8rem; }
+    .tier ol { list-style:none; margin:0; padding:0; }
+    .tier li { display:flex; gap:12px; align-items:baseline; padding:0.45rem 0; border-top:1px solid var(--line); font-size:0.95rem; color:#d7d7de; }
+    .tier li b { color:var(--accent); min-width:1.4rem; }
+    .tier.cmd { opacity:0.85; border-style:dashed; }
+    .note { color:var(--muted); font-size:0.88rem; text-align:center; margin:0.8rem 0 0; }
+
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:1.4rem 0; }
+    .stat { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:1.1rem 0.9rem; text-align:center; }
+    .stat b { display:block; font-size:1.9rem; color:var(--accent); letter-spacing:-0.02em; line-height:1.1; }
+    .stat span { color:var(--muted); font-size:0.85rem; }
+    @media (max-width:620px) { .stats { grid-template-columns:1fr; } }
+
+    .paths { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1.2rem 0; }
+    .path { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:1.3rem 1.3rem 1.5rem; display:flex; flex-direction:column; }
+    .path.main { border-color:rgba(232,130,60,0.55); background:linear-gradient(180deg, rgba(232,130,60,0.12), var(--panel)); }
+    .path .tlabel { font-size:0.74rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--accent); }
+    .path h3 { font-size:1.25rem; margin:0.3rem 0; }
+    .path .price { font-size:1.9rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:0.6rem; }
+    .path p { font-size:0.92rem; flex:1; }
+    .path .cta { text-align:center; margin-top:0.6rem; }
+    .path .cta.alt { background:transparent; border:1px solid var(--accent); color:var(--accent); }
+    .path .cta.alt:hover { background:var(--accent-soft); }
+    @media (max-width:620px) { .paths { grid-template-columns:1fr; } }
+
+    ul.fit { list-style:none; margin:0 0 1rem; padding:0; }
+    ul.fit li { padding:0.9rem 0; border-top:1px solid var(--line); color:#d7d7de; font-size:0.96rem; }
+    ul.fit li strong { display:block; color:var(--fg); margin-bottom:0.15rem; }
+
+    details { border-top:1px solid var(--line); padding:0.95rem 0; }
+    details:last-of-type { border-bottom:1px solid var(--line); }
+    summary { cursor:pointer; font-weight:600; font-size:1rem; color:var(--fg); list-style:none; }
+    summary::-webkit-details-marker { display:none; }
+    summary::after { content:"+"; float:right; color:var(--accent); font-size:1.2rem; }
+    details[open] summary::after { content:"\2212"; }
+    details p { margin:0.7rem 0 0; color:#c4c4cc; }
+    details a, p a { color:var(--accent); }
+  </style>
+</head>
+<body>
+<div class="oc-top">
+  <a class="oc-brand" href="/">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="oc-slot" href="/tools/">The Toolshed &rarr;</a>
+</div>
+
+  <div class="wrap">
+
+    <header class="top">
+      <div class="kicker">The AI Money Machine &middot; For Real Estate Agents</div>
+      <h1>Build a complete AI operating system inside your real estate business in <span class="accent">6 weeks, live.</span></h1>
+      <p class="sub">Build the Intelligence. Hire the Workforce. Take Command. Every system gives you one result you can feel by Friday.</p>
+      <div class="cta-row"><a class="cta" href="https://buy.stripe.com/3cI00j0Sa0LIck1h043AY0C">Claim Your Seat for $997 &rarr;</a></div>
+      <div class="fine">6 live Tuesday sessions &middot; 1pm PT / 4pm ET &middot; You keep every system you build</div>
+    </header>
+
+    <div class="part">
+      <div class="plabel">01 &middot; The Problem</div>
+      <h2>You've tried AI. It still isn't running your business.</h2>
+    </div>
+    <p>You opened ChatGPT. You have Claude on your desktop. You watched the tutorials and bought the pro plans. Somehow nothing is saving you time.</p>
+    <p>Most agents spend 75% of their time tinkering and use only 10 to 20% of what they set up. Then they quit.</p>
+    <p>Meanwhile, the agents who put the right systems in place six months ago are running circles around the ones still typing follow-ups at 9 PM. Every week you wait, that gap gets wider.</p>
+    <blockquote>
+      The problem was never the technology. Nobody ever sat down with agents and built it inside their business. You order DoorDash to save time. You shop Amazon to save time. The only place you're not using AI is your own business.
+      <cite>Leo Chen</cite>
+    </blockquote>
+
+    <div class="part">
+      <div class="plabel">02 &middot; What You'll Build</div>
+      <h2>10 systems. 3 tiers. One AI operating system that works while you sleep.</h2>
+    </div>
+    <p>Over 6 live weeks you install the Intelligence first, the brain that learns you and your market. Then the Workforce, the team that runs your business without sleeping. Command is where you go next.</p>
+
+    <div class="tier">
+      <div class="tlabel">Tier 1</div>
+      <h3>Intelligence</h3>
+      <div class="tdesc">The brain that learns you and your market</div>
+      <ol>
+        <li><b>1</b> Claude Cowork AI Foundation: how Claude works</li>
+        <li><b>2</b> Set Up Foundation: projects and connectors</li>
+        <li><b>3</b> Rules + Skills</li>
+        <li><b>4</b> Personal Context Wiki Kit</li>
+        <li><b>5</b> AI Self-Improvement</li>
+      </ol>
+    </div>
+    <div class="tier">
+      <div class="tlabel">Tier 2</div>
+      <h3>Workforce</h3>
+      <div class="tdesc">The team that never sleeps</div>
+      <ol>
+        <li><b>6</b> Email + Calendar Assistant Agent</li>
+        <li><b>7</b> Deal of the Week Automator</li>
+        <li><b>8</b> AI CRM Money Machine</li>
+      </ol>
+    </div>
+    <div class="tier cmd">
+      <div class="tlabel">Tier 3 &middot; Your graduation path</div>
+      <h3>Command</h3>
+      <div class="tdesc">The chair you run it all from</div>
+      <ol>
+        <li><b>9</b> Business Command Center</li>
+        <li><b>10</b> Transactional Manager</li>
+      </ol>
+    </div>
+    <p class="note">The 6-week live build covers Tier 1 and Tier 2 (systems 1 through 8).</p>
+    <div class="cta-row"><a class="cta" href="https://buy.stripe.com/3cI00j0Sa0LIck1h043AY0C">Claim Your Seat for $997 &rarr;</a></div>
+
+    <div class="part">
+      <div class="plabel">03 &middot; Why It Works</div>
+      <h2>A live build, not a recorded course.</h2>
+    </div>
+    <p>You join six live sessions with me. Each one runs an hour, and you build during the session, not after it. You leave every week with a system installed in your business instead of homework.</p>
+    <p>Cohorts stay small on purpose, so I can build with you directly and you stay accountable.</p>
+    <div class="stats">
+      <div class="stat"><b>6</b><span>live sessions, one every Tuesday</span></div>
+      <div class="stat"><b>8</b><span>AI systems installed in your business</span></div>
+      <div class="stat"><b>100%</b><span>yours to keep, no SaaS lock-in</span></div>
+    </div>
+    <p>Hiring an executive assistant costs $40K to $60K a year. These systems cover a lot of that work, and you own them for good. No monthly fee to keep your own machine running. No starting over next quarter.</p>
+
+    <div class="part">
+      <div class="plabel">04 &middot; Your Instructor</div>
+      <h2>I run my own brokerage on this exact machine.</h2>
+    </div>
+    <p>I'm Leo Chen. I'm a 12-year real estate agent and a 25-year tech operator. I install AI operating systems for enterprise clients and run them in my own business every day.</p>
+    <p>My entire operation, Systemology Agency and Leo Chen Real Estate Group, runs inside a live AI Money Machine. You're getting the exact machine I use.</p>
+
+    <div class="part">
+      <div class="plabel">05 &middot; The Deal</div>
+      <h2>Build it with me, or have it built for you.</h2>
+    </div>
+    <div class="paths">
+      <div class="path main">
+        <div class="tlabel">Way 1 &middot; Most Popular</div>
+        <h3>The 6-Week Live Build</h3>
+        <div class="price">$997</div>
+        <p>You work through it step by step in a live cohort. You build alongside other agents and finish each week with a working system. No tech background needed. Covers systems 1 through 8.</p>
+        <a class="cta" href="https://buy.stripe.com/3cI00j0Sa0LIck1h043AY0C">Claim Your Seat &rarr;</a>
+      </div>
+      <div class="path">
+        <div class="tlabel">Way 2 &middot; Done For You</div>
+        <h3>Done For You</h3>
+        <div class="price">Custom</div>
+        <p>My team builds it, installs it, manages it, and hands you the keys. It's the fastest path and the bigger investment, made for agents who want the result without doing the build.</p>
+        <a class="cta alt" href="mailto:leo@systemology.agency?subject=Done%20For%20You%20Pricing">Email for pricing &rarr;</a>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="plabel">06 &middot; Who This Is For</div>
+      <h2>This is for you if you are...</h2>
+    </div>
+    <ul class="fit">
+      <li><strong>Done tinkering with AI tools that never stick.</strong>You have the subscriptions. You want the systems that actually run your day.</li>
+      <li><strong>Losing evenings to follow-up.</strong>Leads, emails and calendar mess eat the hours you should spend in front of clients.</li>
+      <li><strong>Not technical, and fine with that.</strong>I walk you through every step live. You don't need a tech background.</li>
+      <li><strong>Ready to build with other agents.</strong>A small live room keeps you moving and keeps you accountable.</li>
+      <li><strong>Tired of courses that give you homework.</strong>You finish every session with something installed and working.</li>
+    </ul>
+    <div class="cta-row"><a class="cta" href="https://buy.stripe.com/3cI00j0Sa0LIck1h043AY0C">That's Me, I'm In &rarr;</a></div>
+
+    <div class="part">
+      <div class="plabel">07 &middot; FAQ</div>
+      <h2>Questions, answered.</h2>
+    </div>
+    <details>
+      <summary>Do I need a tech background?</summary>
+      <p>No. I walk you through every step, live.</p>
+    </details>
+    <details>
+      <summary>How much time does this take each week?</summary>
+      <p>Each session is 1 hour. You join live and build during the session, not after it.</p>
+    </details>
+    <details>
+      <summary>When does the next cohort start?</summary>
+      <p>Cohort dates are set once a group fills. When you claim a seat, you get the start date and the six session times by email. Sessions run on Tuesdays at 1pm PT / 4pm ET.</p>
+    </details>
+    <details>
+      <summary>What if I can't make a session live?</summary>
+      <p>The cohorts are small and built around live participation, which is what makes them work. If you can't make all six sessions, wait for another cohort, or email <a href="mailto:leo@systemology.agency">leo@systemology.agency</a> about a custom Done For You option.</p>
+    </details>
+    <details>
+      <summary>Do I own the systems after the program ends?</summary>
+      <p>Yes. You keep everything you build, for good. No SaaS lock-in and no monthly fee to keep your own machine running.</p>
+    </details>
+    <details>
+      <summary>What's the difference between the $997 build and Done For You?</summary>
+      <p>In the $997 live build, you build the systems yourself alongside the cohort. In Done For You, my team builds and installs everything, then hands you the keys. Email <a href="mailto:leo@systemology.agency">leo@systemology.agency</a> for pricing.</p>
+    </details>
+    <details>
+      <summary>Is this only for real estate agents?</summary>
+      <p>This page is built for agents, and the examples, scripts and workflows follow how agents run their day. The systems work for any operator.</p>
+    </details>
+
+    <div class="part">
+      <div class="plabel">Last Call</div>
+      <h2>Six weeks from now, your business runs on a machine. Or it still runs on you.</h2>
+    </div>
+    <p>The agents who put these systems in place six months ago aren't smarter than you. They started. Seats are limited, and once they're gone, they're gone.</p>
+    <div class="cta-row"><a class="cta" href="https://buy.stripe.com/3cI00j0Sa0LIck1h043AY0C">Claim Your Seat for $997 &rarr;</a></div>
+    <div class="fine">Questions first? <a href="mailto:leo@systemology.agency">leo@systemology.agency</a></div>
+
+  </div>
+<div class="oc-banner">
+  <div class="oc-t">
+    <b>Not sure what to automate first?</b>
+    <span>Six questions, 60 seconds. It points you at the one thing worth doing first.</span>
+  </div>
+  <a href="/60sec/">Get Your Week Back &rarr;</a>
+</div>
+<div class="oc-footer">
+  <div class="oc-rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Does AI &times; One Time Automation AI.
+</div>
+</body>
+</html>

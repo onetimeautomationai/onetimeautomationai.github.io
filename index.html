@@ -64,8 +64,17 @@
   .menu{ display:flex; flex-wrap:wrap; gap:10px; padding:0 32px; }
   .menu a{ font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; color:var(--muted); background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:9px 18px; transition:all .14s ease; }
   .menu a:hover{ border-color:var(--accent); color:var(--fg); }
+  .menu a.active{ border-color:var(--accent); color:var(--fg); }
+  section[hidden]{ display:none; }
   html{ scroll-behavior:smooth; }
   section{ scroll-margin-top:16px; }
+  .news{ display:flex; flex-direction:column; gap:12px; padding-top:22px; }
+  a.item{ display:grid; grid-template-columns:110px minmax(0,1fr); gap:20px; align-items:start; background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:14px; padding:18px 22px; text-decoration:none; color:inherit; transition:border-color .14s ease, background .14s ease; }
+  a.item:hover{ border-color:var(--accent); border-left-color:var(--accent); background:var(--panel2); }
+  a.item .date{ font-size:0.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--steel); line-height:1.6; padding-top:4px; }
+  a.item h3{ font-size:1.08rem; font-weight:800; line-height:1.32; letter-spacing:-0.012em; margin-bottom:6px; }
+  a.item:hover h3{ color:var(--accent-hi); }
+  a.item p{ color:var(--muted); font-size:0.9rem; line-height:1.62; margin:0 0 10px; }
   .more{ display:inline-block; margin-top:18px; font-size:0.78rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); text-decoration:none; }
   .more:hover{ color:var(--accent-hi); }
 
@@ -79,18 +88,20 @@
   .h2 small{ display:block; font-size:0.86rem; font-weight:400; color:var(--muted); line-height:1.6; margin-top:8px; max-width:720px; }
 
   /* article cards */
-  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; padding:22px 0 0; }
+  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; padding:22px 0 0; grid-auto-rows:1fr; }
+  a.card h3, a.asset h3{ min-height:2.64em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  a.card p, a.asset p{ min-height:6.4em; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
   a.card{
     display:flex; flex-direction:column; text-decoration:none; color:inherit;
-    background:var(--panel); border:1px solid var(--line); border-radius:16px;
-    padding:20px 22px 18px; transition:border-color .14s ease, transform .14s ease, background .14s ease;
+    background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--steel); border-radius:14px;
+    padding:18px 20px 16px; transition:border-color .14s ease, transform .14s ease, background .14s ease;
   }
-  a.card:hover{ border-color:var(--accent); transform:translateY(-2px); background:var(--panel2); }
-  a.card .meta{ font-size:0.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--steel); line-height:1.5; }
-  a.card .meta em{ font-style:normal; color:var(--accent-hi); }
-  a.card h3{ font-size:1.08rem; font-weight:800; line-height:1.32; letter-spacing:-0.012em; margin:9px 0 8px; }
+  a.card:hover{ border-color:var(--accent); border-left-color:var(--accent); transform:translateY(-2px); background:var(--panel2); }
+  a.card .meta{ display:flex; align-items:center; gap:10px; flex-wrap:nowrap; white-space:nowrap; margin-bottom:10px; overflow:hidden; font-size:0.6rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--steel); line-height:1.4; }
+  a.card .meta em{ font-style:normal; color:var(--accent-hi); background:var(--accent-soft); border-radius:6px; padding:4px 9px; letter-spacing:.12em; flex:none; }
+  a.card h3{ font-size:1rem; font-weight:800; line-height:1.32; margin:0 0 6px; }
   a.card:hover h3{ color:var(--accent-hi); }
-  a.card p{ color:var(--muted); font-size:0.9rem; line-height:1.62; margin:0 0 16px; }
+  a.card p{ color:var(--muted); font-size:0.87rem; line-height:1.6; margin:0 0 12px; }
   a.card .foot{ margin-top:auto; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
   .chip{
     display:inline-block; font-size:0.68rem; font-weight:700; letter-spacing:.05em;
@@ -156,10 +167,11 @@
   .offer li{ position:relative; padding-left:22px; color:var(--muted); font-size:0.88rem; line-height:1.55; margin-bottom:8px; }
   .offer li::before{ content:""; position:absolute; left:2px; top:0.6em; width:8px; height:8px; border-radius:2px; background:var(--accent); }
   .offer a.join{
-    display:block; text-align:center; background:var(--accent); color:#fff; text-decoration:none;
-    font-size:0.82rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
-    padding:14px 18px; border-radius:9px; transition:all .12s ease;
+    display:flex; align-items:center; justify-content:center; gap:14px; text-align:center; background:var(--accent); color:#fff; text-decoration:none;
+    font-size:0.76rem; font-weight:800; letter-spacing:.06em; line-height:1.35; text-transform:uppercase;
+    padding:12px 18px; border-radius:9px; transition:all .12s ease;
   }
+  .offer a.join img{ width:34px; height:34px; border-radius:8px; display:block; flex:none; }
   .offer a.join:hover{ background:var(--accent-hi); transform:translateY(-1px); }
   .offer-note{ text-align:center; font-size:0.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); margin-top:12px; }
 
@@ -177,6 +189,7 @@
     .topbar, .mast, .banner, section, footer, .menu{ padding-left:20px; padding-right:20px; }
     .mast-grid{ grid-template-columns:1fr; gap:32px; }
     .cards{ grid-template-columns:1fr; }
+    a.item{ grid-template-columns:1fr; gap:6px; }
   }
 </style>
 </head>
@@ -207,7 +220,7 @@
         <li>Share what you automated and get feedback</li>
         <li>Get new prompts and checklists first</li>
       </ul>
-      <a class="join" href="https://www.skool.com/ssm/about">Join the Skool community &rarr;</a>
+      <a class="join" href="https://www.skool.com/ssm/about"><img src="/skool-icon.png" alt="Skool"><span>Join the Skool<br>community &rarr;</span></a>
       <div class="offer-note">Free to join</div>
     </aside>
     </div>
@@ -225,94 +238,94 @@
     <div class="cards" id="articleCards">
 
       <a class="card" href="/articles/run-10-20-ai-agents/">
-        <div class="meta"><em>Story</em> &middot; 28 Oct 2026</div>
+        <div class="meta"><em>Story</em><span>28 Oct 2026</span></div>
         <h3>How I Run 10-20 AI Agents at the Same Time</h3>
         <p>I stopped waiting on one agent at a time. Here is my exact setup on one screen, with an 8 minute walkthrough.</p>
-        <div class="foot"><span class="chip">1 min</span><span class="chip tool">The Herdr Setup Guide</span></div>
+        <div class="foot"><span class="chip tool">The Herdr Setup Guide</span></div>
       </a>
 
       <a class="card" href="/articles/should-you-hire-ai/">
-        <div class="meta"><em>Prompt of the Week</em> &middot; 14 Oct 2026</div>
+        <div class="meta"><em>Prompt of the Week</em><span>14 Oct 2026</span></div>
         <h3>Should You Hire AI?</h3>
         <p>&ldquo;I need help&rdquo; is not a job. It is a feeling, and hiring a feeling is not a success formula. Turn it into a scorecard first.</p>
-        <div class="foot"><span class="chip">2 min</span><span class="chip tool">The Hiring Scorecard</span></div>
+        <div class="foot"><span class="chip tool">The Hiring Scorecard</span></div>
       </a>
 
       <a class="card" href="/articles/the-bottleneck/">
-        <div class="meta"><em>Story</em> &middot; 26 Aug 2026</div>
+        <div class="meta"><em>Story</em><span>26 Aug 2026</span></div>
         <h3>A Job With Employees Attached</h3>
         <p>I went away for a few days and did not check in. When I came back, almost nothing had moved. Not because the people around me are not good.</p>
-        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Without-Me Worksheet</span></div>
+        <div class="foot"><span class="chip tool">The Without-Me Worksheet</span></div>
       </a>
 
       <a class="card" href="/articles/what-i-did-at-6am/">
-        <div class="meta"><em>Story</em> &middot; 19 Aug 2026</div>
+        <div class="meta"><em>Story</em><span>19 Aug 2026</span></div>
         <h3>I Checked On My Agent at 6am on a Saturday</h3>
         <p>Nothing was wrong. I knew nothing would be wrong. I watched it anyway, the way you check on a kid at the pool.</p>
-        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The AI Org Chart</span></div>
+        <div class="foot"><span class="chip tool">The AI Org Chart</span></div>
       </a>
 
       <a class="card" href="/articles/more-copies-not-a-bigger-team/">
-        <div class="meta"><em>Story</em> &middot; 18 Aug 2026</div>
+        <div class="meta"><em>Story</em><span>18 Aug 2026</span></div>
         <h3>You Don't Need a Bigger Team</h3>
         <p>A Harvard lab capped at twenty researchers stopped trying to hire past the cap and replicated the work instead. Every small business hits the same ceiling.</p>
-        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Toolshed</span></div>
+        <div class="foot"><span class="chip tool">The Toolshed</span></div>
       </a>
 
       <a class="card" href="/articles/ai-memory-superpower/">
-        <div class="meta"><em>Story</em> &middot; 13 Aug 2026</div>
+        <div class="meta"><em>Story</em><span>13 Aug 2026</span></div>
         <h3>Your Brain Holds Seven Things. Your AI Does Not.</h3>
         <p>By item eight on my grocery list I have lost item two. AI memory is not a bigger version of mine. It works on different rules.</p>
-        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Toolshed</span></div>
+        <div class="foot"><span class="chip tool">The Toolshed</span></div>
       </a>
 
       <a class="card" href="/articles/said-and-done/">
-        <div class="meta"><em>Prompt of the Week</em> &middot; 12 Aug 2026</div>
+        <div class="meta"><em>Prompt of the Week</em><span>12 Aug 2026</span></div>
         <h3>What Was Actually Decided</h3>
         <p>The meeting was good. Everyone agreed. Two weeks later nobody can name what was decided. That is not a memory problem.</p>
-        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Pattern Pass</span></div>
+        <div class="foot"><span class="chip tool">The Pattern Pass</span></div>
       </a>
 
       <a class="card" href="/articles/the-40x-time-leak/">
-        <div class="meta"><em>Story</em> &middot; 11 Aug 2026</div>
+        <div class="meta"><em>Story</em><span>11 Aug 2026</span></div>
         <h3>Ten Minutes, Forty Times a Week</h3>
         <p>Do it once and it costs you nothing. Do it forty times a week and call it part of the job. That is the time theft.</p>
-        <div class="foot"><span class="chip">3 min</span><span class="chip tool">The Time-Leak Checklist</span></div>
+        <div class="foot"><span class="chip tool">The Time-Leak Checklist</span></div>
       </a>
 
       <a class="card" href="/articles/the-message-youre-avoiding/">
-        <div class="meta"><em>Prompt of the Week</em> &middot; 5 Aug 2026</div>
+        <div class="meta"><em>Prompt of the Week</em><span>5 Aug 2026</span></div>
         <h3>The Message You Have Been Sitting On</h3>
         <p>I closed a great deal and never asked for the referral. When I finally sent the message, they had a friend who had been looking for six months.</p>
-        <div class="foot"><span class="chip">4 min</span><span class="chip tool">Write The Message You're Avoiding</span></div>
+        <div class="foot"><span class="chip tool">Write The Message You're Avoiding</span></div>
       </a>
 
       <a class="card" href="/articles/prompts-vs-skills/">
-        <div class="meta"><em>Story</em> &middot; 4 Aug 2026</div>
+        <div class="meta"><em>Story</em><span>4 Aug 2026</span></div>
         <h3>I Got Sick for Two Days and My Business Did Not Notice</h3>
         <p>I used to keep a folder of prompts. It was a Rolodex, and I was the index. Nothing in it ran unless I was upright and remembering.</p>
-        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Skills 101 Starter</span></div>
+        <div class="foot"><span class="chip tool">The Skills 101 Starter</span></div>
       </a>
 
       <a class="card" href="/articles/hire-or-build-a-machine/">
-        <div class="meta"><em>Story</em> &middot; 30 Jul 2026</div>
+        <div class="meta"><em>Story</em><span>30 Jul 2026</span></div>
         <h3>Hire, or Build a Machine</h3>
         <p>Every business hits the same wall: more work than hours. There are two answers to that, and almost nobody uses the second one.</p>
-        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Four Buckets Sort</span></div>
+        <div class="foot"><span class="chip tool">The Four Buckets Sort</span></div>
       </a>
 
       <a class="card" href="/articles/four-buckets/">
-        <div class="meta"><em>Prompt of the Week</em> &middot; 29 Jul 2026</div>
+        <div class="meta"><em>Prompt of the Week</em><span>29 Jul 2026</span></div>
         <h3>Four Buckets: Read Your Week Back to Yourself</h3>
         <p>The prompt I run on myself every other week. It has never once told me what I expected. Bucket four is why it is worth ten minutes.</p>
-        <div class="foot"><span class="chip">5 min</span><span class="chip tool">The Rule Page</span></div>
+        <div class="foot"><span class="chip tool">The Rule Page</span></div>
       </a>
 
       <a class="card" href="/articles/does-your-ai-have-a-job/">
-        <div class="meta"><em>Story</em> &middot; 28 Jul 2026</div>
+        <div class="meta"><em>Story</em><span>28 Jul 2026</span></div>
         <h3>Does Your AI Have a Job?</h3>
         <p>A chat window waits for you. Something with a job does not. That one difference separates people who got hours back from people who got faster at typing.</p>
-        <div class="foot"><span class="chip">4 min</span><span class="chip tool">The Four Buckets Sort</span></div>
+        <div class="foot"><span class="chip tool">The Four Buckets Sort</span></div>
       </a>
 
     </div>
@@ -436,12 +449,14 @@
   <section id="ai-news">
     <div class="h2">AI News<small>What happened in AI this week, in plain English, and what it means for the tools you run.</small></div>
 
-    <div class="cards">
-      <a class="card" href="/ai-news/">
-        <div class="meta"><em>Anthropic</em> &middot; 3 Nov 2026</div>
-        <h3>What is inside Anthropic's 300-page IPO filing</h3>
-        <p>Six facts from the filing: who controls the board, revenue up about 14x, the $80.7 billion loss that is mostly an accounting charge, and what it means for your tools.</p>
-        <div class="foot"><span class="chip">IPO</span></div>
+    <div class="news">
+      <a class="item" href="/ai-news/anthropic-ipo-filing/">
+        <div class="date">3 Nov 2026</div>
+        <div>
+          <h3>What is inside Anthropic's 300-page IPO filing</h3>
+          <p>Six facts from the filing: who controls the board, revenue up about 14x, the $80.7 billion loss that is mostly an accounting charge, computing costs, about $895 billion in contracts, and the risk factors.</p>
+          <span class="chip tool">Anthropic</span> <span class="chip">IPO</span>
+        </div>
       </a>
     </div>
     <a class="more" href="/ai-news/">See all AI News &rarr;</a>
@@ -504,6 +519,33 @@
 
   paginate('articleCards', 'articlePager');
   paginate('toolCards', 'toolPager');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.menu a[href^="#"]'));
+  var sections = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+
+  function showOnly(id){
+    sections.forEach(function(sec, i){
+      if (!sec) return;
+      var on = !id || sec.id === id;
+      sec.hidden = !on;
+      links[i].classList.toggle('active', sec.id === id);
+      links[i].setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+  }
+
+  links.forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.getAttribute('href').slice(1);
+      var already = a.classList.contains('active');
+      showOnly(already ? null : id);
+      if (!already){
+        var t = document.getElementById(id);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  if (location.hash && document.querySelector('.menu a[href="' + location.hash + '"]')) showOnly(location.hash.slice(1));
 })();
 </script>
 </body>

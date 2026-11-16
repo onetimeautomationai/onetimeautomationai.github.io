@@ -58,6 +58,8 @@ ul.tick li::before{content:"";position:absolute;left:3px;top:.62em;width:10px;he
 .steps{counter-reset:s;list-style:none;margin-top:14px}
 .steps li{counter-increment:s;position:relative;padding:0 0 14px 52px;margin-bottom:6px}
 .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;font-weight:800;text-align:center;line-height:34px}
+.closer{margin-left:auto;margin-right:auto;text-align:center}.closer .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch}.closer .cta-row .btn{width:100%;margin:0;display:flex;align-items:center;justify-content:center;text-align:center;padding-left:10px;padding-right:10px;letter-spacing:.03em;font-size:.78rem;white-space:nowrap}@media (max-width:720px){.closer .cta-row{grid-template-columns:1fr}.closer .cta-row .btn{white-space:normal}}
+.faq{margin-left:auto;margin-right:auto}.faq h2{text-align:center}
 .faq h3{margin-top:18px}
 .faq details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-top:12px;transition:border-color .12s ease}
 .faq details[open]{border-color:rgba(232,130,60,0.45)}
@@ -131,7 +133,7 @@ body.locked{overflow:hidden}
     </div>
   </article>
 
-  <a class="card offer-free" id="free" href="https://www.skool.com/ssm" style="text-decoration:none;color:inherit;border-top:3px solid var(--ok)">
+  <a class="card offer-free" id="free" href="https://www.skool.com/ssm" style="text-decoration:none;color:inherit;border-top:3px solid var(--ok)" target="_blank" rel="noopener noreferrer">
     <div class="code" style="color:var(--ok)">Free · Start here if you are new</div>
     <h3>AI Time Manager starter</h3>
     <p class="sum">Get the starter AI Time Manager free in our Skool community. Your AI agent uses it to plan your weeks with you.</p>
@@ -239,7 +241,7 @@ body.locked{overflow:hidden}
         <li>Every new system, at no extra cost.</li>
         <li>The founding member price stays the same for as long as you stay.</li>
       </ul>
-      <a class="btn" href="https://www.skool.com/ssm">Join Premium</a>
+      <a class="btn" href="https://www.skool.com/ssm" target="_blank" rel="noopener noreferrer">Join Premium</a>
       <p class="note muted">You join inside the Skool community at skool.com/ssm, in this window.</p>
     </div>
   </article>
@@ -263,10 +265,10 @@ body.locked{overflow:hidden}
   <details><summary>Which one should I start with?</summary><p>Start with the AI CEO System if you lead a team. Choose Premium if you want two or more systems, because it includes every one.</p></details>
 </section>
 
-<section class="narrow" style="padding-bottom:40px">
+<section class="narrow closer" style="padding-bottom:40px">
   <h2>Start with the AI CEO System</h2>
   <p>It is $9 and the download page opens as soon as you pay.</p>
-  <div class="cta-row"><a class="btn" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x214ma5rgir2DT4Kfd7q0V">Buy the AI CEO System for $9</a><a class="btn ghost" href="https://www.skool.com/ssm">Special: Get it all for $19 a month now</a></div>
+  <div class="cta-row"><a class="btn" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x214ma5rgir2DT4Kfd7q0V">Buy the AI CEO System for $9</a><a class="btn ghost" href="https://www.skool.com/ssm" target="_blank" rel="noopener noreferrer">Special: Get it all for $19 a month now</a></div>
 </section>
 
 </main>

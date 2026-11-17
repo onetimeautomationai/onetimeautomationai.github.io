@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NQK72LSP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google tag -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Watch-to-AI System | One Time Automation</title>
+  <meta name="description" content="Record a voice memo on your Apple Watch and let AI file it and do the work. Download the free setup package, follow the steps, and paste in the prompt." />
+  <meta property="og:title" content="The Watch-to-AI System" />
+  <meta property="og:description" content="Record on your Apple Watch, and AI files the memo and does the work. Free setup package and prompt." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+<link rel="stylesheet" href="/site-chrome.css" />
+  <meta name="theme-color" content="#0d1417" />
+  <style>
+    :root {
+      --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+      --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+      --steel:#4d7491; --muted:#8ea6b2; --line:#26333b; --ok:#3ecf8e;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; font-size:18px; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+        radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+        var(--bg);
+      background-attachment:fixed;
+      color:var(--fg); line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap { max-width:760px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+    header.top { text-align:center; padding:1rem 0 2rem; }
+    .logo { width:64px; height:64px; margin:0 auto 1rem; display:block; }
+    .kicker { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--muted); }
+    h1 { font-size:clamp(1.8rem,5vw,2.6rem); letter-spacing:-0.02em; line-height:1.1; margin:0.8rem 0; }
+    h1 .accent { color:var(--accent); }
+    .sub { color:var(--muted); font-size:1.05rem; max-width:560px; margin:0 auto; }
+    h2 { font-size:1.15rem; letter-spacing:-0.01em; margin:2.25rem 0 0.75rem; color:var(--muted); text-transform:uppercase; font-size:0.85rem; letter-spacing:0.1em; }
+    p.lead { color:#d7d7de; text-align:center; max-width:560px; margin:0 auto 2rem; }
+
+    .prompt-box { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:0.75rem 0 1.75rem; }
+    .prompt-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:0.85rem 1.1rem; background:var(--panel2); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .prompt-bar .label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    button.copy {
+      background:var(--accent); color:#fff; border:0; border-radius:9px;
+      padding:0.5rem 1rem; font-size:0.88rem; font-weight:600; cursor:pointer;
+      font-family:inherit; transition:transform .12s ease, background .12s ease;
+    }
+    button.copy:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    button.copy.done { background:var(--ok); }
+    pre {
+      margin:0; padding:1.1rem 1.2rem; overflow-x:auto;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+      font-size:0.84rem; line-height:1.6; color:#e6e6ea; white-space:pre; tab-size:2;
+    }
+    pre::-webkit-scrollbar { height:9px; }
+    pre::-webkit-scrollbar-thumb { background:var(--line); border-radius:9px; }
+
+    .reqs { border:1px solid var(--line); border-left:3px solid var(--steel); background:var(--panel); border-radius:12px; padding:0.9rem 1.15rem; margin:1.5rem 0 0; }
+    .reqs p { color:var(--muted); font-size:0.92rem; margin:0; line-height:1.6; }
+    .reqs strong { color:var(--fg); }
+
+    a.article-link { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:12px; padding:0.9rem 1.15rem; margin:0 0 1.5rem; text-decoration:none; color:var(--fg); transition:border-color .12s ease, transform .12s ease; }
+    a.article-link:hover { border-color:var(--accent); transform:translateY(-1px); }
+    a.article-link .al-lab { flex-basis:100%; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); }
+    a.article-link .al-title { font-size:1.1rem; font-weight:700; }
+    a.article-link .al-go { color:var(--accent); font-weight:600; font-size:0.95rem; }
+    p.body { color:#d7d7de; margin:0 0 1rem; }
+    a.dl { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; font-size:0.95rem; padding:0.8rem 1.4rem; border-radius:10px; transition:transform .12s ease, background .12s ease; }
+    a.dl:hover { transform:translateY(-1px); background:var(--accent-hi); }
+    ol.steps { margin:0.5rem 0 1rem 1.35rem; color:#d7d7de; }
+    ol.steps li { margin:0.55rem 0; }
+    ol.steps code { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:0.85em; background:var(--panel2); border:1px solid var(--line); border-radius:6px; padding:0.05em 0.4em; color:#e6e6ea; overflow-wrap:anywhere; }
+    pre.wrapped { white-space:pre-wrap; overflow-wrap:anywhere; }
+
+    footer { text-align:center; margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--line); color:var(--muted); font-size:0.88rem; }
+    footer a { color:var(--accent); text-decoration:none; }
+    footer a:hover { text-decoration:underline; }
+
+    @media (max-width:560px) {
+      .wrap { padding:1.75rem 1.1rem 3rem; }
+      pre { font-size:0.78rem; padding:0.9rem 1rem; }
+      .prompt-bar { padding:0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="oc-top">
+  <a class="oc-brand" href="/">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="oc-slot" href="/tools/">The Toolshed &rarr;</a>
+</div>
+
+  <div class="wrap">
+
+    <header class="top">
+      <img class="logo" src="/logo.png" alt="Leo Does AI, One Time Automation" width="64" height="64" />
+      <div class="kicker">Free setup package</div>
+      <h1>The <span class="accent">Watch-to-AI</span> System</h1>
+      <p class="sub">Say it on your wrist. AI does the work. You keep going.</p>
+    </header>
+
+    <a class="article-link" href="/articles/run-ai-from-my-apple-watch/">
+      <span class="al-lab">The article behind this setup</span>
+      <span class="al-title">Run AI from my Apple Watch</span>
+      <span class="al-go">Read the article &rarr;</span>
+    </a>
+
+    <h2>What it does</h2>
+    <p class="body">You record a voice memo on your Apple Watch, and it syncs to your Mac. A scheduled job transcribes the memo locally, then Claude files it, writes down the actions, and does the work. When the job finishes, you get one iMessage report.</p>
+
+    <div class="reqs">
+      <p><strong>What you need:</strong> A Mac. An Apple Watch with Voice Memos syncing through iCloud. Claude Code.</p>
+    </div>
+
+    <h2>Download</h2>
+    <p class="body">The zip holds the script, the prompt, the config file, the launchd file, and the steps below. It is free inside our Skool community.</p>
+    <a class="dl" href="https://www.skool.com/ssm/about" target="_blank" rel="noopener noreferrer">Join free on Skool to download the Watch-to-AI System</a>
+
+    <h2>What your memos can turn into</h2>
+    <p class="body">Once the memos start piling up, these systems act on them. Each one is a folder your AI agent reads, like this one.</p>
+    <ul class="body">
+      <li><a href="/store/#p1">AI CEO System</a>: your memos become decisions, a plan for the week and jobs for each agent.</li>
+      <li><a href="/store/#p4">Content Loop</a>: memo ideas become posts and emails, and the results feed the next idea.</li>
+      <li><a href="/store/#p6">Prioritization Mastery</a>: your memos get ranked against each other, so the top one gets done first.</li>
+      <li><a href="/store/#p7">Shutdown Scoreboard</a>: each evening scores what your memos turned into that day.</li>
+    </ul>
+    <p class="body">If you like this one, you can get our comprehensive systems here: <a href="/store/">store</a>.</p>
+
+    <h2>Setup steps</h2>
+    <p class="body">Follow these in order. Each step is short.</p>
+    <ol class="steps">
+      <li>Install a local transcription tool. The simplest is <code>pip3 install openai-whisper</code> plus <code>brew install ffmpeg</code>. Test it with <code>whisper some-file.m4a --model base</code>.</li>
+      <li>Copy <code>config.example.json</code> to <code>config.json</code> in the folder root.</li>
+      <li>In <code>config.json</code>, set <code>notes_folder</code> to the folder where your notes live.</li>
+      <li>Check <code>transcribe_command</code>. It must print the transcript, or write <code>{stem}.txt</code> into <code>{outdir}</code>. The words <code>{audio}</code> and <code>{outdir}</code> are filled in for each recording.</li>
+      <li>Open System Settings, Privacy and Security, Full Disk Access. Add your terminal app. Add <code>/usr/bin/python3</code> too if you plan to use launchd.</li>
+      <li>Make sure <code>claude -p "say hi"</code> works in your terminal.</li>
+      <li>Run the script once by hand: <code>python3 scripts/voice_memo_ingest.py</code>. It marks your existing recordings as seen and stops.</li>
+      <li>Record a short test memo on your watch. Wait for iCloud to sync it to your Mac. Run the script again. Check your notes folder.</li>
+      <li>Copy <code>setup/com.example.voice-memo-ingest.plist</code> to <code>~/Library/LaunchAgents/</code>. Replace every <code>REPLACE_WITH_</code> value.</li>
+      <li>Load it: <code>launchctl load ~/Library/LaunchAgents/com.example.voice-memo-ingest.plist</code></li>
+      <li>Optional: set <code>notify_imessage</code> to true and <code>notify_number</code> to your own number. Messages must be signed in on this Mac.</li>
+    </ol>
+
+    <h2>The inject prompt</h2>
+    <p class="body">Use this when your AI tool cannot read a folder. Paste everything in the box into custom instructions, then paste a transcript as your message.</p>
+    <div class="prompt-box">
+      <div class="prompt-bar">
+        <span class="label">Paste into custom instructions</span>
+        <button class="copy" id="copyBtn1" onclick="copyPrompt('p1','copyBtn1')">Copy prompt</button>
+      </div>
+<pre class="wrapped" id="p1">Every message I send you is a voice memo transcript. Treat it as a one-way instruction. I will not answer questions until later, so never ask any. Make your best guess and flag what was unclear.
+
+For each memo: show the full transcript first, unedited. Name the topic and say which folder or note it belongs in. List the actions in short lines. Then do the work the memo asks for, right in your reply, and mark each action done. If the memo says what "done" looks like, treat that as your finish line. If something needs a human, such as a call or a purchase, list it under "Needs you" with the exact next step. Never send anything to other people. Draft it instead. End with one short summary of one or two sentences.</pre>
+    </div>
+
+    </div>
+
+  <script>
+    function copyPrompt(preId, btnId) {
+      var text = document.getElementById(preId).innerText;
+      var btn = document.getElementById(btnId);
+      function done() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.classList.remove('done');
+        }, 1800);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+      } else {
+        fallback();
+      }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    }
+  </script>
+<div class="oc-banner">
+  <div class="oc-t">
+    <b>Not sure which one to start with?</b>
+    <span>Six questions, 60 seconds. It points you at the one tool above worth doing first.</span>
+  </div>
+  <a href="/60sec/">Get Your Week Back &rarr;</a>
+</div>
+<div class="oc-footer">
+  <div class="oc-rule"></div>
+  <b>One Time Automation.</b> Automate it once. Own it forever.<br>
+  Leo Does AI &times; One Time Automation AI.
+</div>
+</body>
+</html>

@@ -222,6 +222,9 @@
   .proofgrid{ display:grid; grid-template-columns:300px 1fr 1fr; gap:var(--gap); margin-top:32px; }
   .proofgrid .slotph{ grid-row:span 2; border-radius:var(--radius); padding:24px; min-height:220px; }
   .proofgrid p{ margin:0; font-size:var(--t-m); color:var(--card-ink); font-weight:500; }
+  /* Talking bubbles (Leo 11/19 10:12 PM): each card is a speech bubble with a tail pointing back toward Leo's photo. */
+  .proofgrid .bubble{ position:relative; align-self:center; margin-left:12px; padding:22px 26px; border-radius:26px 26px 26px 6px; box-shadow:0 8px 22px rgba(13,20,23,.07); }
+  .proofgrid .bubble::before{ content:""; position:absolute; left:-12px; bottom:0; width:18px; height:18px; background:var(--card); clip-path:polygon(100% 0,100% 100%,0 100%); }
 
   /* FAQ */
   .faq{ padding-top:0; }
@@ -254,11 +257,16 @@
   footer .right{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
 
   /* quiet motion */
-  .js .rv{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  /* Block loading motion, copied from systemology.agency/crmmm (Leo 11/19 10:15 PM): blocks rise 22px and fade in as they enter view,
+     siblings in a group stagger 90ms apart (max 540ms), hero rises in on load. Off under reduced motion and ?static. */
+  .js .rv{ opacity:0; transform:translateY(22px); transition:opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1); }
   .js .rv.in{ opacity:1; transform:none; }
+  .js .hero .rise{ opacity:0; transform:translateY(22px); animation:riseIn .9s cubic-bezier(.4,0,.2,1) forwards; }
+  @keyframes riseIn{ to{ opacity:1; transform:none; } }
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     .js .rv{ opacity:1; transform:none; transition:none; }
+    .js .hero .rise{ opacity:1; transform:none; animation:none; }
     .btn{ transition:none; }
   }
 
@@ -310,7 +318,7 @@
 
 <nav>
   <div class="bar">
-    <a class="brand" href="#top"><img src="/logo.png" alt="One Time Automation AI logo" width="36" height="36" /><span>CEO AI Toolkit</span></a>
+    <a class="brand" href="#top"><img src="../logo.png" alt="One Time Automation AI logo" width="36" height="36" /><span>CEO AI Toolkit</span></a>
     <div class="anchors">
       <a href="#hires">Hires</a>
       <a href="#how">How it works</a>
@@ -468,7 +476,6 @@
         <li><strong>End each night accomplished.</strong>Spend five minutes on your scoreboard, and tomorrow is already planned.</li>
       </ol>
     </div>
-    <p class="cta"><a class="btn arrow" href="#buy">Hire my AI team for $17</a></p>
   </div>
 </section>
 
@@ -525,6 +532,7 @@
 <!-- differentiators (draft copy) -->
 <section class="diff">
   <div class="wrap">
+    <p class="flagrow"><span class="flag">draft copy, "Your files stay yours" waits on FA10</span></p>
     <h2>Why owners hire an AI team instead of buying another app</h2>
     <div class="six">
       <div class="card rv"><h3>No new app</h3><p>It runs inside the AI agent you already pay for.</p></div>
@@ -544,10 +552,10 @@
     <div class="proofgrid">
       <!-- PHOTO SLOT: Leo's real photo goes here. -->
       <img class="leo-ph leo-big" src="assets/leo-headshot-1000.jpg" alt="Leo Chen">
-      <div class="card rv"><p>I run a real estate team and a systems agency, and I work as a fractional CTO. Every hire here comes from the folders I use each day.</p></div>
-      <div class="card rv"><p>My AI has sorted my inbox every day since May.</p></div>
-      <div class="card rv"><p>You can be one of the first owners to use it.</p></div>
-      <div class="card rv"><p>About 900 emails come in each week. Fewer than 20 need me.</p></div>
+      <div class="card bubble rv"><p>I run a real estate team and a systems agency, and I work as a fractional CTO. Every hire here comes from the folders I use each day.</p></div>
+      <div class="card bubble rv"><p>My AI has sorted my inbox every day since May.</p></div>
+      <div class="card bubble rv"><p>You can be one of the first owners to use it.</p></div>
+      <div class="card bubble rv"><p>About 900 emails come in each week. Fewer than 20 need me.</p></div>
     </div>
   </div>
 </section>
@@ -594,7 +602,7 @@
 
 <footer>
   <div class="wrap">
-    <a class="brand" href="#top"><img src="/logo.png" alt="One Time Automation AI logo" width="36" height="36" />One Time Automation &middot; CEO AI Toolkit</a>
+    <a class="brand" href="#top"><img src="../logo.png" alt="One Time Automation AI logo" width="36" height="36" />One Time Automation &middot; CEO AI Toolkit</a>
     <div class="right">
       <span>All sales are final. <a href="#">License</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Support</a></span>
       <a class="btn btn-sm" href="#buy">Hire my AI team for $17</a>
@@ -607,8 +615,19 @@
   var d=document.documentElement;
   if(/[?&]static/.test(location.search)||window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){return;}
   d.classList.add('js');
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px',threshold:0.06});
-  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -60px 0px',threshold:0.08});
+  // hero rises in on load, one piece after another
+  var hero=['.hero h1','.hero .heroteam','.hero .sub','.hero .btns','.hero .under','.hero .built','.hero .proofrow','.hero .heroshots'];
+  hero.forEach(function(sel,i){var el=document.querySelector(sel);if(!el)return;el.classList.remove('rv');el.classList.add('rise');el.style.animationDelay=(i*110)+'ms';});
+  // groups whose children reveal one after another
+  var groups=['.team > .card','.steps > li','.proofgrid > *','.statsbar > div','.diff .card','.faqlist > *','section h2'];
+  groups.forEach(function(sel){document.querySelectorAll(sel).forEach(function(el){
+    if(el.closest('.hero'))return;
+    if(!el.classList.contains('rv'))el.classList.add('rv');
+    var sib=Array.prototype.filter.call(el.parentNode.children,function(c){return c.matches(sel);});
+    var i=sib.indexOf(el); if(i>0)el.style.transitionDelay=Math.min(i*90,540)+'ms';
+  });});
+  document.querySelectorAll('.rv').forEach(function(el){if(el.closest('.hero'))return;io.observe(el);});
 })();
 </script>
 </body>

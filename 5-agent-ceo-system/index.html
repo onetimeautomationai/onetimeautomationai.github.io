@@ -90,6 +90,13 @@
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 600' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%23255c8e' stroke-opacity='.22' stroke-width='1.2'%3E%3Cpath d='M0 90C240 20 420 190 720 120S1200 10 1440 110'/%3E%3Cpath d='M0 150C260 80 460 260 760 180S1220 90 1440 190'/%3E%3Cpath d='M0 230C220 170 480 330 800 250S1240 180 1440 270'/%3E%3Cpath d='M0 40C300 -10 520 120 820 60S1260 -20 1440 40'/%3E%3C/g%3E%3C/svg%3E") top center/100% 600px no-repeat; }
   .hero .grid{ display:grid; grid-template-columns:1.06fr .94fr; gap:48px; align-items:center; }
   h1 .h1a{ display:block; text-wrap:balance; font-size:clamp(2.5rem, 4.6vw, 3.7rem); line-height:1.03; font-weight:var(--hw); }
+  .tw{ position:relative; display:inline-block; white-space:nowrap; }
+  .tw-vh{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .tw-size{ visibility:hidden; }
+  .tw-txt{ position:absolute; left:0; top:0; color:var(--blue); }
+  .tw.on .tw-txt::after{ content:""; display:inline-block; width:.055em; height:.82em; margin-left:.04em; background:#255c8e; vertical-align:-.04em; animation:twblink 1s steps(1) infinite; }
+  .tw.on.typing .tw-txt::after{ animation:none; }
+  @keyframes twblink{ 50%{ opacity:0; } }
   h1 .h1b{ display:block; font-size:var(--t-l); line-height:1.28; font-weight:700; color:var(--text); margin-top:18px; letter-spacing:-.02em; }
   .sq{ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8C60 2 120 2 150 6s90 5 148-2' fill='none' stroke='%23255c8e' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") left bottom/100% .16em no-repeat; padding-bottom:.08em; white-space:nowrap; }
   .prodline{ font-size:var(--t-s); font-weight:700; letter-spacing:.02em; color:var(--blue); margin:0 0 14px; }
@@ -362,7 +369,7 @@
   <div class="wrap grid">
     <div>
       <p class="prodline">The 5-Agent CEO System&trade;</p>
-      <h1><span class="h1a">Run Your Business With <span class="sq">Clarity and Focus:</span></span> <span class="h1b">Hire Your Private AI Chief of Staff and 4 Managers at $3.40 Each (One Time)</span></h1>
+      <h1><span class="h1a">Run Your Business With <span class="tw"><span class="tw-vh">Clarity and Focus:</span><span class="tw-size" aria-hidden="true">Clarity and Focus:</span><span class="sq tw-txt" aria-hidden="true">Clarity and Focus:</span></span></span> <span class="h1b">Hire Your Private AI Chief of Staff and 4 Managers at $3.40 Each (One Time)</span></h1>
       <div class="heroteam" data-ui role="img" aria-label="Your AI team: a Chief of Staff over an Email Manager, a Time Manager, a Focus Manager and a CEO Scoreboard">
         <span class="cos">Chief of Staff</span>
         <div class="mgrs"><span>Email Manager</span><span>Time Manager</span><span>Focus Manager</span><span>CEO Scoreboard</span></div>
@@ -689,6 +696,21 @@
     var i=sib.indexOf(el); if(i>0)el.style.transitionDelay=Math.min(i*90,540)+'ms';
   });});
   document.querySelectorAll('.rv').forEach(function(el){if(el.closest('.hero'))return;io.observe(el);});
+})();
+</script>
+<script>
+(function(){
+  if(/[?&]static/.test(location.search)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+  var w=document.querySelector('.tw'); if(!w){return;}
+  var el=w.querySelector('.tw-txt'), T='Clarity and Focus:', i=0, del=false;
+  w.classList.add('on');
+  function tick(){
+    el.textContent=T.slice(0,i); var d;
+    if(!del){ w.classList.add('typing'); if(i<T.length){i++; d=80+Math.random()*40;} else {del=true; w.classList.remove('typing'); d=2200;} }
+    else { w.classList.add('typing'); if(i>0){i--; d=40;} else {del=false; w.classList.remove('typing'); d=450;} }
+    setTimeout(tick,d);
+  }
+  tick();
 })();
 </script>
 </body>

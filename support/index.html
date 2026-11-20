@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NQK72LSP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google tag -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support | One Time Automation</title>
+<meta name="description" content="Questions about a One Time Automation toolkit? Send us a message and we reply by email.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0d1417">
+<style>
+  :root{
+    --bg:#0d1417; --panel:#152128; --panel2:#1b2c35; --fg:#f4f4f5;
+    --accent:#e8823c; --accent-hi:#f4a468; --accent-soft:rgba(232,130,60,0.15);
+    --teal:#255c8e; --muted:#8ea6b2; --line:#26333b; --ok:#3ecf8e;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ font-size:18px; }
+  body{
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgba(232,130,60,0.10), transparent 70%),
+      radial-gradient(70% 60% at 50% 120%, rgba(37,92,142,0.16), transparent 70%),
+      var(--bg);
+    color:var(--fg); line-height:1.7;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  .wrap{ width:100%; max-width:640px; margin:auto; padding:48px 24px; }
+  .kick{ display:inline-block; font-weight:700; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent-hi); background:var(--accent-soft); padding:6px 12px; border-radius:99px; margin-bottom:16px; }
+  h1{ font-size:clamp(1.6rem,4vw,2.1rem); font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin-bottom:16px; }
+  .sub{ font-size:1.05rem; line-height:1.6; color:var(--muted); margin-bottom:2rem; }
+  .card{ background:var(--panel); border-radius:16px; padding:2rem; border:1px solid var(--line); box-shadow:0 12px 32px rgba(0,0,0,.28); }
+  label{ display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; }
+  input[type=text], input[type=email], textarea{
+    width:100%; padding:14px 16px; border-radius:12px; border:1.5px solid var(--line);
+    background:var(--panel2); font-size:1rem; font-family:inherit; color:var(--fg); margin-bottom:16px; outline:none;
+  }
+  textarea{ min-height:160px; resize:vertical; }
+  input:focus, textarea:focus{ border-color:var(--accent); }
+  .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .btn{ display:inline-flex; align-items:center; justify-content:center; border:none; cursor:pointer; width:100%; background:var(--accent); color:#fff; font-weight:700; font-size:0.95rem; font-family:inherit; padding:15px 26px; border-radius:10px; }
+  .btn:hover:not(:disabled){ background:var(--accent-hi); }
+  .btn:disabled{ background:var(--line); color:var(--muted); cursor:not-allowed; }
+  .msg{ font-size:0.9rem; margin-top:14px; display:none; }
+  .msg.ok{ color:var(--ok); display:block; }
+  .msg.err{ color:var(--accent-hi); display:block; }
+  .note{ font-size:0.8rem; color:var(--muted); margin-top:14px; }
+  .h-captcha{ margin-bottom:16px; }
+</style>
+<link rel="stylesheet" href="/site-chrome.css" />
+</head>
+<body>
+<div class="oc-top">
+  <a class="oc-brand" href="/">
+    <img src="/logo.png" alt="One Time Automation" width="34" height="34" />
+    One Time <span>Automation</span>
+  </a>
+  <a class="oc-slot" href="/tools/">The Toolshed &rarr;</a>
+</div>
+
+<div class="wrap">
+  <div class="kick">Support</div>
+  <h1>Questions about your toolkit?</h1>
+  <p class="sub">Tell us what you said to your AI agent, what it did, and which AI agent you use. We reply by email.</p>
+
+  <form class="card" id="support_form" novalidate>
+    <!-- Delivery: Web3Forms. The access key ties delivery to the owner's inbox, so no email address appears in this page. -->
+    <input type="hidden" name="access_key" value="{{WEB3FORMS_ACCESS_KEY}}">
+    <input type="hidden" name="subject" value="Toolkit support request">
+    <input type="hidden" name="from_name" value="One Time Automation support form">
+
+    <!-- Bot trap 1: hidden field people never see. A bot that fills it is rejected. -->
+    <div class="hp" aria-hidden="true">
+      <label for="botcheck">Leave this empty</label>
+      <input type="checkbox" name="botcheck" id="botcheck" tabindex="-1" autocomplete="off">
+    </div>
+
+    <label for="name">Your name</label>
+    <input type="text" id="name" name="name" autocomplete="name" required maxlength="120">
+
+    <label for="email">Your email</label>
+    <input type="email" id="email" name="email" autocomplete="email" required maxlength="200">
+
+    <label for="message">Your question</label>
+    <textarea id="message" name="message" required maxlength="5000"></textarea>
+
+    <!-- Bot trap 3: human check. Uses the Web3Forms hCaptcha integration. Confirm the site key at activation. -->
+    <div class="h-captcha" data-captcha="true"></div>
+
+    <button class="btn" id="send_btn" type="submit">Send</button>
+    <p class="msg" id="form_msg" role="status"></p>
+    <p class="note">We only use your email to reply to you.</p>
+  </form>
+</div>
+
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script>
+(function(){
+  var form = document.getElementById('support_form');
+  var btn = document.getElementById('send_btn');
+  var msg = document.getElementById('form_msg');
+  var openedAt = Date.now(); // Bot trap 2: real people take more than 4 seconds to fill the form.
+
+  function show(text, ok){ msg.textContent = text; msg.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = form.name.value.trim();
+    var email = form.email.value.trim();
+    var message = form.message.value.trim();
+    if (!name || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { show('Please fill in your name, a valid email, and your question.', false); return; }
+    if (form.botcheck.checked) { return; }
+    if (Date.now() - openedAt < 4000) { show('Please take a moment and try again.', false); return; }
+    var captcha = form.querySelector('[name="h-captcha-response"]');
+    if (captcha && !captcha.value) { show('Please complete the human check.', false); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.success) { form.reset(); show('Sent. We will reply by email.', true); }
+      else { show('That did not go through. Please try again in a minute.', false); }
+    })
+    .catch(function(){ show('That did not go through. Please check your connection and try again.', false); })
+    .finally(function(){ btn.disabled = false; btn.textContent = 'Send'; });
+  });
+})();
+</script>
+</body>
+</html>

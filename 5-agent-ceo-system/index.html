@@ -193,6 +193,7 @@
 
   /* a day: one screen with callouts */
   .day{ padding-top:0; }
+  .daylearn{ margin:40px auto 0; max-width:38em; text-align:center; text-wrap:balance; color:var(--ink); }
   .diagram{ margin-top:32px; display:grid; grid-template-columns:1fr 360px 1fr; gap:56px; align-items:center; }
   .calls{ display:grid; gap:72px; }
   .call{ position:relative; }
@@ -500,7 +501,7 @@
     <div class="diagram">
       <div class="calls left">
         <div class="call rv"><h3>Morning</h3><p>Your Focus Manager sets your top 3 and a result for each block.</p></div>
-        <div class="call rv"><h3>Calendar</h3><p>Your Time Manager blocks the time for what you decided matters.</p></div>
+        <div class="call rv"><h3>Calendar</h3><p>Your Time Manager blocks time on your calendar for your top 3.</p></div>
       </div>
       <div class="ui rv" data-ui role="img" aria-label="Illustration of one day: the top 3, the sorted inbox, the blocked calendar and the scoreboard in one screen.">
         <div class="ui-top"><b>Today</b><span>Illustration</span></div>
@@ -525,6 +526,7 @@
         <div class="call rv"><h3>Night</h3><p>Your CEO Scoreboard scores your day and hands you tomorrow's list.</p></div>
       </div>
     </div>
+    <p class="daylearn rv">Your Chief of Staff runs all four. It learns your preferences from every correction and your habits from your nightly scores. It ranks every task against your number one goal. Each week, your day runs a little more your way.</p>
   </div>
 </section>
 

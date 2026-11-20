@@ -53,10 +53,13 @@
   /* the one action: orange pill. Orange is used on buttons only. */
   .btn{ display:inline-flex; align-items:center; gap:10px; background:var(--accent); color:var(--btn-ink); font-weight:700; text-decoration:none;
     padding:14px 28px; border-radius:999px; font-size:1rem; line-height:1.3;
-    transition:transform .2s ease, background-color .2s ease; }
+    transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+    background-image:linear-gradient(180deg, color-mix(in srgb, var(--accent) 78%, #ffffff) 0%, var(--accent) 55%, color-mix(in srgb, var(--accent) 88%, #000000) 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 0 rgba(0,0,0,.12), 0 4px 0 color-mix(in srgb, var(--accent) 62%, #000000), 0 10px 22px -6px rgba(13,20,23,.35); }
+  .btn:active{ transform:translateY(3px); box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(0,0,0,.12), 0 1px 0 color-mix(in srgb, var(--accent) 62%, #000000), 0 4px 10px -4px rgba(13,20,23,.35); }
   .btn.arrow::after{ content:""; flex:none; width:16px; height:16px;
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d1417' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M9 7h8v8'/%3E%3C/svg%3E") center/16px no-repeat; }
-  .btn:hover{ background:var(--accent-hi); transform:translateY(-2px); }
+  .btn:hover{ background-color:var(--accent-hi); transform:translateY(-2px); box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 0 rgba(0,0,0,.12), 0 6px 0 color-mix(in srgb, var(--accent) 62%, #000000), 0 16px 28px -8px rgba(13,20,23,.4); }
   .btn:focus-visible{ outline:3px solid var(--ink); outline-offset:3px; }
   .btn-sm{ padding:10px 20px; font-size:var(--t-s); }
   .darkcard .btn:focus-visible{ outline-color:var(--on-dark); }
@@ -218,6 +221,20 @@
   .rank u{ display:block; height:8px; border-radius:4px; background:var(--sk); text-decoration:none; }
   .chip{ flex:none; font-size:var(--t-xs); font-weight:700; line-height:1; padding:5px 10px; border-radius:20px; background:var(--ui-bg); color:var(--ui-ink); box-shadow:inset 0 0 0 1px var(--sk); }
   .chip.yes{ background:var(--blue); color:#ffffff; box-shadow:none; }
+  .ui .tx{ flex:1; min-width:0; font-size:var(--t-xs); font-weight:600; color:var(--ui-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ui .tx strong{ color:var(--blue); }
+  .grp{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .grp .st{ font-style:normal; font-weight:700; font-size:var(--t-xs); color:var(--ui-muted); white-space:nowrap; }
+  .grp .st.live{ color:var(--blue); display:inline-flex; align-items:center; gap:6px; }
+  .grp .st.live::before{ content:""; width:7px; height:7px; border-radius:50%; background:#2f9e5b; animation:stpulse 2s ease-in-out infinite; }
+  @keyframes stpulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+  @media (prefers-reduced-motion:reduce){ .grp .st.live::before{ animation:none; } }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .tags span{ font-size:var(--t-xs); font-weight:600; color:var(--ui-muted); background:var(--ui-row); border-radius:20px; padding:2px 9px; }
+  .note{ margin-top:6px; font-size:var(--t-xs); font-weight:600; color:var(--blue); }
+  .score{ display:flex; align-items:center; gap:12px; }
+  .score b{ flex:none; font-size:1.35rem; font-weight:800; color:var(--blue); }
+  .score .tx{ white-space:normal; line-height:1.35; }
   .call{ position:relative; }
   .calls.left .call{ text-align:right; }
   .call::after{ content:""; position:absolute; top:.85em; width:40px; height:3px; border-radius:2px; background:var(--ink); }
@@ -523,35 +540,35 @@
     <div class="diagram">
       <div class="calls left">
         <div class="call rv"><h3>Priorities</h3><p>You pick between two items at a time, and your Chief of Staff turns your picks into a ranked list.</p></div>
-        <div class="call rv"><h3>Morning</h3><p>Your Focus Manager turns your ranking into a top 3 and a result for each block.</p></div>
-        <div class="call rv"><h3>Calendar</h3><p>Your Time Manager blocks time on your calendar for your top 3.</p></div>
+        <div class="call rv"><h3>Morning</h3><p>Your Focus Manager turns your ranking into your top 3 actions and a result for each block.</p></div>
+        <div class="call rv"><h3>Calendar</h3><p>Your Time Manager blocks time for your top 3 and moves its blocks when your day changes.</p></div>
       </div>
-      <div class="ui rv" data-ui role="img" aria-label="Illustration of one day: your plate ranked one pair at a time, the decisions that need you, the top 3, the sorted inbox, the blocked calendar and the scoreboard in one screen.">
+      <div class="ui rv" data-ui role="img" aria-label="Illustration of one day with sample data. Your plate ranked one pair at a time, one decision waiting for a yes, your top 3 actions, an inbox sorted with the important email flagged, calendar blocks moved for a new call, and tonight's score of 8 out of 10.">
         <div class="ui-top"><b>Today</b><span>Illustration</span></div>
-        <div class="grp">Your plate, ranked</div>
-        <div class="pair"><span class="opt win"><b>A</b><span class="sk"></span></span><span class="vs">vs</span><span class="opt"><b>B</b><span class="sk"></span></span></div>
+        <div class="grp">Your plate, ranked <em class="st">Chief of Staff</em></div>
+        <div class="pair"><span class="opt win"><b>A</b><span class="tx">Ruiz proposal</span></span><span class="vs">vs</span><span class="opt"><b>B</b><span class="tx">New website</span></span></div>
         <div class="grp">Decisions for you</div>
-        <div class="row"><span class="sk m"></span><span class="chip yes">Yes</span><span class="chip">No</span></div>
-        <div class="grp">Your top 3</div>
-        <div class="slot"><b>1</b><span class="sk"></span></div>
-        <div class="slot"><b>2</b><span class="sk m"></span></div>
-        <div class="slot"><b>3</b><span class="sk"></span></div>
-        <div class="grp">Inbox</div>
-        <div class="row hot"><i></i><span class="sk m"></span><span class="sk s"></span></div>
-        <div class="row"><i></i><span class="sk s"></span><span class="sk m"></span></div>
-        <div class="grp">Calendar</div>
+        <div class="row"><span class="tx">Send the drafted reply to Dana?</span><span class="chip yes">Yes</span><span class="chip">No</span></div>
+        <div class="grp">Your top 3 <em class="st">Focus Manager</em></div>
+        <div class="slot"><b>1</b><span class="tx">Send the Ruiz proposal</span></div>
+        <div class="slot"><b>2</b><span class="tx">Follow up with 3 prospects</span></div>
+        <div class="slot"><b>3</b><span class="tx">Set January prices</span></div>
+        <div class="grp">Inbox <em class="st live">Sorted 8:02 AM</em></div>
+        <div class="row hot"><i></i><span class="tx"><strong>Important:</strong> Dana is ready to sign</span></div>
+        <div class="tags"><span>4 replies drafted</span><span>12 FYI</span><span>31 clutter</span></div>
+        <div class="grp">Calendar <em class="st live">2 blocks moved</em></div>
         <div class="week">
           <u></u><u class="top">1</u><u></u><u class="blk"></u><u></u>
           <u class="blk"></u><u></u><u class="top">2</u><u></u><u class="top">3</u>
         </div>
-        <div class="grp">Scoreboard</div>
-        <div class="slot"><span class="sk m"></span><span class="pips"><u class="on"></u><u class="on"></u><u class="on"></u><u class="on"></u><u></u></span></div>
-        <div class="slot"><span class="sk s"></span><span class="pips"><u class="on"></u><u class="on"></u><u class="on"></u><u></u><u></u></span></div>
+        <div class="note">Block 2 moved to 2 PM to fit your new call.</div>
+        <div class="grp">Scoreboard <em class="st">Tonight</em></div>
+        <div class="score"><b>8/10</b><span class="tx">Top 3: 2 of 3 done<br>Agents: 9 jobs done</span></div>
       </div>
       <div class="calls right">
         <div class="call rv"><h3>Decisions</h3><p>Your Chief of Staff handles the rest and brings you only the decisions that need you, with its recommendation first.</p></div>
-        <div class="call rv"><h3>Inbox</h3><p>Your Email Manager sorts the inbox and lists who is waiting on you.</p></div>
-        <div class="call rv"><h3>Night</h3><p>Your CEO Scoreboard scores your day and hands you tomorrow's list.</p></div>
+        <div class="call rv"><h3>Inbox</h3><p>Your Email Manager checks and sorts your inbox, flags the important one, and drafts your replies.</p></div>
+        <div class="call rv"><h3>Night</h3><p>Your CEO Scoreboard scores what you and your agents got done and hands you tomorrow's list.</p></div>
       </div>
     </div>
     <p class="daylearn rv">Your Chief of Staff runs all four. It learns your preferences from every correction and your habits from your nightly scores. It re-ranks your plate with you every week, so your day runs a little more your way.</p>
@@ -711,6 +728,15 @@
     setTimeout(tick,d);
   }
   tick();
+})();
+</script>
+<script>
+(function(){
+  var SPEED=30; // px per second, same for both columns
+  var tr=document.querySelectorAll('.mq-track');
+  function set(){ tr.forEach(function(t){ var h=t.scrollHeight/2+7; if(h>20){ t.style.animationDuration=(h/SPEED)+'s'; } }); }
+  set(); window.addEventListener('load',set); window.addEventListener('resize',set);
+  tr.forEach(function(t){ t.querySelectorAll('img').forEach(function(i){ if(!i.complete){ i.addEventListener('load',set); } }); });
 })();
 </script>
 </body>

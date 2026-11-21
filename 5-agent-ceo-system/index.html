@@ -209,6 +209,13 @@
   .vplay::after{ content:""; position:absolute; left:34px; top:26px; border-style:solid; border-width:16px 0 16px 26px; border-color:transparent transparent transparent var(--btn-ink); }
   .vposter:hover .vplay, .vposter:focus-visible .vplay{ transform:scale(1.08); }
   .videoembed.playing .vposter{ display:none; }
+  .vfs{ position:absolute; right:14px; bottom:14px; z-index:3; width:42px; height:42px; border:0; border-radius:12px; background:rgba(13,20,23,.72); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:.85; transition:opacity .2s; }
+  .vfs:hover, .vfs:focus-visible{ opacity:1; }
+  .videoembed.playing .vfs{ opacity:0; }
+  .videoembed.playing:hover .vfs, .videoembed.playing .vfs:focus-visible{ opacity:.85; }
+  .videoembed:fullscreen{ border-radius:0; aspect-ratio:auto; width:100vw; height:100vh; }
+  .videoembed:-webkit-full-screen{ border-radius:0; width:100vw; height:100vh; }
+  .videoembed:fullscreen .vposter img{ object-fit:contain; transform:none; }
   .steps{ list-style:none; counter-reset:s; display:grid; gap:20px; }
   .steps li{ counter-increment:s; position:relative; padding-left:54px; }
   .steps li::before{ content:counter(s); position:absolute; left:0; top:2px; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%;
@@ -538,6 +545,7 @@
           <span class="vplay" aria-hidden="true"></span>
         </button>
         <div class="vframe" id="howvid-player"></div>
+        <button type="button" class="vfs" aria-label="Full screen" title="Full screen"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       <ol class="steps">
         <li><strong>Get your system in one download.</strong>Pay $17 once and your download opens right away.</li>
@@ -776,6 +784,14 @@
       }
     });
   }
+  box.querySelector('.vfs').addEventListener('click',function(){
+    var fsEl=document.fullscreenElement||document.webkitFullscreenElement;
+    if(fsEl){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); return; }
+    if(box.requestFullscreen){ box.requestFullscreen(); }
+    else if(box.webkitRequestFullscreen){ box.webkitRequestFullscreen(); }
+    else { var f=box.querySelector('iframe'); if(f && f.webkitEnterFullscreen){ f.webkitEnterFullscreen(); } }
+    if(!player){ btn.click(); }
+  });
   btn.addEventListener('click',function(){
     if(player && player.playVideo){ player.playVideo(); return; }
     if(loading) return; loading=true;

@@ -200,7 +200,14 @@
   .howgrid{ display:grid; grid-template-columns:1.35fr 1fr; gap:48px; align-items:center; margin-top:32px; }
   .video{ aspect-ratio:16/9; border-radius:var(--radius); padding:24px; }
   .videoembed{ padding:0; overflow:hidden; background:#000; box-shadow:0 10px 30px rgba(0,0,0,.12); }
-  .videoembed iframe{ display:block; width:100%; height:100%; border:0; }
+  .videoembed{ position:relative; }
+  .videoembed .vframe, .videoembed iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+  .vposter{ position:absolute; inset:0; z-index:2; width:100%; height:100%; padding:0; border:0; background:#000; cursor:pointer; }
+  .vposter img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .vplay{ position:absolute; left:50%; top:50%; width:84px; height:84px; margin:-42px 0 0 -42px; border-radius:50%; background:var(--accent); box-shadow:0 10px 30px rgba(0,0,0,.3); transition:transform .2s; }
+  .vplay::after{ content:""; position:absolute; left:34px; top:26px; border-style:solid; border-width:16px 0 16px 26px; border-color:transparent transparent transparent var(--btn-ink); }
+  .vposter:hover .vplay, .vposter:focus-visible .vplay{ transform:scale(1.08); }
+  .videoembed.playing .vposter{ display:none; }
   .steps{ list-style:none; counter-reset:s; display:grid; gap:20px; }
   .steps li{ counter-increment:s; position:relative; padding-left:54px; }
   .steps li::before{ content:counter(s); position:absolute; left:0; top:2px; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%;
@@ -524,7 +531,13 @@
     <h2>Onboard your 5 agents in one conversation</h2>
     <div class="howgrid">
       <!-- video: onboarding walk-through, no autoplay -->
-      <div class="video videoembed rv"><iframe src="https://www.youtube-nocookie.com/embed/WcUe-_bcZ20?rel=0" title="Onboard your 5 agents in one conversation" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+      <div class="video videoembed rv" id="howvid" data-yt="WcUe-_bcZ20">
+        <button type="button" class="vposter" aria-label="Play the onboarding video">
+          <img src="https://i.ytimg.com/vi/WcUe-_bcZ20/maxresdefault.jpg" alt="" loading="lazy">
+          <span class="vplay" aria-hidden="true"></span>
+        </button>
+        <div class="vframe" id="howvid-player"></div>
+      </div>
       <ol class="steps">
         <li><strong>Get your system in one download.</strong>Pay $17 once and your download opens right away.</li>
         <li><strong>Onboard them by talking.</strong>Open your AI app in the system folder and answer its questions.</li>
@@ -739,6 +752,38 @@
   function set(){ tr.forEach(function(t){ var h=t.scrollHeight/2+7; if(h>20){ t.style.animationDuration=(h/SPEED)+'s'; } }); }
   set(); window.addEventListener('load',set); window.addEventListener('resize',set);
   tr.forEach(function(t){ t.querySelectorAll('img').forEach(function(i){ if(!i.complete){ i.addEventListener('load',set); } }); });
+})();
+</script>
+<script>
+/* Onboarding video: own poster, no YouTube controls, captions off, poster back on pause and end */
+(function(){
+  var box=document.getElementById('howvid'); if(!box) return;
+  var btn=box.querySelector('.vposter'), player=null, loading=false;
+  function show(on){ box.classList.toggle('playing', on); }
+  function build(){
+    player=new YT.Player('howvid-player',{
+      host:'https://www.youtube-nocookie.com', videoId:box.getAttribute('data-yt'),
+      playerVars:{ autoplay:1, controls:0, rel:0, iv_load_policy:3, cc_load_policy:0, fs:0, disablekb:1, playsinline:1, modestbranding:1 },
+      events:{
+        onReady:function(e){ try{ e.target.unloadModule('captions'); }catch(x){} e.target.playVideo();
+          setTimeout(function(){ if(player.getPlayerState()!==1){ show(true); } },1500); },
+        onApiChange:function(e){ try{ e.target.unloadModule('captions'); }catch(x){} },
+        onStateChange:function(e){
+          if(e.data===1){ show(true); }
+          else if(e.data===2){ show(false); }
+          else if(e.data===0){ player.seekTo(0,true); player.pauseVideo(); show(false); }
+        }
+      }
+    });
+  }
+  btn.addEventListener('click',function(){
+    if(player && player.playVideo){ player.playVideo(); show(true); return; }
+    if(loading) return; loading=true;
+    if(window.YT && YT.Player){ build(); return; }
+    var prev=window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady=function(){ if(prev) prev(); build(); };
+    var s=document.createElement('script'); s.src='https://www.youtube.com/iframe_api'; document.head.appendChild(s);
+  });
 })();
 </script>
 </body>

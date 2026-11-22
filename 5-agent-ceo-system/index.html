@@ -78,8 +78,9 @@
   .vstack li{ margin:4px 0; }
   .vstack b{ color:var(--card-ink); }
   .buy{ display:inline-flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 14px; }
-  .was{ display:inline-block; vertical-align:middle; color:#d0312d; font-weight:700; font-size:1.15rem; line-height:1.3; text-decoration:line-through; text-decoration-color:#d0312d; text-decoration-thickness:2px; white-space:nowrap; }
-  .was.sm{ font-size:var(--t-s); }
+  .was{ display:inline-block; vertical-align:middle; color:#d0312d; font-weight:700; font-size:1.5rem; line-height:1.2; text-decoration:line-through; text-decoration-color:#d0312d; text-decoration-thickness:2px; white-space:nowrap; }
+  .was.sm{ font-size:calc(var(--t-s) * 1.3); }
+  @media (min-width:601px){ .buy{ flex-wrap:nowrap; } .buy .btn{ flex-shrink:0; white-space:nowrap; } }
   .darkcard .was{ color:#ff7a70; text-decoration-color:#ff7a70; }
   @media (max-width:600px){ nav .was{ display:none; } }
   .cap{ font-size:var(--t-xs); color:var(--muted); margin:14px 0 0; }
@@ -447,7 +448,7 @@
       <a href="#how">How it works</a>
       <a href="#faq">Questions</a>
     </div>
-    <span class="buy"><s class="was sm">$495 value</s><a class="btn btn-sm" href="#buy">Get Started</a></span>
+    <span class="buy"><s class="was sm">$495 Value</s><a class="btn btn-sm" href="#buy">Get Started</a></span>
   </div>
 </nav>
 
@@ -464,7 +465,7 @@
       </div>
       <p class="sub">Are you busy all day with nothing accomplished? Hire 5 AI agents to sort your inbox and set your top 3. Start every morning focused and end every night accomplished. You get all 5 for $17 one time.</p>
       <div class="btns">
-        <span class="buy"><s class="was">$495 value</s><a class="btn arrow" id="buy" href="#">Hire my 5 AI agents for $17</a></span>
+        <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" id="buy" href="#">Hire my 5 AI agents for $17</a></span>
         <a class="textlink" href="#how">How it works</a>
       </div>
       <p class="under">It runs in the AI app you already pay for and works with your email and calendar. Built from the system I use to run two businesses.</p>
@@ -583,7 +584,7 @@
       <div class="card rv"><span class="bot b-squish" style="--bot:#ec4899" aria-hidden="true"><svg viewBox="0 0 64 64" width="52" height="52"><ellipse class="sh" cx="32" cy="56" rx="19" ry="2.6"/><g class="mv"><g class="bd"><rect x="7" y="17" width="50" height="31" rx="15.5" transform="rotate(-8 32 32)"/></g><g class="eyes"><rect x="24.5" y="25" width="6" height="11" rx="3"/><rect x="33.5" y="25" width="6" height="11" rx="3"/><g class="pu"><circle cx="27.5" cy="31.5" r="2.2"/><circle cx="36.5" cy="31.5" r="2.2"/></g></g></g></svg></span><h3>CEO Scoreboard</h3><p>Scores your day in five minutes each night and hands you tomorrow's list.</p></div>
     </div>
     <p class="bonus"><span class="bot b-wave bot-lg" style="--bot:#f97316" aria-hidden="true"><svg viewBox="0 0 64 64" width="64" height="64"><ellipse class="sh" cx="32" cy="60" rx="14" ry="2.4"/><g class="mv"><g class="strap"><rect x="23" y="3" width="18" height="14" rx="4"/><rect x="23" y="47" width="18" height="14" rx="4"/><rect x="50" y="27" width="4.5" height="10" rx="2"/></g><g class="bd"><rect x="12" y="12" width="40" height="40" rx="13"/></g><g class="eyes"><rect x="24.5" y="25" width="6" height="11" rx="3"/><rect x="33.5" y="25" width="6" height="11" rx="3"/><g class="pu"><circle cx="27.5" cy="31.5" r="2.2"/><circle cx="36.5" cy="31.5" r="2.2"/></g></g></g><g class="waves"><path d="M57 21 q4 5 0 10"/><path d="M60.5 17 q6.5 9 0 18"/></g></svg></span><strong>Buy now and get a bonus: Watch-to-AI Team Edition.</strong> Speak a task into your Apple Watch and your Chief of Staff hands it to the right agent. Only available with the 5-Agent CEO System.</p>
-    <p class="cta"><span class="buy"><s class="was">$495 value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span></p>
+    <p class="cta"><span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span></p>
   </div>
 </section>
 
@@ -674,7 +675,7 @@
       <p>I built this system, use it every day, and tested and refined every agent. You skip that work and pay $17 once.</p>
     </div>
     <p class="foot-note">This is my estimate. The email and scheduling hours come from published research, and the other agents are my own estimate. The dollar figure uses an assistant's median wage of about $34 an hour. Your results depend on your inbox and calendar.</p>
-    <p class="cta"><span class="buy"><s class="was">$495 value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span></p>
+    <p class="cta"><span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span></p>
   </div>
 </section>
 
@@ -757,7 +758,7 @@
     <div class="darkcard rv">
       <h2>Stop doing 5 jobs alone. Hire your AI team for $17.</h2>
       <p class="sub">Your Chief of Staff and 4 managers sort your email and block your calendar. They set your top 3 and score your day.</p>
-      <span class="buy"><s class="was">$495 value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span>
+      <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span>
       <p class="tick">About 900 emails come in each week. Fewer than 20 need me.</p>
       <div class="expect">
         <h3>What to expect:</h3>
@@ -778,7 +779,7 @@
     <a class="brand" href="#top"><img src="../logo.png" alt="One Time Automation AI logo" width="36" height="36" />One Time Automation &middot; The 5-Agent CEO System</a>
     <div class="right">
       <span>All sales are final. <a href="#">License</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Support</a></span>
-      <span class="buy"><s class="was sm">$495 value</s><a class="btn btn-sm" href="#buy">Hire my 5 AI agents for $17</a></span>
+      <span class="buy"><s class="was sm">$495 Value</s><a class="btn btn-sm" href="#buy">Hire my 5 AI agents for $17</a></span>
     </div>
   </div>
 </footer>

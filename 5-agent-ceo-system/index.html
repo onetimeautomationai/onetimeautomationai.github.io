@@ -439,6 +439,10 @@
   /* Leo 11/21 7:33 PM: rounded white blocks get a thin grey edge and a soft grey drop shadow */
   .card:not(.bubble), .vstack, details{ border:1px solid rgba(13,20,23,.10); box-shadow:0 1px 2px rgba(13,20,23,.05), 0 18px 40px -18px rgba(13,20,23,.28); }
   .proofgrid .bubble{ box-shadow:0 1px 2px rgba(13,20,23,.05), 0 18px 40px -18px rgba(13,20,23,.28); }
+  /* Leo 11/21 7:38 PM: video gets the grey edge plus a soft shadow in the video's own colors */
+  .vglow{ filter:drop-shadow(18px 16px 30px rgba(244,164,104,.40)) drop-shadow(-18px 18px 30px rgba(186,166,232,.40)) drop-shadow(0 22px 26px rgba(150,210,175,.30)); }
+  .vglow .videoembed{ box-shadow:none; }
+  .vglow .videoembed::after{ content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:inset 0 0 0 1px rgba(13,20,23,.10); pointer-events:none; z-index:5; }
 </style>
 </head>
 <body>
@@ -597,6 +601,7 @@
     <h2>Onboard your 5 agents in one conversation</h2>
     <div class="howgrid">
       <!-- video: onboarding walk-through, no autoplay -->
+      <div class="vglow">
       <div class="video videoembed rv" id="howvid" data-yt="WcUe-_bcZ20">
         <button type="button" class="vposter" aria-label="Play the onboarding video">
           <img src="https://i.ytimg.com/vi/WcUe-_bcZ20/maxresdefault.jpg" alt="" loading="lazy">
@@ -606,6 +611,7 @@
         <button type="button" class="vshield" aria-label="Pause the onboarding video"></button>
         <div class="vbar" aria-hidden="true"><span class="vfill"></span></div>
         <button type="button" class="vfs" aria-label="Full screen" title="Full screen"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       </div>
       <ol class="steps">
         <li><strong>Get your system in one download.</strong>Pay $17 once and your download opens right away.</li>

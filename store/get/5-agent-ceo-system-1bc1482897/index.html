@@ -573,11 +573,20 @@
   if(/^cs_live_[A-Za-z0-9]{20,200}$/.test(sid)){
     var u='https://ota-checkout-api.netlify.app/api/download?session_id='+encodeURIComponent(sid);
     btns.forEach(function(a){a.href=u;a.removeAttribute('download');});
+    try{
+      if(!sessionStorage.getItem('rcpt_'+sid)){
+        fetch('https://ota-checkout-api.netlify.app/api/send-receipt',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sid})})
+          .then(function(r){if(r.ok)sessionStorage.setItem('rcpt_'+sid,'1');}).catch(function(){});
+      }
+    }catch(e){}
   }else{
+    var shown=false;
     btns.forEach(function(a){
-      var p=document.createElement('p');p.className='under';
-      p.textContent='To download, open this page from the link in your receipt or thank-you email.';
-      (a.closest('.btns')||a.closest('.buy')||a.parentNode).replaceWith(p);
+      if(a.closest('nav')){a.remove();return;}
+      var box=a.closest('.btns')||a.closest('.buy')||a.parentNode;
+      if(!shown){shown=true;var p=document.createElement('p');p.className='under';
+        p.textContent='To download, open this page from the link in your receipt or thank-you email.';box.replaceWith(p);}
+      else{box.remove();}
     });
   }
 })();

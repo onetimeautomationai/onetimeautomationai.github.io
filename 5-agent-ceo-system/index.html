@@ -459,6 +459,9 @@
   .sp-form input:focus-visible,.sp-form textarea:focus-visible{ outline:3px solid var(--ink); outline-offset:1px; }
   .sp-form .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
   .sp-form button[type=submit]{ cursor:pointer; border:0; justify-self:start; width:auto; min-height:0; padding:8px 18px; font-size:.95rem; }
+  .sp-done{ margin:0; padding:40px 8px 28px; text-align:center; font-size:1.35rem; font-weight:800; }
+  .sp-form.sent > *:not(.sp-done){ display:none; }
+  .sp-form:not(.sent) .sp-done{ display:none; }
   .sp-msg{ font-weight:700; margin:0; min-height:1.4em; }
   .co-note{ margin:12px 4px 0; font-size:.85rem; color:var(--muted); text-align:center; }
 </style>
@@ -944,6 +947,7 @@
       <div class="hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn" type="submit">Send message</button>
       <p class="sp-msg" id="support-msg" role="status" aria-live="polite"></p>
+      <p class="sp-done" role="status">Submitted, we will get back to you soon!</p>
     </form>
   </div>
 </dialog>
@@ -961,7 +965,7 @@
     b.disabled=true;m.textContent='Sending...';
     fetch('https://ota-checkout-api.netlify.app/api/support',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)})
       .then(function(r){
-        if(r.ok){f.reset();m.textContent='Thank you. Your message was sent. We will reply by email.';setTimeout(function(){dlg.close();m.textContent='';},2000);}
+        if(r.ok){f.reset();m.textContent='';f.classList.add('sent');setTimeout(function(){dlg.close();f.classList.remove('sent');},3000);}
         else if(r.status===429){m.textContent='You have sent several messages today. Please try again tomorrow.';}
         else{m.textContent='Sorry, that did not send. Please try again in a minute.';}
       }).catch(function(){m.textContent='Sorry, that did not send. Please try again in a minute.';})

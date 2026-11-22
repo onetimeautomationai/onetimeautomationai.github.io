@@ -447,7 +447,7 @@
   .diagram .ui{ border:1px solid rgba(13,20,23,.10); box-shadow:0 1px 2px rgba(13,20,23,.05), 0 18px 40px -18px rgba(13,20,23,.28); }
   .co-modal{ border:0; padding:0; background:transparent; max-width:min(520px,94vw); width:100%; margin:auto; overflow:visible; }
   .co-modal::backdrop{ background:rgba(13,20,23,.62); }
-  .co-box{ position:relative; background:#fff; border-radius:var(--radius); padding:44px 20px 20px; max-height:92vh; overflow:auto; }
+  .co-box{ position:relative; background:#fff; border-radius:var(--radius); padding:44px 16px 16px; max-height:92vh; overflow:auto; }
   .co-close{ position:absolute; top:8px; right:10px; width:44px; height:44px; border:0; background:transparent; font-size:1.6rem; line-height:1; color:var(--ink); cursor:pointer; border-radius:8px; }
   .co-close:focus-visible{ outline:3px solid var(--ink); outline-offset:2px; }
   .co-note{ margin:12px 4px 0; font-size:.85rem; color:var(--muted); text-align:center; }
@@ -896,17 +896,27 @@
 <dialog class="co-modal" id="checkout" aria-label="Checkout">
   <div class="co-box">
     <button class="co-close" type="button" aria-label="Close checkout">&times;</button>
-    <stripe-buy-button buy-button-id="buy_btn_1UeRxfAiBezfO6nrOJJjs2dl" publishable-key="pk_live_51LXVUpAiBezfO6nryofebz3r8mBuViXVP1NkyvOGwK7MBZFIOjlgwutM0uMv9PbvWFt4NSuk8qsovg48xpB9PYED00R36ePQq1"></stripe-buy-button>
-    <p class="co-note">Secure checkout by Stripe. Have a promo code? Enter it on the payment page.</p>
+    <div id="checkout-mount"></div>
   </div>
 </dialog>
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <script>
 (function(){
   var d=document.getElementById('checkout');
-  if(!d||typeof d.showModal!=='function')return;
+  if(!d||typeof d.showModal!=='function'||!window.Stripe)return;
+  var PK='pk_live_51LXVUpAiBezfO6nryofebz3r8mBuViXVP1NkyvOGwK7MBZFIOjlgwutM0uMv9PbvWFt4NSuk8qsovg48xpB9PYED00R36ePQq1';
+  var API='https://ota-checkout-api.netlify.app/api/create-session';
+  var stripe=Stripe(PK), checkout=null;
+  function open(fallback){
+    d.showModal();
+    stripe.initEmbeddedCheckout({fetchClientSecret:function(){
+      return fetch(API,{method:'POST'}).then(function(r){return r.json();}).then(function(j){
+        if(!j.clientSecret)throw new Error('no session');return j.clientSecret;});
+    }}).then(function(c){checkout=c;c.mount('#checkout-mount');}).catch(function(){
+      d.close();window.open(fallback,'_blank','noopener');});
+  }
   document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function(a){
-    a.addEventListener('click',function(e){e.preventDefault();d.showModal();});
+    a.addEventListener('click',function(e){e.preventDefault();if(!checkout)open(a.href);else d.showModal();});
   });
   d.querySelector('.co-close').addEventListener('click',function(){d.close();});
   d.addEventListener('click',function(e){if(e.target===d)d.close();});

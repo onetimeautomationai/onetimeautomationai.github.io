@@ -80,6 +80,7 @@
   .buy{ display:inline-flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 14px; }
   .was{ display:inline-block; vertical-align:middle; color:#d0312d; font-weight:700; font-size:1.5rem; line-height:1.2; text-decoration:line-through; text-decoration-color:#d0312d; text-decoration-thickness:2px; white-space:nowrap; }
   .was.sm{ font-size:calc(var(--t-s) * 1.3); }
+  @media (min-width:1100px){ .hero .btns{ flex-wrap:nowrap; gap:12px 14px; } .hero .btns .textlink{ white-space:nowrap; } }
   @media (min-width:601px){ .buy{ flex-wrap:nowrap; } .buy .btn{ flex-shrink:0; white-space:nowrap; } }
   .darkcard .was{ color:#ff7a70; text-decoration-color:#ff7a70; }
   @media (max-width:600px){ nav .was{ display:none; } }
@@ -465,7 +466,7 @@
       </div>
       <p class="sub">Are you busy all day with nothing accomplished? Hire 5 AI agents to sort your inbox and set your top 3. Start every morning focused and end every night accomplished. You get all 5 for $17 one time.</p>
       <div class="btns">
-        <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" id="buy" href="#">Hire my 5 AI agents for $17</a></span>
+        <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" id="buy" href="#">Hire 5 Agents for $17</a></span>
         <a class="textlink" href="#how">How it works</a>
       </div>
       <p class="under">It runs in the AI app you already pay for and works with your email and calendar. Built from the system I use to run two businesses.</p>

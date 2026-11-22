@@ -450,6 +450,16 @@
   .co-box{ position:relative; background:#fff; border-radius:var(--radius); padding:44px 16px 16px; max-height:92vh; overflow:auto; }
   .co-close{ position:absolute; top:8px; right:10px; width:44px; height:44px; border:0; background:transparent; font-size:1.6rem; line-height:1; color:var(--ink); cursor:pointer; border-radius:8px; }
   .co-close:focus-visible{ outline:3px solid var(--ink); outline-offset:2px; }
+  .sp-form{ display:grid; gap:12px; }
+  .sp-form h2{ margin:0 0 2px; font-size:1.4rem; }
+  .sp-form p{ margin:0 0 6px; font-size:.95rem; }
+  .sp-form label{ display:grid; gap:4px; font-weight:700; font-size:.95rem; }
+  .sp-form input,.sp-form textarea{ font:inherit; font-weight:400; padding:11px 12px; border:1.5px solid #c9ced1; border-radius:10px; width:100%; box-sizing:border-box; }
+  .sp-form textarea{ min-height:130px; resize:vertical; }
+  .sp-form input:focus-visible,.sp-form textarea:focus-visible{ outline:3px solid var(--ink); outline-offset:1px; }
+  .sp-form .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .sp-form button[type=submit]{ cursor:pointer; border:0; }
+  .sp-msg{ font-weight:700; margin:0; min-height:1.4em; }
   .co-note{ margin:12px 4px 0; font-size:.85rem; color:var(--muted); text-align:center; }
 </style>
 </head>
@@ -795,8 +805,7 @@
   <div class="wrap">
     <a class="brand" href="#top"><img src="../logo.png" alt="One Time Automation AI logo" width="36" height="36" />One Time Automation &middot; The 5-Agent CEO System</a>
     <div class="right">
-      <span>All sales are final. <a href="#">License</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Support</a></span>
-      <span class="buy"><s class="was sm">$495 Value</s><a class="btn btn-sm" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Hire my 5 AI agents for $17</a></span>
+      <span>All sales are final. <a href="#">License</a> &middot; <a href="#">Privacy</a> &middot; <a href="#support" id="support-open">Support</a></span>
     </div>
   </div>
 </footer>
@@ -920,6 +929,43 @@
   });
   d.querySelector('.co-close').addEventListener('click',function(){d.close();});
   d.addEventListener('click',function(e){if(e.target===d)d.close();});
+})();
+</script>
+<dialog class="co-modal" id="support" aria-label="Contact support">
+  <div class="co-box">
+    <button class="co-close" type="button" aria-label="Close support form">&times;</button>
+    <form class="sp-form" id="support-form" novalidate>
+      <h2>Contact support</h2>
+      <p>Send us a message and we will reply by email.</p>
+      <label>Name<input name="name" type="text" autocomplete="name" maxlength="100" required></label>
+      <label>Email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+      <label>Message<textarea name="message" maxlength="4000" required></textarea></label>
+      <div class="hp" aria-hidden="true"><label>Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn" type="submit">Send message</button>
+      <p class="sp-msg" id="support-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</dialog>
+<script>
+(function(){
+  var dlg=document.getElementById('support'),f=document.getElementById('support-form'),m=document.getElementById('support-msg');
+  if(!dlg||!f)return;
+  document.getElementById('support-open').addEventListener('click',function(e){e.preventDefault();m.textContent='';dlg.showModal();});
+  dlg.querySelector('.co-close').addEventListener('click',function(){dlg.close();});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var b=f.querySelector('button[type=submit]'),v=Object.fromEntries(new FormData(f));
+    if(!v.name.trim()||!v.message.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email.trim())){m.textContent='Please fill in your name, a valid email, and a message.';return;}
+    b.disabled=true;m.textContent='Sending...';
+    fetch('https://ota-checkout-api.netlify.app/api/support',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(v)})
+      .then(function(r){
+        if(r.ok){f.reset();m.textContent='Thank you. Your message was sent. We will reply by email.';}
+        else if(r.status===429){m.textContent='You have sent several messages today. Please try again tomorrow.';}
+        else{m.textContent='Sorry, that did not send. Please try again in a minute.';}
+      }).catch(function(){m.textContent='Sorry, that did not send. Please try again in a minute.';})
+      .then(function(){b.disabled=false;});
+  });
 })();
 </script>
 </body>

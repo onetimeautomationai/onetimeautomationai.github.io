@@ -445,6 +445,12 @@
   .vglow .videoembed::after{ content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:inset 0 0 0 1px rgba(13,20,23,.10); pointer-events:none; z-index:5; }
   /* Leo 11/21 7:46 PM: day window gets the grey edge and grey drop shadow like the cards */
   .diagram .ui{ border:1px solid rgba(13,20,23,.10); box-shadow:0 1px 2px rgba(13,20,23,.05), 0 18px 40px -18px rgba(13,20,23,.28); }
+  .co-modal{ border:0; padding:0; background:transparent; max-width:min(520px,94vw); width:100%; margin:auto; overflow:visible; }
+  .co-modal::backdrop{ background:rgba(13,20,23,.62); }
+  .co-box{ position:relative; background:#fff; border-radius:var(--radius); padding:44px 20px 20px; max-height:92vh; overflow:auto; }
+  .co-close{ position:absolute; top:8px; right:10px; width:44px; height:44px; border:0; background:transparent; font-size:1.6rem; line-height:1; color:var(--ink); cursor:pointer; border-radius:8px; }
+  .co-close:focus-visible{ outline:3px solid var(--ink); outline-offset:2px; }
+  .co-note{ margin:12px 4px 0; font-size:.85rem; color:var(--muted); text-align:center; }
 </style>
 </head>
 <body>
@@ -457,7 +463,7 @@
       <a href="#how">How it works</a>
       <a href="#faq">Questions</a>
     </div>
-    <a class="btn btn-sm" href="#buy">Get Started</a>
+    <a class="btn btn-sm" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Get Started</a>
   </div>
 </nav>
 
@@ -474,7 +480,7 @@
       </div>
       <p class="sub">Are you busy all day with nothing accomplished? Hire 5 AI agents to sort your inbox and set your top 3. Start every morning focused and end every night accomplished. You get all 5 for $17 one time.</p>
       <div class="btns">
-        <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" id="buy" href="#">Hire 5 Agents for $17</a></span>
+        <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" id="buy" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Hire 5 Agents for $17</a></span>
         <a class="textlink" href="#how">How it works</a>
       </div>
       <p class="under">It runs in the AI app you already pay for and works with your email and calendar. Built from the system I use to run two businesses.</p>
@@ -593,7 +599,7 @@
       <div class="card rv"><span class="bot b-squish" style="--bot:#ec4899" aria-hidden="true"><svg viewBox="0 0 64 64" width="52" height="52"><ellipse class="sh" cx="32" cy="56" rx="19" ry="2.6"/><g class="mv"><g class="bd"><rect x="7" y="17" width="50" height="31" rx="15.5" transform="rotate(-8 32 32)"/></g><g class="eyes"><rect x="24.5" y="25" width="6" height="11" rx="3"/><rect x="33.5" y="25" width="6" height="11" rx="3"/><g class="pu"><circle cx="27.5" cy="31.5" r="2.2"/><circle cx="36.5" cy="31.5" r="2.2"/></g></g></g></svg></span><h3>CEO Scoreboard</h3><p>Scores your day in five minutes each night and hands you tomorrow's list.</p></div>
     </div>
     <p class="bonus"><span class="bot b-wave bot-lg" style="--bot:#f97316" aria-hidden="true"><svg viewBox="0 0 64 64" width="64" height="64"><ellipse class="sh" cx="32" cy="60" rx="14" ry="2.4"/><g class="mv"><g class="strap"><rect x="23" y="3" width="18" height="14" rx="4"/><rect x="23" y="47" width="18" height="14" rx="4"/><rect x="50" y="27" width="4.5" height="10" rx="2"/></g><g class="bd"><rect x="12" y="12" width="40" height="40" rx="13"/></g><g class="eyes"><rect x="24.5" y="25" width="6" height="11" rx="3"/><rect x="33.5" y="25" width="6" height="11" rx="3"/><g class="pu"><circle cx="27.5" cy="31.5" r="2.2"/><circle cx="36.5" cy="31.5" r="2.2"/></g></g></g><g class="waves"><path d="M57 21 q4 5 0 10"/><path d="M60.5 17 q6.5 9 0 18"/></g></svg></span><strong>Buy now and get a bonus: Watch-to-AI Team Edition.</strong> Speak a task into your Apple Watch and your Chief of Staff hands it to the right agent. Only available with the 5-Agent CEO System.</p>
-    <p class="cta"><span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span></p>
+    <p class="cta"><span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Hire my 5 AI agents for $17</a></span></p>
   </div>
 </section>
 
@@ -686,7 +692,7 @@
       <p>I built this system, use it every day, and tested and refined every agent. You skip that work and pay $17 once.</p>
     </div>
     <p class="foot-note">This is my estimate. The email and scheduling hours come from published research, and the other agents are my own estimate. The dollar figure uses an assistant's median wage of about $34 an hour. Your results depend on your inbox and calendar.</p>
-    <p class="cta"><span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span></p>
+    <p class="cta"><span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Hire my 5 AI agents for $17</a></span></p>
   </div>
 </section>
 
@@ -769,7 +775,7 @@
     <div class="darkcard rv">
       <h2>Stop doing 5 jobs alone. Hire your AI team for $17.</h2>
       <p class="sub">Your Chief of Staff and 4 managers sort your email and block your calendar. They set your top 3 and score your day.</p>
-      <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="#buy">Hire my 5 AI agents for $17</a></span>
+      <span class="buy"><s class="was">$495 Value</s><a class="btn arrow" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Hire my 5 AI agents for $17</a></span>
       <p class="tick">About 900 emails come in each week. Fewer than 20 need me.</p>
       <div class="expect">
         <h3>What to expect:</h3>
@@ -790,7 +796,7 @@
     <a class="brand" href="#top"><img src="../logo.png" alt="One Time Automation AI logo" width="36" height="36" />One Time Automation &middot; The 5-Agent CEO System</a>
     <div class="right">
       <span>All sales are final. <a href="#">License</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Support</a></span>
-      <span class="buy"><s class="was sm">$495 Value</s><a class="btn btn-sm" href="#buy">Hire my 5 AI agents for $17</a></span>
+      <span class="buy"><s class="was sm">$495 Value</s><a class="btn btn-sm" href="https://buy.stripe.com/6oUbJ03H3d6fguJa4zd7q0X" target="_blank" rel="noopener noreferrer">Hire my 5 AI agents for $17</a></span>
     </div>
   </div>
 </footer>
@@ -885,6 +891,25 @@
     window.onYouTubeIframeAPIReady=function(){ if(prev) prev(); build(); };
     var s=document.createElement('script'); s.src='https://www.youtube.com/iframe_api'; document.head.appendChild(s);
   });
+})();
+</script>
+<dialog class="co-modal" id="checkout" aria-label="Checkout">
+  <div class="co-box">
+    <button class="co-close" type="button" aria-label="Close checkout">&times;</button>
+    <stripe-buy-button buy-button-id="buy_btn_1UeRxfAiBezfO6nrOJJjs2dl" publishable-key="pk_live_51LXVUpAiBezfO6nryofebz3r8mBuViXVP1NkyvOGwK7MBZFIOjlgwutM0uMv9PbvWFt4NSuk8qsovg48xpB9PYED00R36ePQq1"></stripe-buy-button>
+    <p class="co-note">Secure checkout by Stripe. Have a promo code? Enter it on the payment page.</p>
+  </div>
+</dialog>
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+<script>
+(function(){
+  var d=document.getElementById('checkout');
+  if(!d||typeof d.showModal!=='function')return;
+  document.querySelectorAll('a[href^="https://buy.stripe.com/"]').forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();d.showModal();});
+  });
+  d.querySelector('.co-close').addEventListener('click',function(){d.close();});
+  d.addEventListener('click',function(e){if(e.target===d)d.close();});
 })();
 </script>
 </body>
